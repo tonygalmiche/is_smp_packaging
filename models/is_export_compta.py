@@ -83,42 +83,44 @@ class is_export_compta(models.Model):
                     'code_client',
                     ai.reference,
                     aj.name,
-                    sum(aml.debit), 
-                    sum(aml.credit)
+                    aml.name,
+                    aml.debit, 
+                    aml.credit
                 FROM account_move_line aml left outer join account_invoice ai        on aml.move_id=ai.move_id
                                            inner join account_account aa             on aml.account_id=aa.id
-                                           inner join res_partner rp                 on aml.partner_id=rp.id
+                                           left outer join res_partner rp            on aml.partner_id=rp.id
                                            inner join account_journal aj             on aml.journal_id=aj.id
                 WHERE aml.date>='"""+str(obj.date_debut)+"""' and aml.date<='"""+str(obj.date_fin)+"""' """
-
-
             if obj.journal_id:
                 sql=sql+" and aml.journal_id="+str(obj.journal_id.id)
 
-            sql=sql+"""
-                GROUP BY aml.date, ai.number, rp.name, aa.code, ai.type, ai.date_due, rp.supplier,ai.reference,aj.name
-                ORDER BY aml.date, ai.number, rp.name, aa.code, ai.type, ai.date_due, rp.supplier,ai.reference,aj.name
-            """
+#            sql=sql+"""
+#                GROUP BY aml.date, ai.number, rp.name, aa.code, ai.type, ai.date_due, rp.supplier,ai.reference,aj.name,aml.name
+#                ORDER BY aml.date, ai.number, rp.name, aa.code, ai.type, ai.date_due, rp.supplier,ai.reference,aj.name,aml.name
+#            """
             cr.execute(sql)
             for row in cr.fetchall():
                 journal=str(row[7][-2:])
                 compte=str(row[1])
-                #if obj.type_interface=='ventes' and compte=='411100':
-                #    compte=str(row[5])
                 piece=str(row[2])
                 if journal=='AC':
                     if row[6]:
-                        piece=str(row[6].encode('utf-8'))
+                        piece=row[6]
+                        #piece=str(row[6].encode('utf-8'))
                 if piece=='None':
                     piece=''
+
+
+                libelle=row[8]
+
                 vals={
                     'export_compta_id'  : obj.id,
                     'date_facture'      : row[0],
                     'journal'           : journal,
                     'compte'            : compte,
-                    'libelle'           : row[3],
-                    'debit'             : row[8],
-                    'credit'            : row[9],
+                    'libelle'           : libelle,
+                    'debit'             : row[9],
+                    'credit'            : row[10],
                     'devise'            : u'E',
                     'piece'             : piece,
                     'commentaire'       : False,
@@ -154,8 +156,8 @@ class is_export_compta(models.Model):
                 date_facture=datetime.datetime.strptime(date_facture, '%Y-%m-%d')
                 date_facture=date_facture.strftime('%d%m%y')
                 libelle=(row.libelle+u'                    ')[0:20]
-                piece1=(row.piece[-5:]+u'        ')[0:5].encode('utf-8')
-                piece2=(row.piece[-8:]+u'        ')[0:8].encode('utf-8')
+                piece1=(row.piece[-5:]+u'        ')[0:5].encode('iso8859')
+                piece2=(row.piece[-8:]+u'        ')[0:8].encode('iso8859')
                 journal=row.journal
                 f.write('M')
                 f.write((compte+u'00000000')[0:8])
@@ -163,7 +165,15 @@ class is_export_compta(models.Model):
                 f.write('000')
                 f.write(date_facture)
                 f.write('F')
-                f.write(libelle.encode('utf-8'))
+
+                libelle=libelle.encode('iso8859')
+
+#                try:
+#                    f.write(libelle)
+#                except Exception as inst:
+#                    raise Warning(u'Problème accent avec : '+libelle+u' : journal='+journal+' : date_facture='+date_facture)
+
+                f.write(libelle)
                 f.write(sens)
                 f.write('+')
                 f.write(montant)
@@ -174,8 +184,10 @@ class is_export_compta(models.Model):
                 f.write('                    ')
                 f.write(piece2)
                 f.write('EUR'+journal+'    ')
-                f.write(libelle.encode('utf-8'))
+                f.write(libelle)
                 f.write('\r\n')
+
+                #f.write(libelle.encode('utf-8'))
             f.close()
             r = open(dest,'rb').read().encode('base64')
             vals = {
