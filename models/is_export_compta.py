@@ -107,7 +107,8 @@ class is_export_compta(models.Model):
                 #    compte=str(row[5])
                 piece=str(row[2])
                 if journal=='AC':
-                    piece=str(row[6])
+                    if row[6]:
+                        piece=str(row[6].encode('utf-8'))
                 if piece=='None':
                     piece=''
                 vals={
@@ -153,8 +154,8 @@ class is_export_compta(models.Model):
                 date_facture=datetime.datetime.strptime(date_facture, '%Y-%m-%d')
                 date_facture=date_facture.strftime('%d%m%y')
                 libelle=(row.libelle+u'                    ')[0:20]
-                piece1=(row.piece[-5:]+u'        ')[0:5]
-                piece2=(row.piece[-8:]+u'        ')[0:8]
+                piece1=(row.piece[-5:]+u'        ')[0:5].encode('utf-8')
+                piece2=(row.piece[-8:]+u'        ')[0:8].encode('utf-8')
                 journal=row.journal
                 f.write('M')
                 f.write((compte+u'00000000')[0:8])
@@ -162,7 +163,7 @@ class is_export_compta(models.Model):
                 f.write('000')
                 f.write(date_facture)
                 f.write('F')
-                f.write(libelle)
+                f.write(libelle.encode('utf-8'))
                 f.write(sens)
                 f.write('+')
                 f.write(montant)
@@ -173,7 +174,7 @@ class is_export_compta(models.Model):
                 f.write('                    ')
                 f.write(piece2)
                 f.write('EUR'+journal+'    ')
-                f.write(libelle)
+                f.write(libelle.encode('utf-8'))
                 f.write('\r\n')
             f.close()
             r = open(dest,'rb').read().encode('base64')
