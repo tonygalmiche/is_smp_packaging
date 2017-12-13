@@ -167,13 +167,6 @@
             <!-- Is there a discount on at least one line? -->
             <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
 
-
-<!--
-                    <table style="border: 1px solid black;width:100%">
-                        <tr>
-                            <td style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
--->
-
             <table style="margin-bottom:2mm;border:1px solid black;width:100%">
                 <thead>
                     <tr style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
@@ -223,17 +216,6 @@
                             <td class="text-left cell"></td>
                         </tr>
                     </t>
-                    <tr>
-                        <td class="text-left cell"></td>
-                        <td class="text-left cell" style="text-align:center">
-                            <br />
-                            <p>(CEE) Opération exonérée (Article 262 Ter du CGI)</p>
-                            <p>(hors CEE) Opération exonérée (Article 262 1 du CGI)</p>
-
-                        </td>
-                        <td class="text-left cell"></td>
-                        <td class="text-left cell"></td>
-                    </tr>
 
                 </tbody>
             </table>
@@ -356,6 +338,9 @@
 <template id="is_external_layout_footer" name="is_external_layout_footer" inherit_id="report.external_layout_footer">
     <xpath expr="//div[@class='footer']" position="replace">
     <div class="footer">
+        <div class="text-center">
+            <p>(CEE) Opération exonérée (Article 262 Ter du CGI) - (hors CEE) Opération exonérée (Article 262 1 du CGI)</p>
+        </div>
         <div class="text-center" style="border-top: 1px solid black;">
             <!--<t>Page : <span class="page"/>/<span class="topage"/></t>-->
             <div style="font-size:70%;text-align:center">
