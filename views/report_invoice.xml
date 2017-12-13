@@ -8,10 +8,8 @@
         <div class="page">
             <style>
                 .client{
-                    border: 1px solid red;
                 }
                 .facture{
-                    border: 1px solid green;
                 }
                 .titre{
                     font-size:16pt;
@@ -51,14 +49,23 @@
             <div class="row">&#160;</div><br />
 
 
+
+
             <div class="row" style="margin-top:10mm;margin-bottom:10mm">
                 <div class="col-xs-6 client">
-                    CLIENT : <span t-field="o.partner_id.is_code_client"/>
+                    <span t-if="o.partner_id.lang == 'fr_FR'">CLIENT : </span>
+                    <span t-if="o.partner_id.lang != 'fr_FR'">CUSTOMER : </span>
+                    <span t-field="o.partner_id.is_code_client"/>
                     <t t-if="o.partner_id.vat">
                         / TVA : <span t-field="o.partner_id.vat"/>
                     </t><br />
                     VOTRE COMMANDE : <span t-field="o.is_votre_commande"/><br />
                     TVA : <span t-field="o.company_id.vat"/>
+                    <span t-field="o.partner_id.lang"/>
+
+
+
+
                 </div>
                 <div class="col-xs-1"/>
                 <div class="col-xs-5 facture">
@@ -245,10 +252,6 @@
             </div>
 
 
-            <div style="font-size:80%;text-align:center">
-                <p>En cas de retard de paiement, seront exigibles, conformément à l'article L441-6 du code de commerce,une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros.</p>
-                <p>S.A.S. au capital de 37000 € - Siège social : L'Etoile - RCS Lons-le-Saunier - SIRET 494 537 897 00014 - NAF 7112 B - TVA FR 61 494 537 897</p>
-            </div>
         </div>
     </xpath>
 </template>
@@ -264,7 +267,7 @@
             }
         </style>
         <div class="row">
-            <div class="col-xs-6"  style="border: 5px solid red;text-align:center">
+            <div class="col-xs-6"  style="text-align:center">
                 <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 50mm;"/><br />
                 <span t-field="o.company_id.street"/><br />
                 <span t-field="o.company_id.zip"/> <span t-field="o.company_id.city"/> - <span t-field="o.company_id.country_id.name"/><br />
@@ -273,7 +276,7 @@
                 E-mail : <span t-field="o.company_id.email"/><br />
             </div>
             <div class="col-xs-1"/>
-            <div class="col-xs-5" style="border: 5px solid green;padding-top:20mm;text-align:center">
+            <div class="col-xs-5" style="padding-top:20mm;text-align:center">
                 <t t-if="o.partner_id.name"><span t-field="o.partner_id.name"/><br /></t>
                 <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/><br /></t>
                 <t t-if="o.partner_id.street2"><span t-field="o.partner_id.street2"/><br /></t>
@@ -302,7 +305,11 @@
     <xpath expr="//div[@class='footer']" position="replace">
     <div class="footer">
         <div class="text-center" style="border-top: 1px solid black;">
-                <t>Page : <span class="page"/>/<span class="topage"/></t>
+            <!--<t>Page : <span class="page"/>/<span class="topage"/></t>-->
+            <div style="font-size:70%;text-align:center">
+                En cas de retard de paiement, seront exigibles, conformément à l'article L441-6 du code de commerce,une indemnité calculée sur la base de trois fois le taux de l'intérêt légal en vigueur ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 euros.<br />
+                S.A.S. au capital de 37000 € - Siège social : L'Etoile - RCS Lons-le-Saunier - SIRET 494 537 897 00014 - NAF 7112 B - TVA FR 61 494 537 897
+            </div>
         </div>
     </div>
     </xpath>
