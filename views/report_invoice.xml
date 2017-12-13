@@ -44,35 +44,81 @@
                     margin-top:0.3em;
                     margin-bottom:0.2em;
                 }
+                .cell{
+                    border-right:1px solid black;
+                    padding:1mm;
+                }
+
+
 
             </style>
-            <div class="row">&#160;</div><br />
-
-
-
 
             <div class="row" style="margin-top:10mm;margin-bottom:10mm">
                 <div class="col-xs-6 client">
-                    <span t-if="o.partner_id.lang == 'fr_FR'">CLIENT : </span>
-                    <span t-if="o.partner_id.lang != 'fr_FR'">CUSTOMER : </span>
-                    <span t-field="o.partner_id.is_code_client"/>
-                    <t t-if="o.partner_id.vat">
-                        / TVA : <span t-field="o.partner_id.vat"/>
-                    </t><br />
-                    VOTRE COMMANDE : <span t-field="o.is_votre_commande"/><br />
-                    TVA : <span t-field="o.company_id.vat"/>
-                    <span t-field="o.partner_id.lang"/>
-
-
-
-
+                    <table style="border: 1px solid black;width:100%">
+                        <tr>
+                            <td style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
+                                <t t-if="o.partner_id.is_code_client">
+                                    <span t-if="o.partner_id.lang == 'fr_FR'">CLIENT : </span>
+                                    <span t-if="o.partner_id.lang != 'fr_FR'">CUSTOMER : </span>
+                                    <span t-field="o.partner_id.is_code_client"/><br />
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:2mm">
+                                <t t-if="o.is_votre_commande">
+                                    <span t-if="o.partner_id.lang == 'fr_FR'">VOTRE COMMANDE : </span>
+                                    <span t-if="o.partner_id.lang != 'fr_FR'">YOUR ORDER : </span>
+                                    <span t-field="o.is_votre_commande"/><br />
+                                </t>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:2mm">
+                                <t t-if="o.partner_id.vat">
+                                    <span t-if="o.partner_id.lang == 'fr_FR'">VOTRE TVA : </span>
+                                    <span t-if="o.partner_id.lang != 'fr_FR'">YOUR VAT : </span>
+                                    <span t-field="o.partner_id.vat"/><br />
+                                </t>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="col-xs-1"/>
                 <div class="col-xs-5 facture">
-                    FACTURE N° : <span t-field="o.is_annee"/> <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.number"/><br />
-                    DATE : <span t-field="o.date_invoice"/><br />
-                    BL N° : <span t-field="o.is_num_bl"/><br />
-                    NOTRE RÉF N° : <span t-field="o.is_notre_ref"/>
+                    <table style="border: 1px solid black;width:100%">
+                        <tr>
+                            <td style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
+                                FACTURE N° : 
+                                <span t-field="o.is_annee"/> <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.number"/><br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:1mm">
+                                DATE : <span t-field="o.date_invoice"/><br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:1mm">
+                                BL N° : <span t-field="o.is_num_bl"/><br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:1mm">
+                                NOTRE RÉF N° : <span t-field="o.is_notre_ref"/><br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:1mm">
+                                <t t-if="o.company_id.vat">
+                                    <span t-if="o.partner_id.lang == 'fr_FR'">NOTRE TVA : </span>
+                                    <span t-if="o.partner_id.lang != 'fr_FR'">OUR VAT : </span>
+                                    <span t-field="o.company_id.vat"/><br />
+                                </t>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
 
@@ -121,68 +167,72 @@
             <!-- Is there a discount on at least one line? -->
             <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
 
-            <table class="table table-condensed" style="margin-bottom:2mm">
+
+<!--
+                    <table style="border: 1px solid black;width:100%">
+                        <tr>
+                            <td style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
+-->
+
+            <table style="margin-bottom:2mm;border:1px solid black;width:100%">
                 <thead>
-                    <tr>
-                        <th class="text-center">QUANTITÉ</th>
-                        <th class="text-center">DESCRIPTION</th>
-                        <th class="text-right">P.U.HT</th>
-                        <th class="text-right">TOTAL H.T.</th>
+                    <tr style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
+                        <th class="text-center cell">QUANTITÉ</th>
+                        <th class="text-center cell">DESCRIPTION</th>
+                        <th class="text-right cell">P.U.HT</th>
+                        <th class="text-right cell">TOTAL H.T.</th>
                     </tr>
                 </thead>
                 <tbody class="invoice_tbody">
                     <t t-if="o.is_description_entete">
                         <tr>
-                            <td></td>
-                            <td style="background-color:yellow;text-align:center"><b><span t-field="o.is_description_entete"/></b></td>
-                            <td></td>
-                            <td></td>
+                            <td class="cell"></td>
+                            <td class="cell" style="background-color:#FFFFCC;text-align:center"><b><span t-field="o.is_description_entete"/></b></td>
+                            <td class="cell"></td>
+                            <td class="cell"></td>
                         </tr>
                     </t>
                     <tr t-foreach="o.invoice_line_ids" t-as="l">
-                        <td class="text-center">
+                        <td class="text-center cell">
                             <span t-field="l.quantity"/>
                         </td>
-                        <td>
+                        <td class="text-left cell">
                             <div t-field="l.name"/>
                         </td>
-                        <td class="text-right">
-                            <span t-field="l.price_unit"/>
+                        <td class="text-right cell">
+                            <span t-field="l.price_unit"     t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                         </td>
-                        <td class="text-right">
-                            <span t-field="l.price_subtotal" 
-                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                        <td class="text-right cell">
+                            <span t-field="l.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                         </td>
                     </tr>
 
                     <t t-if="o.is_description_pied1">
                         <tr>
-                            <td></td>
-                            <td style="color:black"><b><span t-field="o.is_description_pied1"/></b></td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-right cell"></td>
+                            <td class="text-right cell" style="color:black"><b><span t-field="o.is_description_pied1"/></b></td>
+                            <td class="text-right cell"></td>
+                            <td class="text-right cell"></td>
                         </tr>
                     </t>
                     <t t-if="o.is_description_pied2">
                         <tr>
-                            <td></td>
-                            <td style="color:blue"><b><span t-field="o.is_description_pied2"/></b></td>
-                            <td></td>
-                            <td></td>
+                            <td class="text-right cell"></td>
+                            <td class="text-right cell" style="color:blue"><b><span t-field="o.is_description_pied2"/></b></td>
+                            <td class="text-right cell"></td>
+                            <td class="text-right cell"></td>
                         </tr>
                     </t>
-
-
                     <tr>
-                        <td></td>
-                        <td style="text-align:center">
+                        <td class="text-right cell"></td>
+                        <td class="text-right cell" style="text-align:center">
                             <br />
                             <p>(CEE) Opération exonérée (Article 262 Ter du CGI)</p>
                             <p>(hors CEE) Opération exonérée (Article 262 1 du CGI)</p>
 
                         </td>
-                        <td></td>
-                        <td></td>
+                        <td class="text-right cell"></td>
+                        <td class="text-right cell"></td>
                     </tr>
 
                 </tbody>
@@ -263,27 +313,27 @@
 <template id="is_external_layout_header" name="is_external_layout_header" inherit_id="report.external_layout_header">
     <xpath expr="//div[@class='header']" position="replace">
     <div class="header">
-        <style>
-            .emetteur{
-                font-size:8pt;
-            }
-        </style>
         <div class="row">
-            <div class="col-xs-6"  style="text-align:center">
-                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 50mm;"/><br />
+            <div class="col-xs-6"  style="text-align:center;font-size:90%">
+                <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 70mm;"/><br />
+                <!--
                 <span t-field="o.company_id.street"/><br />
                 <span t-field="o.company_id.zip"/> <span t-field="o.company_id.city"/> - <span t-field="o.company_id.country_id.name"/><br />
                 Tél : <span t-field="o.company_id.phone"/><br />
                 Fax : <span t-field="o.company_id.fax"/><br />
                 E-mail : <span t-field="o.company_id.email"/><br />
+                -->
             </div>
             <div class="col-xs-1"/>
-            <div class="col-xs-5" style="padding-top:20mm;text-align:center">
-                <t t-if="o.partner_id.name"><span t-field="o.partner_id.name"/><br /></t>
-                <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/><br /></t>
-                <t t-if="o.partner_id.street2"><span t-field="o.partner_id.street2"/><br /></t>
-                <t t-if="o.partner_id.zip"><span t-field="o.partner_id.zip"/> - </t><t t-if="o.partner_id.city"><span t-field="o.partner_id.city"/></t><br />
-                <t t-if="o.partner_id.country_id"><span t-field="o.partner_id.country_id.name"/><br /></t>
+            <div class="col-xs-5">
+                <div style="height:20mm"> </div>
+                <div style="text-align:center;border: 1px solid black;padding:5mm;background-color:#EFF0F0">
+                    <t t-if="o.partner_id.name"><span t-field="o.partner_id.name"/><br /></t>
+                    <t t-if="o.partner_id.street"><span t-field="o.partner_id.street"/><br /></t>
+                    <t t-if="o.partner_id.street2"><span t-field="o.partner_id.street2"/><br /></t>
+                    <t t-if="o.partner_id.zip"><span t-field="o.partner_id.zip"/> - </t><t t-if="o.partner_id.city"><span t-field="o.partner_id.city"/></t><br />
+                    <t t-if="o.partner_id.country_id"><span t-field="o.partner_id.country_id.name"/><br /></t>
+                </div>
             </div>
 
 
