@@ -176,6 +176,7 @@
                     <tr>
                         <td></td>
                         <td style="text-align:center">
+                            <br />
                             <p>(CEE) Opération exonérée (Article 262 Ter du CGI)</p>
                             <p>(hors CEE) Opération exonérée (Article 262 1 du CGI)</p>
 
@@ -248,6 +249,7 @@
             -->
 
             <div style="text-align:center">
+                <br />
                 <b>Banque : <span t-field="o.is_journal_banque_id.bank_id.name"/> - <span t-field="o.is_journal_banque_id.bank_acc_number"/></b>
             </div>
 
