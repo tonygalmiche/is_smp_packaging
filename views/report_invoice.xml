@@ -209,30 +209,30 @@
 
                     <t t-if="o.is_description_pied1">
                         <tr>
-                            <td class="text-right cell"></td>
-                            <td class="text-right cell" style="color:black"><b><span t-field="o.is_description_pied1"/></b></td>
-                            <td class="text-right cell"></td>
-                            <td class="text-right cell"></td>
+                            <td class="text-left cell"></td>
+                            <td class="text-left cell" style="color:black"><b><span t-field="o.is_description_pied1"/></b></td>
+                            <td class="text-left cell"></td>
+                            <td class="text-left cell"></td>
                         </tr>
                     </t>
                     <t t-if="o.is_description_pied2">
                         <tr>
-                            <td class="text-right cell"></td>
-                            <td class="text-right cell" style="color:blue"><b><span t-field="o.is_description_pied2"/></b></td>
-                            <td class="text-right cell"></td>
-                            <td class="text-right cell"></td>
+                            <td class="text-left cell"></td>
+                            <td class="text-left cell" style="color:blue"><b><span t-field="o.is_description_pied2"/></b></td>
+                            <td class="text-left cell"></td>
+                            <td class="text-left cell"></td>
                         </tr>
                     </t>
                     <tr>
-                        <td class="text-right cell"></td>
-                        <td class="text-right cell" style="text-align:center">
+                        <td class="text-left cell"></td>
+                        <td class="text-left cell" style="text-align:center">
                             <br />
                             <p>(CEE) Opération exonérée (Article 262 Ter du CGI)</p>
                             <p>(hors CEE) Opération exonérée (Article 262 1 du CGI)</p>
 
                         </td>
-                        <td class="text-right cell"></td>
-                        <td class="text-right cell"></td>
+                        <td class="text-left cell"></td>
+                        <td class="text-left cell"></td>
                     </tr>
 
                 </tbody>
