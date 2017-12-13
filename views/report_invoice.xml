@@ -90,7 +90,8 @@
                     <table style="border: 1px solid black;width:100%">
                         <tr>
                             <td style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
-                                FACTURE N° : 
+                                <span t-if="o.partner_id.lang == 'fr_FR'">FACTURE N° : </span>
+                                <span t-if="o.partner_id.lang != 'fr_FR'">INVOICE : </span>
                                 <span t-field="o.is_annee"/> <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.number"/><br />
                             </td>
                         </tr>
@@ -101,12 +102,16 @@
                         </tr>
                         <tr>
                             <td style="padding:1mm">
-                                BL N° : <span t-field="o.is_num_bl"/><br />
+                                <span t-if="o.partner_id.lang == 'fr_FR'">BL N° : </span>
+                                <span t-if="o.partner_id.lang != 'fr_FR'">PACKING SLIP : </span>
+                                <span t-field="o.is_num_bl"/><br />
                             </td>
                         </tr>
                         <tr>
                             <td style="padding:1mm">
-                                NOTRE RÉF N° : <span t-field="o.is_notre_ref"/><br />
+                                <span t-if="o.partner_id.lang == 'fr_FR'">NOTRE RÉF N° : </span>
+                                <span t-if="o.partner_id.lang != 'fr_FR'">OUR REF : </span>
+                                <span t-field="o.is_notre_ref"/><br />
                             </td>
                         </tr>
                         <tr>
@@ -170,12 +175,27 @@
             <table style="margin-bottom:2mm;border:1px solid black;width:100%">
                 <thead>
                     <tr style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
-                        <th class="text-center cell">QUANTITÉ</th>
-                        <th class="text-center cell">DESCRIPTION</th>
-                        <th class="text-right cell">P.U.HT</th>
-                        <th class="text-right cell">TOTAL H.T.</th>
+                        <th class="text-center cell">
+                            <span t-if="o.partner_id.lang == 'fr_FR'">QUANTITÉ</span>
+                            <span t-if="o.partner_id.lang != 'fr_FR'">QUANTITY</span>
+                        </th>
+                        <th class="text-center cell">
+                            <span t-if="o.partner_id.lang == 'fr_FR'">DESCRIPTION</span>
+                            <span t-if="o.partner_id.lang != 'fr_FR'">DESCRIPTION</span>
+
+                        </th>
+                        <th class="text-right cell">
+                            <span t-if="o.partner_id.lang == 'fr_FR'">P.U.HT</span>
+                            <span t-if="o.partner_id.lang != 'fr_FR'">UNIT PRICE</span>
+                        </th>
+                        <th class="text-right cell">
+                            <span t-if="o.partner_id.lang == 'fr_FR'">TOTAL H.T.</span>
+                            <span t-if="o.partner_id.lang != 'fr_FR'">TOTAL PRICE</span>
+
+                        </th>
                     </tr>
                 </thead>
+
                 <tbody class="invoice_tbody">
                     <t t-if="o.is_description_entete">
                         <tr>
@@ -219,11 +239,19 @@
 
                 </tbody>
             </table>
-
             <div class="row">
                 <div class="col-xs-8">
-                    <div>CONDITIONS DE PAIEMENT : <br /><span t-field="o.payment_term_id.name"/></div>
-                    <div>Date échéance : <span t-field="o.date_due"/></div>
+                    <div>
+                        <span t-if="o.partner_id.lang == 'fr_FR'">CONDITIONS DE PAIEMENT : </span>
+                        <span t-if="o.partner_id.lang != 'fr_FR'">PAYMENT TERMS : </span>
+                        <br />
+                        <span t-field="o.payment_term_id.name"/>
+                    </div>
+                    <div>
+                        <span t-if="o.partner_id.lang == 'fr_FR'">Date échéance : </span>
+                        <span t-if="o.partner_id.lang != 'fr_FR'">Date either : </span>
+                        <span t-field="o.date_due"/>
+                    </div>
                 </div>
                 <div class="col-xs-4">
                     <table class="table table-condensed" style="margin-bottom:0">
@@ -243,7 +271,12 @@
                             </tr>
                         </t>
                         <tr class="border-black">
-                            <td><strong>NET A PAYER TTC</strong></td>
+                            <td>
+                                <strong>
+                                    <span t-if="o.partner_id.lang == 'fr_FR'">NET A PAYER TTC</span>
+                                    <span t-if="o.partner_id.lang != 'fr_FR'">TOTAL AMOUNT DUE</span>
+                                </strong>
+                            </td>
                             <td class="text-right">
                                  <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                             </td>
