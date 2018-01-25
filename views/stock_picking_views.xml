@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="is_view_picking_form" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="is_conditionnement"/>
+                    <field name="is_longueur"/>
+                    <field name="is_largeur"/>
+                    <field name="is_hauteur"/>
+                    <field name="is_poids"/>
+                </field>
+
+
+                <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='product_id']" position="after" >
+                    <field name="is_designation"/>
+                </xpath>
+
+
+                <xpath expr="//notebook" position="after" >
+                    <group>
+                        <field name="is_description_bas"/>
+                    </group>
+                </xpath>
+
+
+<!--
+                       <page string="Operations" attrs="{'invisible': [('state', 'in', ('draft', 'confirmed', 'waiting'))]}">
+                            <button name="do_prepare_partial" type="object" string="Recompute" attrs="{'invisible': [('recompute_pack_op','=', False)]}"/>
+                            <field name="recompute_pack_op" invisible="1"/>
+                            <field name="pack_operation_ids" invisible="1"/>
+                            <field name="pack_operation_product_ids" options="{'reload_on_button': True}" context="{'default_picking_id': id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}" mode="tree,kanban">
+                                <tree editable="bottom" decoration-muted="result_package_id" decoration-danger="qty_done&gt;product_qty" decoration-success="qty_done==product_qty and state!='done' and not result_package_id">
+                                    <field name="package_id" groups="stock.group_tracking_lot" invisible="1"/>
+                                    <field name="product_id" required="1" attrs="{'readonly': [('fresh_record', '=', False)]}"/>
+-->
+
+
+            </field>
+        </record>
+    </data>
+</odoo>
+
+
+
