@@ -2,7 +2,7 @@
 <odoo>
 
 
-    <template id="is_report_delivery_document" name="is_report_delivery_document" inherit_id="stock.report_delivery_document">
+    <template id="is_report_delivery_document" name="is_report_delivery_document" inherit_id="sale_stock.report_delivery_document_inherit_sale_stock">
         <xpath expr="//div[@class='page']" position="replace">
             <div class="page">
                 <style>
@@ -24,7 +24,8 @@
                     }
 
                     .td-border{
-                        border: 1px solid black;
+                        border-left: 1px solid black;
+                        border-right: 1px solid black;
                     }
                     .no-border{
                         border: 0px;
@@ -35,19 +36,20 @@
                 </style>
 
 
-
-                <div class="row" name="customer_address" style="display:none">
-                    <div class="col-xs-4 pull-right">
-                        <div>
-                            <span><strong>Customer Address:</strong></span>
-                        </div>
-                        <div t-if="o.move_lines and o.move_lines[0].partner_id" name="partner_header">
-                            <div t-field="o.move_lines[0].partner_id"
-                               t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True}'/>
-                        </div>
-                        <div t-if="not (o.move_lines and o.move_lines[0].partner_id) and o.partner_id" name="partner_header">
-                            <div t-field="o.partner_id"
-                               t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True}'/>
+                <div style="display:none">
+                    <div class="row" name="customer_address" >
+                        <div class="col-xs-4 pull-right">
+                            <div>
+                                <span><strong>Customer Address:</strong></span>
+                            </div>
+                            <div t-if="o.move_lines and o.move_lines[0].partner_id" name="partner_header">
+                                <div t-field="o.move_lines[0].partner_id"
+                                   t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True}'/>
+                            </div>
+                            <div t-if="not (o.move_lines and o.move_lines[0].partner_id) and o.partner_id" name="partner_header">
+                                <div t-field="o.partner_id"
+                                   t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True}'/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +64,7 @@
                                         <td class="td-border text-center">CLIENT-CUSTOMER : <span t-field="o.partner_id.is_code_client"/></td>
                                     </tr>
                                     <tr>
-                                        <td class="td-border text-center">REF : votre commande <span t-field="o.origin"/></td>
+                                        <td class="td-border text-center">REF : votre commande <span t-field="o.sale_id.origin"/></td>
                                     </tr>
                                  </tbody>
                             </table>
@@ -96,11 +98,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td class="text-right"><b><span t-field="o.is_conditionnement"/> : </b></td><td></td><td></td></tr>
-                        <tr><td class="text-right">dimensions :       long. - length :      </td><td class="text-right"><span t-field="o.is_longueur"/></td><td>cm</td></tr>
-                        <tr><td class="text-right">larg. - width :                          </td><td class="text-right"><span t-field="o.is_longueur"/></td><td>cm</td></tr>
-                        <tr><td class="text-right">haut. - height :                         </td><td class="text-right"><span t-field="o.is_longueur"/></td><td>cm</td></tr>
-                        <tr><td class="text-right">poids. - weight :                        </td><td class="text-right"><span t-field="o.is_longueur"/></td><td>kg</td></tr>
+                        <tr t-if="o.is_conditionnement">
+                            <td style="width:50%" class="text-right"><b><span t-field="o.is_conditionnement"/> : </b></td>
+                            <td style="width:10%" ></td>
+                            <td style="width:40%" ></td>
+                        </tr>
+                        <tr t-if="o.is_longueur"><td class="text-right">dimensions :       long. - length :      </td><td class="text-right"><span t-field="o.is_longueur"/></td><td>cm</td></tr>
+                        <tr t-if="o.is_largeur"><td class="text-right">larg. - width :                          </td><td class="text-right"><span t-field="o.is_largeur"/></td><td>cm</td></tr>
+                        <tr t-if="o.is_hauteur"><td class="text-right">haut. - height :                         </td><td class="text-right"><span t-field="o.is_hauteur"/></td><td>cm</td></tr>
+                        <tr t-if="o.is_poids"><td class="text-right">poids. - weight :                        </td><td class="text-right"><span t-field="o.is_poids"/></td><td>kg</td></tr>
                         <tr><td class="text-right"><b>comprenant - including : </b></td><td></td><td></td></tr>
                     </tbody>
                 </table>
@@ -219,7 +225,10 @@
                                     <span t-field="pack_operation.is_designation"/>
                                 </t>
                                 <t t-else="1">
-                                    <span t-field="pack_operation.product_id"/>
+                                    <!--<span t-field="pack_operation.product_id"/>-->
+                                    <!--<span t-field="pack_operation.product_id.default_code"/> -->
+                                    <span t-field="pack_operation.product_id.name"/>
+
                                 </t>
                                 <!--
                                 <t t-if="not pack_operation.product_id and pack_operation.package_id">
@@ -262,6 +271,7 @@
 
                     </tbody>
                 </table>
+                <!--
                 <p t-if="o.backorder_id">
                     This shipment is a backorder of <t t-esc="o.backorder_id.name"/>.
                 </p>
@@ -270,7 +280,32 @@
                         All items couldn't be shipped, the remaining ones will be shipped as soon as they become available.
                     </t>
                 </p>
+                -->
             </div>
         </xpath>
     </template>
+
+
+<!--
+    <template id="is_report_delivery_document_inherit_sale_stock" inherit_id="sale_stock.report_delivery_document_inherit_sale_stock">
+        <xpath expr="//div" position="replace"/>
+    </template>
+-->
+
+    <!--
+    <template id="report_delivery_document_inherit_sale_stock" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[@name='customer_address']" position="after">
+            <div class="row" t-if="o.sale_id.client_order_ref">
+                <div class="col-xs-4 pull-right">
+                    <strong>Customer Reference:</strong>
+                    <p t-field="o.sale_id.client_order_ref"/>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    -->
+
+
+
+
 </odoo>
