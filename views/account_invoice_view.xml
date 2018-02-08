@@ -28,5 +28,42 @@
                 </field>
             </field>
         </record>
+
+
+        <record id="is_invoice_tree" model="ir.ui.view">
+            <field name="name">is_invoice_tree</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='number']" position="replace" >
+                    <field name="move_name" string="Numéro"/> 
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="replace" >
+                    <field name="is_num_machine"/>
+                    <field name="is_num_bl"/>
+                    <field name="is_notre_ref"/>
+                    <field name="is_votre_commande"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="is_view_account_invoice_filter" model="ir.ui.view">
+            <field name="name">is_view_account_invoice_filter</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter" />
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after">
+                    <field name="is_num_machine"/>
+                    <field name="is_num_bl"/>
+                    <field name="is_notre_ref"/>
+                    <field name="is_votre_commande"/>
+                </field>
+            </field>
+        </record>
+
+
+
+
     </data>
 </odoo>
