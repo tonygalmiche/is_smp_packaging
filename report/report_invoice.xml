@@ -104,7 +104,8 @@
                             <td style="padding:1mm">
                                 <span t-if="o.partner_id.lang == 'fr_FR'">BL N° : </span>
                                 <span t-if="o.partner_id.lang != 'fr_FR'">PACKING SLIP : </span>
-                                <span t-field="o.is_num_bl"/><br />
+                                <!--<span t-field="o.is_num_bl"/><br />-->
+                                <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_num_bl"/><br />
                             </td>
                         </tr>
                         <tr>
