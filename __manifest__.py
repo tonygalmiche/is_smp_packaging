@@ -26,6 +26,7 @@ InfoSaône - Module Odoo pour SMP Packaging
         'views/account_invoice_view.xml',
         'views/partner_view.xml',
         'views/stock_picking_views.xml',
+        'views/sale_view.xml',
         'report/report_invoice.xml',
         'report/report_deliveryslip.xml',
     ],
