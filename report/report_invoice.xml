@@ -111,7 +111,8 @@
                             <td style="padding:1mm">
                                 <span t-if="o.partner_id.lang == 'fr_FR'">NOTRE RÉF N° : </span>
                                 <span t-if="o.partner_id.lang != 'fr_FR'">OUR REF : </span>
-                                <span t-field="o.is_notre_ref"/><br />
+                                <!--<span t-field="o.is_notre_ref"/><br />-->
+                                <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_notre_ref"/><br />
                             </td>
                         </tr>
                         <tr>
