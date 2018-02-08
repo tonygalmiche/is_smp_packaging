@@ -213,7 +213,22 @@
                             <td class="td-border text-center">
                                 <span t-if="pack_operation.package_id">:</span>
                                 <span t-field="pack_operation.package_id"/>
-                                <span t-field="pack_operation.ordered_qty"/>
+
+                                <t t-if="pack_operation.qty_done">
+                                    <t t-set="qt" t-value="str(pack_operation.qty_done)"/>
+                                </t>
+                                <t t-else="1">
+                                    <t t-set="qt" t-value="str(pack_operation.ordered_qty)"/>
+                                </t>
+                                <t t-set="nb" t-value="len(qt)"/>
+                            
+                                <t t-if="qt[-2:]=='.0'">
+                                    <t t-esc="qt[0:nb-2]"/>
+                                </t>
+                                <t t-else="1">
+                                    <span t-field="pack_operation.qty_done"/>
+                                </t>
+
                                 <!--
                                 <t t-if="pack_operation.linked_move_operation_ids">
                                     <span t-field="pack_operation.linked_move_operation_ids[0].move_id.product_uom"></span>
