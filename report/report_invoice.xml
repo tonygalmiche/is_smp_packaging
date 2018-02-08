@@ -108,14 +108,15 @@
                                 <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_num_bl"/><br />
                             </td>
                         </tr>
-                        <tr>
-                            <td style="padding:1mm">
-                                <span t-if="o.partner_id.lang == 'fr_FR'">NOTRE RÉF N° : </span>
-                                <span t-if="o.partner_id.lang != 'fr_FR'">OUR REF : </span>
-                                <!--<span t-field="o.is_notre_ref"/><br />-->
-                                <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_notre_ref"/><br />
-                            </td>
-                        </tr>
+                        <t t-if="o.is_notre_ref">
+                            <tr>
+                                <td style="padding:1mm">
+                                    <span t-if="o.partner_id.lang == 'fr_FR'">NOTRE RÉF N° : </span>
+                                    <span t-if="o.partner_id.lang != 'fr_FR'">OUR REF : </span>
+                                    <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_notre_ref"/><br />
+                                </td>
+                            </tr>
+                        </t>
                         <tr>
                             <td style="padding:1mm">
                                 <t t-if="o.company_id.vat">
