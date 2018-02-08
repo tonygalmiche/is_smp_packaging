@@ -61,10 +61,10 @@
                             <table class="table table-condensed table-border">
                                 <tbody>
                                     <tr>
-                                        <td class="td-border text-center">CLIENT-CUSTOMER : <span t-field="o.partner_id.is_code_client"/></td>
+                                        <td style="border-top: 1px solid black" class="td-border text-center">CLIENT-CUSTOMER : <span t-field="o.partner_id.is_code_client"/></td>
                                     </tr>
                                     <tr>
-                                        <td class="td-border text-center">REF : votre commande <span t-field="o.sale_id.origin"/></td>
+                                        <td class="td-border text-center">REF : votre commande <span t-field="o.sale_id.client_order_ref"/></td>
                                     </tr>
                                  </tbody>
                             </table>
@@ -75,18 +75,16 @@
                             <table class="table table-condensed table-border">
                                 <tbody>
                                     <tr>
-                                        <td class="thbleu text-center">LISTE DE COLISAGE - PACKING LIST</td>
+                                        <td style="border-top: 1px solid black" class="thbleu text-center">LISTE DE COLISAGE - PACKING LIST</td>
                                     </tr>
                                     <tr>
-                                        <td class="td-border text-center">BL n° <span t-field="o.name"/> du <span t-field="o.date"/></td>
+                                        <td class="td-border text-center">BL n° <span t-field="o.name"/> du <span t-field="o.is_date_bl"/></td>
                                     </tr>
                                  </tbody>
                             </table>
                         </td>
                     </tr>
                 </table>
-
-
 
 
                 <table class="table table-condensed table-border">
@@ -183,6 +181,17 @@
                         </tr>
                     </thead>
                     <tbody>
+
+                        <tr t-if="o.is_description_haut">
+                            <td>
+                            </td>
+                            <td style="background-color:#FFFFCC;text-align:center">
+                                <b><span  t-field="o.is_description_haut"/></b>
+                            </td>
+                        </tr>
+
+
+
                         <tr t-foreach="o.pack_operation_ids" t-as="pack_operation">
 
                             <!--
@@ -220,16 +229,13 @@
 
 
                             <td class="td-border">
-
+                                <span t-field="pack_operation.product_id.default_code"/> 
+                                <span t-field="pack_operation.product_id.name"/>
                                 <t t-if="pack_operation.is_designation">
                                     <span t-field="pack_operation.is_designation"/>
                                 </t>
-                                <t t-else="1">
-                                    <!--<span t-field="pack_operation.product_id"/>-->
-                                    <!--<span t-field="pack_operation.product_id.default_code"/> -->
-                                    <span t-field="pack_operation.product_id.name"/>
 
-                                </t>
+
                                 <!--
                                 <t t-if="not pack_operation.product_id and pack_operation.package_id">
                                     <span  t-field="pack_operation.package_id"/>

@@ -6,6 +6,12 @@
             <field name="model">stock.picking</field>
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
+
+                <field name="min_date" position="replace">
+                    <field name="is_date_bl"/>
+                </field>
+
+
                 <field name="partner_id" position="after">
                     <field name="is_conditionnement"/>
                     <field name="is_longueur"/>
@@ -22,6 +28,7 @@
 
                 <xpath expr="//notebook" position="after" >
                     <group>
+                        <field name="is_description_haut"/>
                         <field name="is_description_bas"/>
                     </group>
                 </xpath>
