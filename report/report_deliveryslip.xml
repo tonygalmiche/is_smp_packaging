@@ -287,8 +287,13 @@
                             </td>
                             <td>
                                 <span style="color:blue" t-field="o.is_description_bas"/>
+                                <t t-if="o.is_signature">
+                                    <div><img t-att-src="'/is_smp_packaging/static/img/signature-direction.jpg'" style="max-height: 30mm;"/></div>
+                                </t>
                             </td>
                         </tr>
+
+
 
                     </tbody>
                 </table>

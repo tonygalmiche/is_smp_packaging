@@ -239,7 +239,14 @@
                             <td class="text-left cell"></td>
                         </tr>
                     </t>
-
+                    <t t-if="o.is_signature">
+                        <tr>
+                            <td class="text-left cell"></td>
+                            <td class="text-left cell"><img t-att-src="'/is_smp_packaging/static/img/signature-direction.jpg'" style="max-height: 30mm;"/></td>
+                            <td class="text-left cell"></td>
+                            <td class="text-left cell"></td>
+                        </tr>
+                    </t>
                 </tbody>
             </table>
             <div class="row">

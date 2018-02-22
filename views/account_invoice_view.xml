@@ -24,6 +24,7 @@
                         <field name="is_description_entete"/>
                         <field name="is_description_pied1"/>
                         <field name="is_description_pied2"/>
+                        <field name="is_signature"/>
                     </group>
                 </field>
             </field>
