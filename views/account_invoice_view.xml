@@ -25,6 +25,7 @@
                         <field name="is_description_pied1"/>
                         <field name="is_description_pied2"/>
                         <field name="is_signature"/>
+                        <field name="is_tampon"/>
                     </group>
                 </field>
             </field>

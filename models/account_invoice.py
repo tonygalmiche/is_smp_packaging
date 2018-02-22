@@ -28,3 +28,4 @@ class AccountInvoice(models.Model):
     is_annee          = fields.Char('Année', compute='_compute', store=False, readonly=True)
     is_votre_commande = fields.Char('Votre commande')
     is_signature      = fields.Boolean('Signature direction', help="Ajouter la signature de la direction sur la facture")
+    is_tampon         = fields.Boolean('Tampon direction'   , help="Ajouter le tampon avec la signature de la direction sur la facture")

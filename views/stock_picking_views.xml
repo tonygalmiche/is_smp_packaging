@@ -31,6 +31,7 @@
                         <field name="is_description_haut"/>
                         <field name="is_description_bas"/>
                         <field name="is_signature"/>
+                        <field name="is_tampon"/>
                     </group>
                 </xpath>
 

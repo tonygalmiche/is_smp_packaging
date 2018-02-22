@@ -14,5 +14,6 @@ class Picking(models.Model):
     is_description_haut = fields.Text('Description haute (jaune)')
     is_description_bas  = fields.Text('Description bas')
     is_signature        = fields.Boolean('Signature direction', help="Ajouter la signature de la direction sur le BL")
+    is_tampon           = fields.Boolean('Tampon direction'   , help="Ajouter le tampon avec la signature de la direction sur le BL")
 
 
