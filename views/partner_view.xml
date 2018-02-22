@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+
+
+        <record id="is_view_partner_form" model="ir.ui.view">
+            <field name="name">is_view_partner_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                    <field name="is_code_fournisseur"/>
+                </field>
+            </field>
+        </record>
+
+
+
         <record id="is_view_partner_property_form" model="ir.ui.view">
             <field name="name">is_view_partner_property_form</field>
             <field name="model">res.partner</field>
@@ -19,12 +35,19 @@
             <field name="inherit_id" ref="base.view_partner_tree"/>
             <field name="arch" type="xml">
                 <field name="email" position="after">
+                    <field name="is_code_fournisseur"/>
+                    <field name="street"/>
+                    <field name="street2"/>
                     <field name="zip"/>
                     <field name="city"/>
                     <field name="is_code_client"/>
+                    <field name="fax"/>
+                    <field name="function"/>
+                    <!--
                     <field name="property_account_position_id"/>
                     <field name="property_payment_term_id"/>
                     <field name="property_account_receivable_id"/>
+                    -->
                 </field>
             </field>
         </record>
