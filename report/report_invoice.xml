@@ -100,7 +100,7 @@
                                 DATE : <span t-field="o.date_invoice"/><br />
                             </td>
                         </tr>
-                        <tr>
+                        <tr t-if="o.is_num_bl">
                             <td style="padding:1mm">
                                 <span t-if="o.partner_id.lang == 'fr_FR'">BL N° : </span>
                                 <span t-if="o.partner_id.lang != 'fr_FR'">PACKING SLIP : </span>

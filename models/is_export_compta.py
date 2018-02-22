@@ -3,6 +3,10 @@ from openerp import models,fields,api
 from openerp.tools.translate import _
 import datetime
 from openerp.exceptions import Warning
+import logging
+_logger = logging.getLogger(__name__)
+import unicodedata
+
 
 
 class is_export_compta(models.Model):
@@ -113,6 +117,7 @@ class is_export_compta(models.Model):
 
                 libelle=row[8]
 
+
                 vals={
                     'export_compta_id'  : obj.id,
                     'date_facture'      : row[0],
@@ -125,6 +130,10 @@ class is_export_compta(models.Model):
                     'piece'             : piece,
                     'commentaire'       : False,
                 }
+
+                #_logger.info(str(vals))
+
+
                 self.env['is.export.compta.ligne'].create(vals)
             self.generer_fichier()
 
@@ -166,12 +175,14 @@ class is_export_compta(models.Model):
                 f.write(date_facture)
                 f.write('F')
 
-                libelle=libelle.encode('iso8859')
+                libelle=unicodedata.normalize('NFKD', libelle).encode('ascii', 'ignore')
 
-#                try:
-#                    f.write(libelle)
-#                except Exception as inst:
-#                    raise Warning(u'Problème accent avec : '+libelle+u' : journal='+journal+' : date_facture='+date_facture)
+                try:
+                    libelle=libelle.encode('iso8859')
+                except ValueError:
+                    raise Warning(u'Pb encodage '+libelle)
+
+
 
                 f.write(libelle)
                 f.write(sens)
