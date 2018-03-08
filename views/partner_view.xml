@@ -56,6 +56,8 @@
             <field name="arch" type="xml">
                 <field name="category_id" position="after">
                     <field name="is_code_fournisseur"/>
+                    <field name="is_contact"/>
+                    <field name="is_profession_id"/>
                     <field name="is_num_compte"/>
                     <field name="is_information"/>
                 </field>
@@ -69,10 +71,6 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="account.view_partner_property_form"/>
             <field name="arch" type="xml">
-                <field name="phone" position="before">
-                    <field name="is_contact"/>
-                    <field name="is_profession_id"/>
-                </field>
                 <field name="property_account_receivable_id" position="after">
                     <field name="is_code_client"/>
                 </field>
