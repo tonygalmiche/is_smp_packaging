@@ -3,6 +3,51 @@
     <data>
 
 
+        <!-- is.profession --> 
+        <record id="is_profession_form" model="ir.ui.view">
+            <field name="name">is.profession.form</field>
+            <field name="model">is.profession</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="code" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="is_profession_tree" model="ir.ui.view">
+            <field name="name">is.profession.tree</field>
+            <field name="model">is.profession</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="code" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_profession_search" model="ir.ui.view">
+            <field name="name">is.profession.search</field>
+            <field name="model">is.profession</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="code" />
+               </search>
+            </field>
+        </record>
+        <record  id="is_profession_action" model="ir.actions.act_window">
+            <field name="name">Professions</field>
+            <field name="res_model">is.profession</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+
 
         <record id="is_view_partner_form" model="ir.ui.view">
             <field name="name">is_view_partner_form</field>
@@ -11,6 +56,8 @@
             <field name="arch" type="xml">
                 <field name="category_id" position="after">
                     <field name="is_code_fournisseur"/>
+                    <field name="is_num_compte"/>
+                    <field name="is_information"/>
                 </field>
             </field>
         </record>
@@ -22,6 +69,10 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="account.view_partner_property_form"/>
             <field name="arch" type="xml">
+                <field name="phone" position="before">
+                    <field name="is_contact"/>
+                    <field name="is_profession_id"/>
+                </field>
                 <field name="property_account_receivable_id" position="after">
                     <field name="is_code_client"/>
                 </field>
@@ -36,6 +87,8 @@
             <field name="arch" type="xml">
                 <field name="email" position="after">
                     <field name="is_code_fournisseur"/>
+                    <field name="is_contact"/>
+                    <field name="is_profession_id"/>
                     <field name="street"/>
                     <field name="street2"/>
                     <field name="zip"/>

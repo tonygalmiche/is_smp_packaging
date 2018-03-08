@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem   
+            name="Tables"  
+            id="is_purchase_table_menu" 
+            parent="purchase.menu_purchase_root" 
+            sequence="900"
+        />
+        <menuitem
+            name="Professions"
+            id="is_profession_menu" 
+            action="is_profession_action"  
+            parent="is_purchase_table_menu" 
+            sequence="10"
+        />
+    </data>
+</odoo>
