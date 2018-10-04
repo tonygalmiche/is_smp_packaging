@@ -37,7 +37,7 @@
         </field>
     </record>
     <record  id="is_matiere_action" model="ir.actions.act_window">
-        <field name="name">matieres</field>
+        <field name="name">Matières</field>
         <field name="res_model">is.matiere</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
@@ -78,7 +78,7 @@
         </field>
     </record>
     <record  id="is_categorie_article_action" model="ir.actions.act_window">
-        <field name="name">Type d'article</field>
+        <field name="name">Catégories articles</field>
         <field name="res_model">is.categorie.article</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>

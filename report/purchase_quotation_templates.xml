@@ -31,21 +31,23 @@
 
             <h3>
                 Demande de prix 
-                <t t-if="o.partner_id.is_code_fournisseur">
-                    <span t-field="o.partner_id.is_code_fournisseur"/>
-                </t>
-                <t t-if="o.is_affaire_id.client_id.is_code_client">
-                    <span t-field="o.is_affaire_id.client_id.is_code_client"/>
-                </t>
-                <t t-if="o.is_affaire_id.name">
-                    <span t-field="o.is_affaire_id.name"/>
-                </t>
-                <span t-field="o.name"/> 
+                <b>
+                    <t t-if="o.partner_id.is_code_fournisseur">
+                        <span t-field="o.partner_id.is_code_fournisseur"/>
+                    </t>
+                    <t t-if="o.is_affaire_id.client_id.is_code_client">
+                        <span t-field="o.is_affaire_id.client_id.is_code_client"/>
+                    </t>
+                    <t t-if="o.is_affaire_id.name">
+                        <span t-field="o.is_affaire_id.name"/>
+                    </t>
+                    <span t-field="o.name"/>
+                </b>
                 du <span t-field="o.date_order"  t-field-options='{"format": "dd/MM/yyyy"}' />
             </h3>
             <br />
 
-            <p>Suivi par <span t-field="o.create_uid.name"/> - Tél : <span t-field="o.create_uid.phone"/> - Courriel : <span t-field="o.create_uid.email"/></p>
+            <p>Suivi par <b><span t-field="o.create_uid.name"/></b> - Tél : <b><span t-field="o.create_uid.phone"/></b> - Courriel : <b><span t-field="o.create_uid.email"/></b></p>
 
             <br />
             <table class="table table-condensed">

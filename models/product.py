@@ -14,7 +14,7 @@ class IsCategorieArticle(models.Model):
     _name='is.categorie.article'
     _order='name'
 
-    name = fields.Char("Matière", required=True)
+    name = fields.Char("Catégorie article", required=True)
 
 
 class ProductTemplate(models.Model):

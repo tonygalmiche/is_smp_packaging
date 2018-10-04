@@ -11,16 +11,18 @@
 
             <h3>
                 Commande 
-                <t t-if="o.partner_id.is_code_fournisseur">
-                    <span t-field="o.partner_id.is_code_fournisseur"/>
-                </t>
-                <t t-if="o.is_affaire_id.client_id.is_code_client">
-                    <span t-field="o.is_affaire_id.client_id.is_code_client"/>
-                </t>
-                <t t-if="o.is_affaire_id.name">
-                    <span t-field="o.is_affaire_id.name"/>
-                </t>
-                <span t-field="o.name"/> 
+                <b>
+                    <t t-if="o.partner_id.is_code_fournisseur">
+                        <span t-field="o.partner_id.is_code_fournisseur"/>
+                    </t>
+                    <t t-if="o.is_affaire_id.client_id.is_code_client">
+                        <span t-field="o.is_affaire_id.client_id.is_code_client"/>
+                    </t>
+                    <t t-if="o.is_affaire_id.name">
+                        <span t-field="o.is_affaire_id.name"/>
+                    </t>
+                    <span t-field="o.name"/>
+                </b>
                 du <span t-field="o.date_order"  t-field-options='{"format": "dd/MM/yyyy"}' />
             </h3>
             <br />
