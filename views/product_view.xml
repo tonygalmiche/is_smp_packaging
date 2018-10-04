@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <!-- is.matiere -->
+    <record id="is_matiere_form" model="ir.ui.view">
+        <field name="name">is.matiere.form</field>
+        <field name="model">is.matiere</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_matiere_tree" model="ir.ui.view">
+        <field name="name">is.matiere.tree</field>
+        <field name="model">is.matiere</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="is_matiere_search" model="ir.ui.view">
+        <field name="name">is.matiere.search</field>
+        <field name="model">is.matiere</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+           </search>
+        </field>
+    </record>
+    <record  id="is_matiere_action" model="ir.actions.act_window">
+        <field name="name">matieres</field>
+        <field name="res_model">is.matiere</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- is.categorie.article --> 
+    <record id="is_categorie_article_form" model="ir.ui.view">
+        <field name="name">is.categorie.article.form</field>
+        <field name="model">is.categorie.article</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_categorie_article_tree" model="ir.ui.view">
+        <field name="name">is.categorie.article.tree</field>
+        <field name="model">is.categorie.article</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="is_categorie_article_search" model="ir.ui.view">
+        <field name="name">is.categorie.article.search</field>
+        <field name="model">is.categorie.article</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+           </search>
+        </field>
+    </record>
+    <record  id="is_categorie_article_action" model="ir.actions.act_window">
+        <field name="name">Type d'article</field>
+        <field name="res_model">is.categorie.article</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <!-- product.template -->
+    <record id="is_product_template_form_view" model="ir.ui.view">
+        <field name="name">product_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="is_ref_client"/>
+                <field name="is_matiere_id"/>
+                <field name="is_traitement"/>
+                <field name="is_commentaire"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_product_template_tree_view" model="ir.ui.view">
+        <field name="name">is_product_template_tree_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_ref_client"/>
+                <field name="is_matiere_id"/>
+                <field name="is_traitement"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_product_template_search_view" model="ir.ui.view">
+        <field name="name">is_product_template_search_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_ref_client"/>
+                <field name="is_matiere_id"/>
+                <field name="is_traitement"/>
+            </field>
+        </field>
+    </record>
+
+
+    <!-- product.supplierinfo -->
+    <record id="is_product_supplierinfo_tree_view" model="ir.ui.view">
+        <field name="name">is_product_supplierinfo_tree_view</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_certificat_matiere"/>
+                <field name="is_categorie_article_id"/>
+            </field>
+        </field>
+    </record>
+   <record id="is_product_supplierinfo_form_view" model="ir.ui.view">
+        <field name="name">is_product_supplierinfo_form_view</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <field name="product_code" position="after">
+                <field name="is_certificat_matiere"/>
+                <field name="is_categorie_article_id"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
+
+
+
+

@@ -2,4 +2,7 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_is_export_compta,access_is_export_compta,model_is_export_compta,base.group_user,1,1,1,1
 access_is_export_compta_ligne,access_is_export_compta_ligne,model_is_export_compta_ligne,base.group_user,1,1,1,1
 access_is_profession,access_is_profession,model_is_profession,base.group_user,1,1,1,1
+access_is_affaire,access_is_affaire,model_is_affaire,base.group_user,1,1,1,1
+access_is_matiere,access_is_matiere,model_is_matiere,base.group_user,1,1,1,1
+access_is_categorie_article,access_is_categorie_article,model_is_categorie_article,base.group_user,1,1,1,1
 

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+<template id="is_report_purchasequotation_document" name="is_report_purchasequotation_document" inherit_id="purchase.report_purchasequotation_document">
+    <xpath expr="//div[@class='page']" position="replace">
+        <div class="page">
+            <div class="oe_structure"/>
+
+            <!--
+            <div class="row mt32 mb32">
+                <div class="col-xs-6">
+                    <strong>Shipping address:</strong>
+                    <div t-if="o.dest_address_id">
+                        <div t-field="o.dest_address_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True, "phone_icons": True}'/>
+                    </div>
+                    <div t-if="not o.dest_address_id and o.picking_type_id.warehouse_id">
+                        <span t-field="o.picking_type_id.warehouse_id.name"/>
+                        <div t-field="o.picking_type_id.warehouse_id.partner_id"
+                            t-options='{"widget": "contact", "fields": ["address", "phone", "fax"], "no_marker": True, "phone_icons": True}'/>
+                    </div>
+                </div>
+                <div class="col-xs-5 col-xs-offset-1">
+                    <div t-field="o.partner_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True, "phone_icons": True}'/>
+                        <p t-if="o.partner_id.vat">VAT: <span t-field="o.partner_id.vat"/></p>
+                </div>
+            </div>
+            -->
+
+            <h3>
+                Demande de prix 
+                <t t-if="o.partner_id.is_code_fournisseur">
+                    <span t-field="o.partner_id.is_code_fournisseur"/>
+                </t>
+                <t t-if="o.is_affaire_id.client_id.is_code_client">
+                    <span t-field="o.is_affaire_id.client_id.is_code_client"/>
+                </t>
+                <t t-if="o.is_affaire_id.name">
+                    <span t-field="o.is_affaire_id.name"/>
+                </t>
+                <span t-field="o.name"/> 
+                du <span t-field="o.date_order"  t-field-options='{"format": "dd/MM/yyyy"}' />
+            </h3>
+            <br />
+
+            <p>Suivi par <span t-field="o.create_uid.name"/> - Tél : <span t-field="o.create_uid.phone"/> - Courriel : <span t-field="o.create_uid.email"/></p>
+
+            <br />
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th><strong>Ref</strong></th>
+                        <th><strong>Description</strong></th>
+                        <th class="text-right"><strong>Qté</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.order_line" t-as="order_line">
+                        <td>
+                            <t t-if="order_line.product_id.default_code">
+                                <span t-field="order_line.product_id.default_code"/><br />
+                            </t>
+                            <t t-foreach="order_line.product_id.seller_ids" t-as="l">
+                                <t t-if="l.name==o.partner_id">
+                                    <span t-field="l.product_code"/>
+                                </t>
+                            </t>
+                        </td>
+                        <td>
+                            <span t-field="order_line.name"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="order_line.product_qty"/>
+                            <span t-field="order_line.product_uom" groups="product.group_uom"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <t t-if="o.is_delai">
+                Délai souhaité : <b><span t-field="o.is_delai"/></b>
+                <br />
+            </t>
+            <br />
+            <p t-field="o.notes"/>
+            <div class="oe_structure"/>
+        </div>
+    </xpath>
+</template>
+
+
+</odoo>
+    

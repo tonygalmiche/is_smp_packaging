@@ -2,6 +2,25 @@
 <odoo>
     <data>
         <menuitem   
+            name="SMP"  
+            id="is_smp_main_menu" 
+            sequence="1"
+        />
+        <menuitem   
+            name="SMP"  
+            id="is_smp_menu" 
+            parent="is_smp_main_menu" 
+            sequence="10"
+        />
+        <menuitem
+            name="Affaires"
+            id="is_affaire_menu" 
+            action="is_affaire_action"
+            parent="is_smp_menu" 
+            sequence="10"
+        />
+
+        <menuitem   
             name="Tables"  
             id="is_purchase_table_menu" 
             parent="purchase.menu_purchase_root" 
@@ -9,10 +28,26 @@
         />
         <menuitem
             name="Professions"
-            id="is_profession_menu" 
-            action="is_profession_action"  
-            parent="is_purchase_table_menu" 
+            id="is_profession_menu"
+            action="is_profession_action"
+            parent="is_purchase_table_menu"
             sequence="10"
         />
+        <menuitem
+            name="Matières"
+            id="is_matiere_menu"
+            action="is_matiere_action"
+            parent="is_purchase_table_menu"
+            sequence="20"
+        />
+        <menuitem
+            name="Catégories articles"
+            id="is_categorie_article_menu"
+            action="is_categorie_article_action"
+            parent="is_purchase_table_menu" 
+            sequence="30"
+        />
+
+
     </data>
 </odoo>
