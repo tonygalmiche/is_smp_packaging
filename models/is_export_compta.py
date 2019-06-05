@@ -115,7 +115,7 @@ class is_export_compta(models.Model):
                     piece=''
 
 
-                libelle=row[8]
+                libelle=(row[3] or u'') #+u'/'+(row[8] or u'')
 
 
                 vals={
