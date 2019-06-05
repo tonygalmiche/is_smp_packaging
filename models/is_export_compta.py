@@ -89,7 +89,8 @@ class is_export_compta(models.Model):
                     aj.name,
                     aml.name,
                     aml.debit, 
-                    aml.credit
+                    aml.credit,
+                    aj.type
                 FROM account_move_line aml left outer join account_invoice ai        on aml.move_id=ai.move_id
                                            inner join account_account aa             on aml.account_id=aa.id
                                            left outer join res_partner rp            on aml.partner_id=rp.id
@@ -103,6 +104,7 @@ class is_export_compta(models.Model):
 #                ORDER BY aml.date, ai.number, rp.name, aa.code, ai.type, ai.date_due, rp.supplier,ai.reference,aj.name,aml.name
 #            """
             cr.execute(sql)
+
             for row in cr.fetchall():
                 journal=str(row[7][-2:])
                 compte=str(row[1])
@@ -114,9 +116,10 @@ class is_export_compta(models.Model):
                 if piece=='None':
                     piece=''
 
-
-                libelle=(row[3] or u'') #+u'/'+(row[8] or u'')
-
+                if row[11] in ['sale','purchase']:
+                    libelle=(row[3] or u'')
+                else:
+                    libelle=(row[8] or u'')
 
                 vals={
                     'export_compta_id'  : obj.id,
