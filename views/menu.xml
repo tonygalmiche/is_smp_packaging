@@ -20,6 +20,17 @@
             sequence="10"
         />
 
+
+
+        <menuitem
+            name="Lignes de commandes"
+            id="is_purchase_order_line_menu" 
+            action="is_purchase_order_line_action"
+            parent="purchase.menu_procurement_management" 
+            sequence="10"
+        />
+
+
         <menuitem   
             name="Tables"  
             id="is_purchase_table_menu" 

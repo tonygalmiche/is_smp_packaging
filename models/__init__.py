@@ -8,4 +8,5 @@ import res_partner
 import stock_picking
 import stock_pack_operation
 import is_affaire
+import is_purchase_order_line
 
