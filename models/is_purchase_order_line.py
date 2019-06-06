@@ -26,6 +26,9 @@ class is_purchase_order_line(models.Model):
     price_total             = fields.Float(u'Total TTC', digits=(14,2))
     date_planned            = fields.Date(u"Date prévue")
 
+
+# to_char(aff_date_creation,'YYYY')='[m
+
     def init(self):
         cr=self._cr
         tools.drop_view_if_exists(cr, 'is_purchase_order_line')
@@ -34,7 +37,7 @@ class is_purchase_order_line(models.Model):
                 select
                     pol.id,
                     pol.order_id,
-                    po.date_order,
+                    to_date(to_char(po.date_order,'YYYY-MM-DD'),'YYYY-MM-DD') date_order,
                     po.partner_id,
                     po.state,
                     po.invoice_status,
@@ -49,7 +52,7 @@ class is_purchase_order_line(models.Model):
                     pol.price_unit,
                     pol.price_subtotal,
                     pol.price_total,
-                    pol.date_planned
+                    to_date(to_char(pol.date_planned,'YYYY-MM-DD'),'YYYY-MM-DD') date_planned
                 from purchase_order po inner join purchase_order_line pol on po.id=pol.order_id
                                        inner join product_product      pp on pol.product_id=pp.id
                                        inner join product_template     pt on pp.product_tmpl_id=pt.id
