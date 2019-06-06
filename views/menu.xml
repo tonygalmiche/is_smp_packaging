@@ -33,11 +33,20 @@
 
         <menuitem
             name="Lignes de factures"
-            id="is_account_invoice_line_menu" 
-            action="is_account_invoice_line_action"
+            id="is_account_invoice_line_customer_menu" 
+            action="is_account_invoice_line_customer_action"
+            parent="account.menu_finance_receivables" 
+            sequence="11"
+        />
+
+        <menuitem
+            name="Lignes de factures"
+            id="is_account_invoice_line_supplier_menu" 
+            action="is_account_invoice_line_supplier_action"
             parent="account.menu_finance_payables" 
             sequence="11"
         />
+
 
 
 

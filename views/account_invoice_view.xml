@@ -37,6 +37,7 @@
                 <field name="partner_id" position="after">
                     <field name="is_journal_banque_id"/>
                     <field name="is_num_machine"/>
+                    <field name="is_affaire_id"/>
                     <field name="is_num_bl"/>
                     <field name="is_notre_ref"/>
                     <field name="is_votre_commande"/>
@@ -53,6 +54,13 @@
                         <field name="is_tampon"/>
                     </group>
                 </field>
+
+                <field name="quantity" position="before">
+                    <field name="is_affaire_id"/>
+                </field>
+
+
+
             </field>
         </record>
 
@@ -67,6 +75,7 @@
                 </xpath>
                 <xpath expr="//field[@name='user_id']" position="replace" >
                     <field name="is_num_machine"/>
+                    <field name="is_affaire_id"/>
                     <field name="is_num_bl"/>
                     <field name="is_notre_ref"/>
                     <field name="is_votre_commande"/>
