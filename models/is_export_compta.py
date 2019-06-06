@@ -13,10 +13,10 @@ class is_export_compta(models.Model):
     _name='is.export.compta'
     _order='name desc'
 
-    name               = fields.Char("N°Folio"      , readonly=True)
-    journal_id         = fields.Many2one('account.journal', 'Journal')
-    date_debut         = fields.Date("Date de début", required=True)
-    date_fin           = fields.Date("Date de fin"  , required=True)
+    name               = fields.Char(u"N°Folio"      , readonly=True)
+    journal_id         = fields.Many2one('account.journal', u'Journal')
+    date_debut         = fields.Date(u"Date de début", required=True)
+    date_fin           = fields.Date(u"Date de fin"  , required=True)
     ligne_ids          = fields.One2many('is.export.compta.ligne', 'export_compta_id', u'Lignes')
     _defaults = {
     }
@@ -220,16 +220,16 @@ class is_export_compta_ligne(models.Model):
     _description = u"Lignes d'export en compta"
     _order='date_facture'
 
-    export_compta_id = fields.Many2one('is.export.compta', 'Export Compta', required=True, ondelete='cascade')
-    date_facture     = fields.Date("Date")
-    journal          = fields.Char("Journal")
-    compte           = fields.Char("N°Compte")
-    piece            = fields.Char("Pièce")
-    libelle          = fields.Char("Libellé")
-    debit            = fields.Float("Débit")
-    credit           = fields.Float("Crédit")
-    devise           = fields.Char("Devise")
-    commentaire      = fields.Char("Commentaire")
+    export_compta_id = fields.Many2one('is.export.compta', u'Export Compta', required=True, ondelete='cascade')
+    date_facture     = fields.Date(u"Date")
+    journal          = fields.Char(u"Journal")
+    compte           = fields.Char(u"N°Compte")
+    piece            = fields.Char(u"Pièce")
+    libelle          = fields.Char(u"Libellé")
+    debit            = fields.Float(u"Débit")
+    credit           = fields.Float(u"Crédit")
+    devise           = fields.Char(u"Devise")
+    commentaire      = fields.Char(u"Commentaire")
 
     _defaults = {
         'journal': 'VTE',

@@ -7,9 +7,9 @@ from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
-    is_devis      = fields.Char('Devis n°')
-    is_delai      = fields.Date('Délai')
-    is_affaire_id = fields.Many2one('is.affaire', 'Affaire')
+    is_devis      = fields.Char(u'Devis n°')
+    is_delai      = fields.Date(u'Délai')
+    is_affaire_id = fields.Many2one('is.affaire', u'Affaire')
 
 
 

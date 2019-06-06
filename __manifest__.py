@@ -2,10 +2,8 @@
 {
     'name'     : 'InfoSaône - Module Odoo pour SMP Packaging',
     'version'  : '0.1',
-    'author'   : 'InfoSaône',
-    'category' : 'InfoSaône',
-
-
+    'author'   : u'InfoSaône',
+    'category' : u'InfoSaône',
     'description': """
 InfoSaône - Module Odoo pour SMP Packaging
 ===================================================

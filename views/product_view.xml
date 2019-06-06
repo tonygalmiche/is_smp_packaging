@@ -54,6 +54,8 @@
                 <sheet>
                     <group>
                         <field name="name" />
+                        <field name="account_income_id"  domain="[('internal_type','=','other'),('deprecated','=',False)]"/>
+                        <field name="account_expense_id" domain="[('internal_type','=','other'),('deprecated','=',False)]"/>
                     </group>
                 </sheet>
             </form>
@@ -65,6 +67,8 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name" />
+                <field name="account_income_id"/>
+                <field name="account_expense_id"/>
             </tree>
         </field>
     </record>
@@ -73,7 +77,9 @@
         <field name="model">is.categorie.article</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name" />
+                <field name="name"/>
+                <field name="account_income_id"/>
+                <field name="account_expense_id"/>
            </search>
         </field>
     </record>
@@ -85,15 +91,84 @@
     </record>
 
 
+
+    <!-- Initialiser compte de revenus et de dépenses des articles -->
+    <record id="init_account_product_action_server" model="ir.actions.server">
+         <field name="name">Initialiser compte de revenus et de dépenses des articles</field>
+        <field name="model_id" ref="model_is_categorie_article"/>
+        <field name="code">records.init_account_product_action()</field>
+    </record>
+    <record id="init_account_product_ir_value" model="ir.values">
+        <field eval="'client_action_multi'" name="key2"/>
+        <field eval="'is.categorie.article'" name="model"/>
+        <field name="name">Initialiser compte de revenus et de dépenses des articles</field>
+        <field eval="'ir.actions.server,%d'%init_account_product_action_server" name="value"/>
+    </record>
+
+
+
+
+
+
+
+    <!-- product.product -->
+    <!--
+    <record id="is_product_normal_form_view" model="ir.ui.view">
+        <field name="name">is_product_normal_form_view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="barcode" position="replace">
+                <field name="barcode" invisible="1"/>
+            </field>
+        </field>
+    </record>
+    -->
+
+    <record id="is_product_template_only_form_view" model="ir.ui.view">
+        <field name="name">is_product_template_only_form_view</field>
+        <field name="model">product.template</field>
+        <field name="mode">primary</field>
+        <field name="priority" eval="8" />
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="barcode" position="replace">
+                <field name="barcode" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+
+    <!-- view common to both template and product -->
+    <record id="is_view_template_property_form" model="ir.ui.view">
+        <field name="name">is_view_template_property_form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_template_property_form"/>
+        <field name="arch" type="xml">
+            <field name="weight" position="replace"/>
+
+            <field name="list_price" position="before">
+                <field name="weight"/>
+            </field>
+        </field>
+    </record>
+
+
+
     <!-- product.template -->
     <record id="is_product_template_form_view" model="ir.ui.view">
         <field name="name">product_template_form_view</field>
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
+            <field name="categ_id" position="replace">
+                <field name="categ_id" invisible="1"/>
+            </field>
             <field name="categ_id" position="after">
                 <field name="is_ref_client"/>
+                <field name="is_categorie_article_id"/>
                 <field name="is_matiere_id"/>
+                <field name="is_certificat_matiere"/>
                 <field name="is_traitement"/>
                 <field name="is_commentaire"/>
             </field>
@@ -104,10 +179,17 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="product.product_template_tree_view"/>
         <field name="arch" type="xml">
+
+            <field name="categ_id" position="replace">
+                <field name="categ_id" invisible="1"/>
+            </field>
             <field name="name" position="after">
                 <field name="is_ref_client"/>
+                <field name="is_categorie_article_id"/>
                 <field name="is_matiere_id"/>
+                <field name="is_certificat_matiere"/>
                 <field name="is_traitement"/>
+                <field name="weight"/>
             </field>
         </field>
     </record>
@@ -118,7 +200,9 @@
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="is_ref_client"/>
+                <field name="is_categorie_article_id"/>
                 <field name="is_matiere_id"/>
+                <field name="is_certificat_matiere"/>
                 <field name="is_traitement"/>
             </field>
         </field>
@@ -126,6 +210,7 @@
 
 
     <!-- product.supplierinfo -->
+    <!--
     <record id="is_product_supplierinfo_tree_view" model="ir.ui.view">
         <field name="name">is_product_supplierinfo_tree_view</field>
         <field name="model">product.supplierinfo</field>
@@ -148,6 +233,7 @@
             </field>
         </field>
     </record>
+    -->
 
 </odoo>
 
