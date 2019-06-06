@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+
+
+        <record id="is_invoice_supplier_form" model="ir.ui.view">
+            <field name="name">is_invoice_supplier_form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="attributes">
+                    <attribute name="class">oe_form_sheet_width_wider</attribute>
+                </xpath>
+                <field name="reference" position="after">
+                    <field name="is_affaire_id"/>
+                </field>
+
+                <field name="quantity" position="before">
+                    <field name="is_affaire_id"/>
+                </field>
+
+
+
+            </field>
+        </record>
+
+
         <record id="is_invoice_form" model="ir.ui.view">
             <field name="name">is_invoice_form</field>
             <field name="model">account.invoice</field>

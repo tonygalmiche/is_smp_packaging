@@ -6,4 +6,5 @@ access_is_affaire,access_is_affaire,model_is_affaire,base.group_user,1,1,1,1
 access_is_matiere,access_is_matiere,model_is_matiere,base.group_user,1,1,1,1
 access_is_categorie_article,access_is_categorie_article,model_is_categorie_article,base.group_user,1,1,1,1
 access_is_purchase_order_line,access_is_purchase_order_line,model_is_purchase_order_line,base.group_user,1,0,0,0
+access_is_account_invoice_line,access_is_account_invoice_line,model_is_account_invoice_line,base.group_user,1,0,0,0
 
