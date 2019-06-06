@@ -91,6 +91,7 @@
             <field name="arch" type="xml">
                 <field name="journal_id" position="after">
                     <field name="is_num_machine"/>
+                    <field name="is_affaire_id"/>
                     <field name="is_num_bl"/>
                     <field name="is_notre_ref"/>
                     <field name="is_votre_commande"/>
