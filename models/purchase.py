@@ -10,7 +10,23 @@ class PurchaseOrder(models.Model):
     is_devis      = fields.Char(u'Devis n°')
     is_delai      = fields.Date(u'Délai')
     is_affaire_id = fields.Many2one('is.affaire', u'Affaire')
+    is_devis_id   = fields.Many2one('purchase.order', u"Devis d'origine",domain=[('state', '=', ['draft','sent','to_approve'])],)
 
+
+    @api.multi
+    def convertir_en_commande(self):
+        for obj in self:
+            copy = obj.copy()
+            copy.is_devis_id = obj.id
+            res= {
+                'name': u'Devis transformé en commande',
+                'view_mode': 'form',
+                'view_type': 'form',
+                'res_model': 'purchase.order',
+                'type': 'ir.actions.act_window',
+                'res_id': copy.id,
+            }
+            return res
 
 
 class PurchaseOrderLine(models.Model):
