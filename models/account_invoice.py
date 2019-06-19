@@ -29,6 +29,15 @@ class AccountInvoice(models.Model):
     is_votre_commande     = fields.Char(u'Votre commande')
     is_signature          = fields.Boolean(u'Signature direction', help=u"Ajouter la signature de la direction sur la facture")
     is_tampon             = fields.Boolean(u'Tampon direction'   , help=u"Ajouter le tampon avec la signature de la direction sur la facture")
+    is_date_echeance      = fields.Date(u"Date d'échéance")
+
+
+    @api.multi
+    def write(self, vals):
+        if not self.is_date_echeance and not vals.get('is_date_echeance'):
+            vals['is_date_echeance']=self.date_due
+        res=super(AccountInvoice, self).write(vals)
+        return res
 
 
     def _prepare_invoice_line_from_po_line(self, line):
@@ -39,8 +48,6 @@ class AccountInvoice(models.Model):
         data['is_affaire_id'] = is_affaire_id
         print line,data
         return data
-
-
 
 
 class AccountInvoiceLine(models.Model):
