@@ -76,7 +76,7 @@ class is_sous_ensemble(models.Model):
                             if len(lines)==0:
 
                                 #** Recherche categorie ************************
-                                cat = line[6]
+                                cat = unicode(line[6].strip(),'utf-8')
                                 categories = self.env['is.categorie.article'].search([('name','=',cat)],order="id desc",limit=1)
                                 anomalies=[]
                                 categorie_article_id = False
@@ -85,19 +85,20 @@ class is_sous_ensemble(models.Model):
                                     categorie_article_id = categories[0].id
                                     account_expense_id = categories[0].account_expense_id.id
                                 else:
-                                    anomalies.append(u"Catégorie article '"+str(cat)+u"' inconnue")
+                                    anomalies.append(u"Catégorie article '"+cat+u"' inconnue")
                                 #***************************************************
 
 
                                 #** Recherche matière **************************
                                 matiere_id = False
-                                mat = line[2].strip()
+                                mat = unicode(line[2].strip(),'utf-8')
                                 if mat!='':
                                     matieres = self.env['is.matiere'].search([('name','=',mat)],order="id desc",limit=1)
                                     if matieres:
                                         matiere_id = matieres[0].id
                                     else:
-                                        anomalies.append(u"Matière article '"+str(mat)+u"' inconnue")
+                                        anomalies.append(u"Matière '"+mat+u"' inconnue")
+                                        #anomalies.append(mat)
                                 #***************************************************
 
 
@@ -118,10 +119,6 @@ class is_sous_ensemble(models.Model):
                                         'property_account_expense_id': account_expense_id,
                                     }
                                     product=product_obj.create(vals)
-
-
-
-
                                 vals={
                                     'affaire_id'          : obj.affaire_id.id,
                                     'sous_ensemble_id'    : obj.id,
@@ -136,7 +133,8 @@ class is_sous_ensemble(models.Model):
                                     'categorie_article_id': categorie_article_id,
                                     'anomalie'            : ', '.join(anomalies),
                                 }
-                                res=line_obj.create(vals)
+                                line=line_obj.create(vals)
+                                line.actualiser()
                 return self.acceder_lignes()
 
 
@@ -168,15 +166,22 @@ class is_sous_ensemble_line(models.Model):
     pu_ht                = fields.Float(u"PU HT")
     total_ht             = fields.Float(u"Total HT")
     order_ids            = fields.Many2many('purchase.order', 'is_sous_ensemble_line_order_rel', 'line_id','order_id', string=u"Devis")
+    order_nb             = fields.Integer(u"Nb devis")
     anomalie             = fields.Char(u"Anomalie")
+    order_line_ids       = fields.One2many('is.sous.ensemble.line.order', 'line_id', u'Lignes de commandes', readonly=True)
 
 
     @api.multi
     def creer_devis_action(self):
-        partner=self.env['res.partner'].search([],limit=1)[0]
+        affaire_id = False
+        for obj in self:
+            affaire_id=obj.affaire_id.id
+        user = self.env['res.users'].search([('id','=',self._uid)],limit=1)[0]
+        partner = user.partner_id
         vals={
-            'partner_id'      : partner.id,
-            'fiscal_position_id' : partner.property_account_position_id.id,
+            'partner_id'        : partner.id,
+            'is_affaire_id'     : affaire_id,
+            'fiscal_position_id': partner.property_account_position_id.id,
         }
         order=self.env['purchase.order'].create(vals)
         if order:
@@ -195,7 +200,51 @@ class is_sous_ensemble_line(models.Model):
                     'date_planned': date_planned,
                 }
                 line=order_line_obj.create(vals)
-                obj.order_ids=[(4, order.id)]
+                obj.actualiser()
+                #obj.order_ids=[(4, order.id)]
+
+
+    @api.multi
+    def actualiser(self):
+        for obj in self:
+            #obj.order_ids.unlink()
+            #orders = self.env['purchase.order'].search([('is_affaire_id','=',obj.affaire_id.id)],order="id desc",limit=20)
+            #for order in orders:
+            #    obj.order_ids=[(4, order.id)]
+            #obj.order_nb = len(orders)
+            obj.order_line_ids.unlink()
+            lines = self.env['purchase.order.line'].search([('product_id','=',obj.product_id.id)],order="id desc",limit=20)
+            nb=0
+            for line in lines:
+                nb+=1
+                vals={
+                    'affaire_id'      : obj.affaire_id.id,
+                    'sous_ensemble_id': obj.sous_ensemble_id.id,
+                    'line_id'         : obj.id,
+                    'order_id'        : line.order_id.id,
+                    'partner_id'      : line.partner_id.id,
+                    'product_id'      : line.product_id.id,
+                    'quantite'        : line.product_qty,
+                    'prix'            : line.price_unit,
+                    'state'           : line.order_id.state,
+                }
+                line=self.env['is.sous.ensemble.line.order'].create(vals)
+            obj.order_nb = nb
+
+class is_sous_ensemble_line_order(models.Model):
+    _name='is.sous.ensemble.line.order'
+
+    affaire_id           = fields.Many2one('is.affaire',u'Affaire', required=True)
+    sous_ensemble_id     = fields.Many2one('is.sous.ensemble', u'Sous-ensemble', required=True)
+    line_id              = fields.Many2one('is.sous.ensemble.line', u'Ligne', required=True, ondelete='cascade')
+    order_id             = fields.Many2one('purchase.order', u'Commande')
+    partner_id           = fields.Many2one('res.partner', u'Fournisseur')
+    product_id           = fields.Many2one('product.product', u'Référence')
+    quantite             = fields.Float(u"Quantité")
+    prix                 = fields.Float(u"PU HT")
+    state                = fields.Char(u"Etat")
+
+
 
 
 

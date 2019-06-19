@@ -73,6 +73,12 @@
             <field name="model">is.sous.ensemble.line</field>
             <field name="arch" type="xml">
                 <form>
+                    <header>
+                        <button 
+                            string='Actualiser' 
+                            name="actualiser" type="object"
+                        />
+                    </header>
                     <sheet>
                         <group>
                             <group string="Bureau d'études">
@@ -100,10 +106,13 @@
                             </group>
                         </group>
                         <group>
-                            <field name="order_ids" nolabel="1">
+                            <field name="order_line_ids" nolabel="1">
                                 <tree>
-                                    <button string="Accèder au devis" name="acceder_devis" type="object" icon="fa-search-plus"  />
-                                    <field name="name" string="Devis"/>
+                                    <field name="order_id"   widget="many2one_clickable"/>
+                                    <field name="partner_id" widget="many2one_clickable"/>
+                                    <field name="quantite"/>
+                                    <field name="prix"/>
+                                    <field name="state"/>
                                 </tree>
                             </field>
                         </group>
@@ -128,7 +137,7 @@
                     <field name="categorie_article_id" />
                     <field name="anomalie" />
                     <field name="suivi_par_id" />
-                    <field name="order_ids"/>
+                    <field name="order_nb"/>
                     <field name="num_cde" />
                     <field name="date_cde" />
                     <field name="delai" />
@@ -154,7 +163,9 @@
                     <field name="matiere_id" />
                     <field name="fabriquant" />
                     <field name="categorie_article_id" />
+                    <field name="anomalie" />
                     <field name="suivi_par_id" />
+                    <field name="order_nb"/>
                     <group expand="0" string="Regrouper par...">
                         <filter string="Machine" context="{'group_by':'affaire_id'}"/>
                         <filter string="Sous-ensemble" context="{'group_by':'sous_ensemble_id'}"/>
