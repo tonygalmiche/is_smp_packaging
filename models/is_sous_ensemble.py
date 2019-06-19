@@ -85,7 +85,7 @@ class is_sous_ensemble(models.Model):
                                     categorie_article_id = categories[0].id
                                     account_expense_id = categories[0].account_expense_id.id
                                 else:
-                                    anomalies.append(u"Catégorie article '"+str(cat)+"' inconnue")
+                                    anomalies.append(u"Catégorie article '"+str(cat)+u"' inconnue")
                                 #***************************************************
 
 
@@ -97,7 +97,7 @@ class is_sous_ensemble(models.Model):
                                     if matieres:
                                         matiere_id = matieres[0].id
                                     else:
-                                        anomalies.append(u"Matière article '"+str(mat)+"' inconnue")
+                                        anomalies.append(u"Matière article '"+str(mat)+u"' inconnue")
                                 #***************************************************
 
 
