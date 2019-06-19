@@ -48,6 +48,17 @@
 
 
         <menuitem
+            name="Modèles de mails"
+            id="is_mail_template_menu" 
+            action="is_mail_template_action"
+            parent="purchase.menu_procurement_management" 
+            sequence="90"
+        />
+
+
+
+
+        <menuitem
             name="Lignes de factures"
             id="is_account_invoice_line_customer_menu" 
             action="is_account_invoice_line_customer_action"
