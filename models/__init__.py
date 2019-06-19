@@ -10,5 +10,6 @@ import stock_pack_operation
 import is_affaire
 import is_purchase_order_line
 import is_account_invoice_line
+import is_sous_ensemble
 #import ir_mail_server
 

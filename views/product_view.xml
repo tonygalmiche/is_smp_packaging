@@ -165,6 +165,7 @@
                 <field name="categ_id" invisible="1"/>
             </field>
             <field name="categ_id" position="after">
+                <field name="is_fabriquant"/>
                 <field name="is_ref_client"/>
                 <field name="is_categorie_article_id"/>
                 <field name="is_matiere_id"/>
@@ -199,6 +200,7 @@
         <field name="inherit_id" ref="product.product_template_search_view"/>
         <field name="arch" type="xml">
             <field name="name" position="after">
+                <field name="is_fabriquant"/>
                 <field name="is_ref_client"/>
                 <field name="is_categorie_article_id"/>
                 <field name="is_matiere_id"/>

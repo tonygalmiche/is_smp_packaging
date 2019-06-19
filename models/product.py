@@ -33,6 +33,7 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     is_ref_client           = fields.Char(u"Référence client")
+    is_fabriquant           = fields.Char(u"Fabriquant")
     is_matiere_id           = fields.Many2one('is.matiere', u'Matière')
     is_traitement           = fields.Char(u"Traitement")
     is_commentaire          = fields.Text(u"Commentaire")

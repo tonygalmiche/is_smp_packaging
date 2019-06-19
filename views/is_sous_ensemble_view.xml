@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- is.sous.ensemble --> 
+        <record id="is_sous_ensemble_form" model="ir.ui.view">
+            <field name="name">is.sous.ensemble.form</field>
+            <field name="model">is.sous.ensemble</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button 
+                            string='Importer la nomenclature' 
+                            name="importer_nomenclature" type="object"
+                        />
+                        <!--    confirm="Voulez-vous vraiment importer la nomenclature ?" -->
+                        <button 
+                            string='Voir les lignes' 
+                            name="acceder_lignes" type="object"
+                        />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name" />
+                                <field name="affaire_id" />
+                            </group>
+                        </group>
+                        <group>
+                            <field name="designation" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="is_sous_ensemble_tree" model="ir.ui.view">
+            <field name="name">is.sous.ensemble.tree</field>
+            <field name="model">is.sous.ensemble</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="affaire_id" />
+                    <field name="designation" />
+                </tree>
+            </field>
+        </record>
+        <record id="is_sous_ensemble_search" model="ir.ui.view">
+            <field name="name">is.sous.ensemble.search</field>
+            <field name="model">is.sous.ensemble</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+                    <field name="affaire_id" />
+                    <field name="designation" />
+                    <group expand="0" string="Regrouper par...">
+                        <filter string="Machine" context="{'group_by':'affaire_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        <record  id="is_sous_ensemble_action" model="ir.actions.act_window">
+            <field name="name">Sous-ensemble</field>
+            <field name="res_model">is.sous.ensemble</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <!-- is.sous.ensemble.line --> 
+        <record id="is_sous_ensemble_line_form" model="ir.ui.view">
+            <field name="name">is.sous.ensemble.line.form</field>
+            <field name="model">is.sous.ensemble.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group string="Bureau d'études">
+                                <field name="affaire_id" />
+                                <field name="sous_ensemble_id" />
+                                <field name="ordre" />
+                                <field name="product_id" />
+                                <field name="creation_product" />
+                                <field name="matiere_id" />
+                                <field name="fabriquant" />
+                                <field name="quantite" />
+                                <field name="categorie_article_id" />
+                            </group>
+                            <group string="Achats">
+                                <field name="suivi_par_id" />
+                                <field name="num_cde" />
+                                <field name="date_cde" />
+                                <field name="delai" />
+                                <field name="recu_le" />
+                                <field name="code" />
+                                <field name="fournisseur_id" />
+                                <field name="ref_fournisseur" />
+                                <field name="pu_ht" />
+                                <field name="total_ht" />
+                            </group>
+                        </group>
+                        <group>
+                            <field name="order_ids" nolabel="1">
+                                <tree>
+                                    <button string="Accèder au devis" name="acceder_devis" type="object" icon="fa-search-plus"  />
+                                    <field name="name" string="Devis"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="is_sous_ensemble_line_tree" model="ir.ui.view">
+            <field name="name">is.sous.ensemble.line.tree</field>
+            <field name="model">is.sous.ensemble.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="affaire_id"        widget="many2one_clickable"/>
+                    <field name="sous_ensemble_id"  widget="many2one_clickable"/>
+                    <field name="ordre" />
+                    <field name="product_id"        widget="many2one_clickable"/>
+                    <field name="creation_product" />
+                    <field name="matiere_id" />
+                    <field name="fabriquant" />
+                    <field name="quantite" />
+                    <field name="categorie_article_id" />
+                    <field name="anomalie" />
+                    <field name="suivi_par_id" />
+                    <field name="order_ids"/>
+                    <field name="num_cde" />
+                    <field name="date_cde" />
+                    <field name="delai" />
+                    <field name="recu_le" />
+                    <field name="code" />
+                    <field name="fournisseur_id" />
+                    <field name="ref_fournisseur" />
+                    <field name="pu_ht" />
+                    <field name="total_ht" />
+
+                </tree>
+            </field>
+        </record>
+        <record id="is_sous_ensemble_line_search" model="ir.ui.view">
+            <field name="name">is.sous.ensemble.line.search</field>
+            <field name="model">is.sous.ensemble.line</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="product_id" />
+                    <field name="ordre" />
+                    <field name="affaire_id" />
+                    <field name="sous_ensemble_id" />
+                    <field name="matiere_id" />
+                    <field name="fabriquant" />
+                    <field name="categorie_article_id" />
+                    <field name="suivi_par_id" />
+                    <group expand="0" string="Regrouper par...">
+                        <filter string="Machine" context="{'group_by':'affaire_id'}"/>
+                        <filter string="Sous-ensemble" context="{'group_by':'sous_ensemble_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+        <record  id="is_sous_ensemble_line_action" model="ir.actions.act_window">
+            <field name="name">Lignes de sous-ensemble</field>
+            <field name="res_model">is.sous.ensemble.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Créer devis achat -->
+        <record id="creer_devis_action_server" model="ir.actions.server">
+             <field name="name">Créer demande de devis</field>
+            <field name="model_id" ref="model_is_sous_ensemble_line"/>
+            <field name="code">records.creer_devis_action()</field>
+        </record>
+        <record id="creer_devis_action_ir_value" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'is.sous.ensemble.line'" name="model"/>
+            <field name="name">Créer demande de devis</field>
+            <field eval="'ir.actions.server,%d'%creer_devis_action_server" name="value"/>
+        </record>
+
+
+
+
+
+    </data>
+</openerp>

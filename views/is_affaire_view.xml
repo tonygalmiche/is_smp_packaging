@@ -23,6 +23,14 @@
                         <group>
                             <field name="commentaire" />
                         </group>
+                        <group>
+                            <field name="sous_ensemble_ids" nolabel="1">
+                                <tree>
+                                    <button string="Accèder au sous-ensemble" name="acceder_sous_ensemble" type="object" icon="fa-search-plus" />
+                                    <field name="name"/>
+                                </tree>
+                            </field>
+                        </group>
                     </sheet>
                 </form>
             </field>

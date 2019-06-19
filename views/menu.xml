@@ -19,6 +19,22 @@
             parent="is_smp_menu" 
             sequence="10"
         />
+        <menuitem
+            name="Sous-ensembles"
+            id="is_sous_ensemble_menu" 
+            action="is_sous_ensemble_action"  
+            parent="is_smp_menu" 
+            sequence="20"
+        />
+        <menuitem
+            name="Lignes de sous-ensembles"
+            id="is_sous_ensemble_line_menu" 
+            action="is_sous_ensemble_line_action"  
+            parent="is_smp_menu" 
+            sequence="30"
+        />
+
+
 
 
 
