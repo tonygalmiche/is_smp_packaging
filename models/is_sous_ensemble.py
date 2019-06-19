@@ -40,6 +40,7 @@ class is_sous_ensemble(models.Model):
                 'res_model': 'is.sous.ensemble.line',
                 'type': 'ir.actions.act_window',
                 'domain': [('sous_ensemble_id','=',obj.id)],
+                'limit': 200,
             }
 
 

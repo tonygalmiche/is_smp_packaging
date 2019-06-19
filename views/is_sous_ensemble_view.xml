@@ -156,7 +156,8 @@
             <field name="model">is.sous.ensemble.line</field>
             <field name="arch" type="xml">
                 <search>
-                    <field name="product_id" />
+                    <field name="reference" />
+                    <field name="designation" />
                     <field name="ordre" />
                     <field name="affaire_id" />
                     <field name="sous_ensemble_id" />
