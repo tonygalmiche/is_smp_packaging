@@ -127,6 +127,8 @@ class is_sous_ensemble(models.Model):
                                     'sous_ensemble_id'    : obj.id,
                                     'ordre'               : ordre,
                                     'product_id'          : product.id,
+                                    'reference'           : product.default_code,
+                                    'designation'         : product.name,
                                     'creation_product'    : creation_product,
                                     'matiere_id'          : matiere_id,
                                     'fabriquant'          : line[3],
@@ -148,6 +150,8 @@ class is_sous_ensemble_line(models.Model):
     sous_ensemble_id     = fields.Many2one('is.sous.ensemble', u'Sous-ensemble', required=True)
     ordre                = fields.Integer(u"Ligne")
     product_id           = fields.Many2one('product.product', u'Référence', domain=[('purchase_ok', '=', True)])
+    reference            = fields.Char(u'Référence', readonly=True)
+    designation          = fields.Char(u'Désignation', readonly=True)
     creation_product     = fields.Boolean(u"Création",help=u"Indique si l'article a été créé lors de l'importation",readonly=True)
     matiere_id           = fields.Many2one('is.matiere', u'Matière')
     fabriquant           = fields.Char(u"Fabriquant")
