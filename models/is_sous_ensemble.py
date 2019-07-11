@@ -221,7 +221,7 @@ class is_sous_ensemble_line(models.Model):
         ct=0
         for obj in self:
             ct+=1
-            print ct,'/',nb,obj
+            #print ct,'/',nb,obj
             obj.actualiser()
 
 
@@ -257,7 +257,6 @@ class is_sous_ensemble_line(models.Model):
                     #    if seller.name==line.order_id.partner_id:
                     #        obj.order_id       = line.order_id.id
 
-
                     obj.order_id        = line.order_id.id
                     obj.date_cde        = line.order_id.date_order
                     obj.delai           = line.order_id.is_delai
@@ -266,12 +265,7 @@ class is_sous_ensemble_line(models.Model):
                     obj.ref_fournisseur = line.order_id.is_devis
                     obj.pu_ht           = line.price_unit
                     obj.total_ht        = line.price_subtotal
-
-
-
-                    print 'move_ids=',line.move_ids,line.name,line.qty_received
                     for move in line.move_ids:
-                        print move.date,move.state
                         if move.state=='done':
                             obj.recu_le=move.date
 
