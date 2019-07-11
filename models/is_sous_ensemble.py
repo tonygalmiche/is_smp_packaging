@@ -157,11 +157,11 @@ class is_sous_ensemble_line(models.Model):
     quantite             = fields.Integer(u"Quantité")
     categorie_article_id = fields.Many2one('is.categorie.article', u'Catégorie')
     suivi_par_id         = fields.Many2one('res.users', u'Suivi par')
-    num_cde              = fields.Char(u"N°Cde")
+    order_id             = fields.Many2one('purchase.order', u'N°Cde')
     date_cde             = fields.Date(u"Date Cde")
     delai                = fields.Date(u"Délai")
     recu_le              = fields.Date(u"Reçu le")
-    code                 = fields.Char(u"Code")
+    code                 = fields.Char(u"Code Fournisseur")
     fournisseur_id       = fields.Many2one('res.partner', u'Fournisseur', domain=[('is_company','=',True),('supplier','=',True)])
     ref_fournisseur      = fields.Char(u"Réf fournisseur")
     pu_ht                = fields.Float(u"PU HT")
@@ -205,6 +205,26 @@ class is_sous_ensemble_line(models.Model):
                 #obj.order_ids=[(4, order.id)]
 
 
+
+
+    #def actualiser_ligne_scheduler_action(self, cr, uid, use_new_cursor=False, company_id = False, context=None):
+
+
+    @api.multi
+    def actualiser_ligne_scheduler_action(self):
+        self.env['is.sous.ensemble.line'].search([]).actualiser_ligne_action()
+
+
+    @api.multi
+    def actualiser_ligne_action(self):
+        nb=len(self)
+        ct=0
+        for obj in self:
+            ct+=1
+            print ct,'/',nb,obj
+            obj.actualiser()
+
+
     @api.multi
     def actualiser(self):
         for obj in self:
@@ -229,6 +249,33 @@ class is_sous_ensemble_line(models.Model):
                     'prix'            : line.price_unit,
                     'state'           : line.order_id.state,
                 }
+                if line.order_id.state=='purchase' and line.order_id.is_affaire_id==obj.affaire_id:
+
+                    #print obj.product_id, obj.product_id.seller_ids
+                    #for seller in obj.product_id.seller_ids:
+                    #    print seller,seller.name,seller.product_code
+                    #    if seller.name==line.order_id.partner_id:
+                    #        obj.order_id       = line.order_id.id
+
+
+                    obj.order_id        = line.order_id.id
+                    obj.date_cde        = line.order_id.date_order
+                    obj.delai           = line.order_id.is_delai
+                    obj.code            = line.order_id.partner_id.is_code_fournisseur
+                    obj.fournisseur_id  = line.order_id.partner_id.id
+                    obj.ref_fournisseur = line.order_id.is_devis
+                    obj.pu_ht           = line.price_unit
+                    obj.total_ht        = line.price_subtotal
+
+
+
+                    print 'move_ids=',line.move_ids,line.name,line.qty_received
+                    for move in line.move_ids:
+                        print move.date,move.state
+                        if move.state=='done':
+                            obj.recu_le=move.date
+
+
                 line=self.env['is.sous.ensemble.line.order'].create(vals)
             obj.order_nb = nb
 

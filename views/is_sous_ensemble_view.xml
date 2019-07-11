@@ -94,7 +94,7 @@
                             </group>
                             <group string="Achats">
                                 <field name="suivi_par_id" />
-                                <field name="num_cde" />
+                                <field name="order_id" />
                                 <field name="date_cde" />
                                 <field name="delai" />
                                 <field name="recu_le" />
@@ -138,7 +138,7 @@
                     <field name="anomalie" />
                     <field name="suivi_par_id" />
                     <field name="order_nb"/>
-                    <field name="num_cde" />
+                    <field name="order_id" />
                     <field name="date_cde" />
                     <field name="delai" />
                     <field name="recu_le" />
@@ -167,6 +167,8 @@
                     <field name="anomalie" />
                     <field name="suivi_par_id" />
                     <field name="order_nb"/>
+                    <field name="order_id"/>
+                    <field name="fournisseur_id"/>
                     <group expand="0" string="Regrouper par...">
                         <filter string="Machine" context="{'group_by':'affaire_id'}"/>
                         <filter string="Sous-ensemble" context="{'group_by':'sous_ensemble_id'}"/>
@@ -179,6 +181,7 @@
             <field name="res_model">is.sous.ensemble.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
+            <field name="limit">200</field>
         </record>
 
 
@@ -193,6 +196,36 @@
             <field eval="'is.sous.ensemble.line'" name="model"/>
             <field name="name">Créer demande de devis</field>
             <field eval="'ir.actions.server,%d'%creer_devis_action_server" name="value"/>
+        </record>
+
+
+        <!-- Actualiser les lignes -->
+        <record id="actualiser_ligne_action_server" model="ir.actions.server">
+             <field name="name">Actualiser les lignes</field>
+            <field name="model_id" ref="model_is_sous_ensemble_line"/>
+            <field name="code">records.actualiser_ligne_action()</field>
+        </record>
+        <record id="actualiser_ligne_action_ir_value" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'is.sous.ensemble.line'" name="model"/>
+            <field name="name">Actualiser les lignes</field>
+            <field eval="'ir.actions.server,%d'%actualiser_ligne_action_server" name="value"/>
+        </record>
+
+
+
+        <!-- Actualiser les lignes automatiquement la nui -->
+        <record forcecreate="True" id="actualiser_ligne_scheduler_action" model="ir.cron">
+            <field name="name">Actualiser les lignes des nomenclatures</field>
+            <field name="active" eval="True" />
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field eval="False" name="doall"/>
+            <field eval="'is.sous.ensemble.line'" name="model"/>
+            <field eval="'actualiser_ligne_scheduler_action'" name="function"/>
+            <field eval="'()'" name="args"/>
         </record>
 
 
