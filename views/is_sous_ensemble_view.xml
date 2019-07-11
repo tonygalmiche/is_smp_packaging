@@ -83,14 +83,15 @@
                         <group>
                             <group string="Bureau d'études">
                                 <field name="affaire_id" />
-                                <field name="sous_ensemble_id" />
-                                <field name="ordre" />
-                                <field name="product_id" />
-                                <field name="creation_product" />
-                                <field name="matiere_id" />
-                                <field name="fabriquant" />
-                                <field name="quantite" />
-                                <field name="categorie_article_id" />
+                                <field name="sous_ensemble_id"/>
+                                <field name="ordre"/>
+                                <field name="product_id"/>
+                                <field name="creation_product"/>
+                                <field name="matiere_id"/>
+                                <field name="fabriquant"/>
+                                <field name="quantite"/>
+                                <field name="categorie_article_id"/>
+                                <field name="anomalie"/>
                             </group>
                             <group string="Achats">
                                 <field name="suivi_par_id" />

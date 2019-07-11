@@ -50,6 +50,7 @@
             <br />
 
             <p>Suivi par <b><span t-field="o.create_uid.name"/></b> - Tél : <b><span t-field="o.create_uid.phone"/></b> - Courriel : <b><span t-field="o.create_uid.email"/></b></p>
+            <p>Machine : <b><span t-field="o.is_affaire_id.name"/></b></p>
 
             <br />
             <table class="table table-condensed">

@@ -35,6 +35,7 @@
                         <th><strong>Date de livraison</strong></th>
                         <th><strong>Conditions de paiement</strong></th>
                         <th><strong>Suivi par</strong></th>
+                        <th><strong>Machine</strong></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,7 @@
                                 Courriel : <span t-field="o.create_uid.email"/>
                             </t>
                         </td>
+                        <td><span t-field="o.is_affaire_id.name"/></td>
                     </tr>
                 </tbody>
             </table>
