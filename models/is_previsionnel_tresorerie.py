@@ -104,7 +104,7 @@ class is_previsionnel_tresorerie_line(models.Model):
     _name='is.previsionnel.tresorerie.line'
     _order='date_echeance,type_od,order_id,invoice_id'
 
-    previsionnel_id = fields.Many2one('is.affaire',u'Affaire', required=True)
+    previsionnel_id = fields.Many2one('is.previsionnel.tresorerie',u'Prévionnel', required=True, ondelete='cascade')
     type_od         = fields.Selection([('Commande', u'Commande'),('Facture', u'Facture')], u"Type")
     order_id        = fields.Many2one('purchase.order', u'Commande')
     invoice_id      = fields.Many2one('account.invoice', u'Facture')
