@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="is_previsionnel_tresorerie_seq" model="ir.sequence">
+            <field name="name">Prévionnel de trésorerie</field>
+            <field name="code">is.previsionnel.tresorerie</field>
+            <field name="prefix"></field>
+            <field name="padding">5</field>
+            <field eval="False" name="company_id"/>
+        </record>
+        <record id="is_previsionnel_tresorerie_form" model="ir.ui.view">
+            <field name="name">is.previsionnel.tresorerie.form</field>
+            <field name="model">is.previsionnel.tresorerie</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button 
+                            string='Actualiser' 
+                            name="actualiser" type="object"
+                        />
+                        <button 
+                            string='Voir les lignes' 
+                            name="acceder_lignes" type="object"
+                        />
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date_debut"/>
+                                <field name="date_fin"/>
+                            </group>
+                        </group>
+                        <!--
+                        <field name="line_ids">
+                             <tree>
+                                <field name="invoice_id"/>
+                                <field name="partner_id"/>
+                                <field name="product_id"/>
+                                <field name="montant" sum="Total"/>
+                            </tree>
+                        </field>
+                        -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="is_previsionnel_tresorerie_tree" model="ir.ui.view">
+            <field name="name">is.previsionnel.tresorerie.tree</field>
+            <field name="model">is.previsionnel.tresorerie</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="date_debut"/>
+                    <field name="date_fin"/>
+                </tree>
+            </field>
+        </record>
+        <record id="is_previsionnel_tresorerie_search" model="ir.ui.view">
+            <field name="name">is.previsionnel.tresorerie.search</field>
+            <field name="model">is.previsionnel.tresorerie</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+               </search>
+            </field>
+        </record>
+        <record  id="is_previsionnel_tresorerie_action" model="ir.actions.act_window">
+            <field name="name">Prévionnel de trésorerie</field>
+            <field name="res_model">is.previsionnel.tresorerie</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+
+
+
+        <!--is.previsionnel.tresorerie.line -->
+        <record id="is_previsionnel_tresorerie_line_form" model="ir.ui.view">
+            <field name="name">is.previsionnel.tresorerie.line.form</field>
+            <field name="model">is.previsionnel.tresorerie.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="previsionnel_id"/>
+                            <field name="order_id"/>
+                            <field name="invoice_id"/>
+                            <field name="date_echeance"/>
+                            <field name="partner_id"/>
+                            <field name="product_id"/>
+                            <field name="montant" sum="Total"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="is_previsionnel_tresorerie_line_tree" model="ir.ui.view">
+            <field name="name">is.previsionnel.tresorerie.line.tree</field>
+            <field name="model">is.previsionnel.tresorerie.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="type_od"/>
+                    <field name="order_id"/>
+                    <field name="invoice_id"/>
+                    <field name="date_prevue"/>
+                    <field name="date_echeance"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="qt_cde"/>
+                    <field name="qt_rcp"/>
+                    <field name="qt_fac"/>
+                    <field name="montant" sum="Total"/>
+                </tree>
+            </field>
+        </record>
+        <record id="is_previsionnel_tresorerie_line_search" model="ir.ui.view">
+            <field name="name">is.previsionnel.tresorerie.line.search</field>
+            <field name="model">is.previsionnel.tresorerie.line</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="type_od"/>
+                    <field name="order_id"/>
+                    <field name="invoice_id"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+               </search>
+            </field>
+        </record>
+        <!--
+        <record  id="is_previsionnel_tresorerie_line_action" model="ir.actions.act_window">
+            <field name="name">Lignes de prévionnel de trésorerie</field>
+            <field name="res_model">is.previsionnel.tresorerie.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+        -->
+
+
+
+
+
+
+
+
+
+
+    </data>
+</openerp>

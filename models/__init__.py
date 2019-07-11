@@ -13,4 +13,5 @@ import is_purchase_order_line
 import is_account_invoice_line
 import is_sous_ensemble
 import ir_mail_server
+import is_previsionnel_tresorerie
 

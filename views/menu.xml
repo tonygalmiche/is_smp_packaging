@@ -36,6 +36,23 @@
 
 
 
+        <menuitem   
+            name="Trésorerie"  
+            id="is_tresorerie_menu" 
+            parent="is_smp_main_menu" 
+            sequence="20"
+        />
+        <menuitem
+            name="Prévisionnel"
+            id="is_previsionnel_tresorerie_menu" 
+            action="is_previsionnel_tresorerie_action"
+            parent="is_tresorerie_menu" 
+            sequence="10"
+        />
+
+
+
+
 
 
         <menuitem
