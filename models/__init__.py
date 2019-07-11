@@ -2,6 +2,7 @@
 
 import product
 import purchase
+import sale
 import is_export_compta
 import account_invoice
 import res_partner

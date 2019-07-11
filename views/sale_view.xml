@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
     <record id="is_view_order_form" model="ir.ui.view">
         <field name="name">is_view_order_form</field>
         <field name="model">sale.order</field>
@@ -10,7 +9,10 @@
             <xpath expr="//sheet" position="attributes">
                 <attribute name="class">oe_form_sheet_width_wider</attribute>
             </xpath>
+            <field name="confirmation_date" position="after">
+                <field name="is_delai_livraison"/>
+                <field name="is_affaire_id"/>
+            </field>
         </field>
     </record>
-
 </odoo>

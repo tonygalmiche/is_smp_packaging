@@ -37,6 +37,7 @@ InfoSaône - Module Odoo pour SMP Packaging
         'report/report_deliveryslip.xml',
         'report/purchase_quotation_templates.xml',
         'report/purchase_order_templates.xml',
+        'report/sale_report_templates.xml',
     ],
     'installable': True,
     'application': True,
