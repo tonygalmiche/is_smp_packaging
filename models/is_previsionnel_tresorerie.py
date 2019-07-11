@@ -3,6 +3,13 @@ from openerp import models,fields,api
 from datetime import datetime, timedelta
 
 
+
+def last_day_of_month(any_day):
+    next_month = any_day.replace(day=28) + timedelta(days=4)  # this will never fail
+    return next_month - timedelta(days=next_month.day)
+
+
+
 class is_previsionnel_tresorerie(models.Model):
     _name='is.previsionnel.tresorerie'
     _order='name'
@@ -63,7 +70,17 @@ class is_previsionnel_tresorerie(models.Model):
             orders = self.env['purchase.order'].search(filtre,order="is_delai")
             for order in orders:
                 date_rcp      = datetime.strptime(order.is_delai, '%Y-%m-%d')
-                date_echeance = date_rcp + timedelta(days=45)
+
+                date_echeance = last_day_of_month(date_rcp) + timedelta(days=1)
+                date_echeance = last_day_of_month(date_echeance)
+                date_echeance = date_echeance + timedelta(days=15)
+
+
+                #date_echeance = date_rcp + timedelta(days=45)
+
+                #print date_rcp, date_echeance
+
+
                 date_echeance = date_echeance.strftime('%Y-%m-%d')
                 if date_echeance>=obj.date_debut and date_echeance<=obj.date_fin:
                     for line in order.order_line:
