@@ -3,16 +3,32 @@
 from odoo import api, fields, models, tools
 
 
+
+
+
+
 class is_purchase_order_line(models.Model):
     _name='is.purchase.order.line'
     _order='date_order desc,sequence,id'
     _auto = False
 
+
     order_id                = fields.Many2one('purchase.order', u'Commande')
     date_order              = fields.Date(u"Date commande")
     partner_id              = fields.Many2one('res.partner', u'Fournisseur')
-    state                   = fields.Char(u"Etat commande")
-    invoice_status          = fields.Char(u"Etat facturation")
+    state                   = fields.Selection([
+            ('draft'     , u'Demande de prix'),
+            ('sent'      , u'Demande de prix envoyée'),
+            ('to_approve', u'A approuver'),
+            ('purchase'  , u'Commande fournisseur'),
+            ('done'      , u'Bloqué'),
+            ('cancel'    , u'Annulée'),
+        ],u"Etat commande")
+    invoice_status          = fields.Selection([
+            ('invoiced'  , u'Facturé'),
+            ('no'        , u'Non facturable'),
+            ('to invoice', u'A facturer'),
+        ],u"Etat facturation")
     is_affaire_id           = fields.Many2one('is.affaire', u'Machine')
     sequence                = fields.Integer('Ordre')
     product_id              = fields.Many2one('product.template', 'Article')
