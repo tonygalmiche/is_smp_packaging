@@ -43,10 +43,9 @@ class AccountInvoice(models.Model):
     def _prepare_invoice_line_from_po_line(self, line):
         data=super(AccountInvoice, self)._prepare_invoice_line_from_po_line(line)
         is_affaire_id=False
-        if line.order_id.is_affaire_id:
-            is_affaire_id=line.order_id.is_affaire_id.id
+        if line.is_affaire_id:
+            is_affaire_id=line.is_affaire_id.id
         data['is_affaire_id'] = is_affaire_id
-        print line,data
         return data
 
 
