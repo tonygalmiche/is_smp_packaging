@@ -137,5 +137,23 @@
 
 
 
+
+        <!-- Actualiser les affaires sur les lignes -->
+        <record id="actualiser_affaire_sur_ligne_action_server" model="ir.actions.server">
+             <field name="name">Actualiser les affaires sur les lignes</field>
+            <field name="model_id" ref="model_account_invoice"/>
+            <field name="code">records.actualiser_affaire_sur_ligne_action()</field>
+        </record>
+        <record id="actualiser_affaire_sur_ligne_action_ir_value" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'account.invoice'" name="model"/>
+            <field name="name">Actualiser les lignes</field>
+            <field eval="'ir.actions.server,%d'%actualiser_affaire_sur_ligne_action_server" name="value"/>
+        </record>
+
+
+
+
+
     </data>
 </odoo>

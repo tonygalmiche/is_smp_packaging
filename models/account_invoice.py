@@ -50,6 +50,15 @@ class AccountInvoice(models.Model):
         return data
 
 
+    @api.multi
+    def actualiser_affaire_sur_ligne_action(self):
+        for obj in self:
+            if obj.is_affaire_id:
+                for line in obj.invoice_line_ids:
+                    if not line.is_affaire_id:
+                        line.is_affaire_id = obj.is_affaire_id
+
+
 class AccountInvoiceLine(models.Model):
     _inherit = "account.invoice.line"
 
