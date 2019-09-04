@@ -192,13 +192,14 @@ class is_sous_ensemble_line(models.Model):
                 date_planned = now.strftime('%Y-%m-%d')
                 obj.suivi_par_id = self._uid
                 vals={
-                    'order_id'    : order.id,
-                    'product_id'  : obj.product_id.id,
-                    'name'        : obj.product_id.name,
-                    'product_uom' : obj.product_id.uom_id.id ,
-                    'price_unit'  : 0,
-                    'product_qty' : obj.quantite,
-                    'date_planned': date_planned,
+                    'order_id'      : order.id,
+                    'product_id'    : obj.product_id.id,
+                    'name'          : obj.product_id.name,
+                    'is_affaire_id' : affaire_id,
+                    'product_uom'   : obj.product_id.uom_id.id ,
+                    'price_unit'    : 0,
+                    'product_qty'   : obj.quantite,
+                    'date_planned'  : date_planned,
                 }
                 line=order_line_obj.create(vals)
                 obj.actualiser()

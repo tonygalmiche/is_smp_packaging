@@ -42,8 +42,21 @@ class PurchaseOrder(models.Model):
             }
 
 
+    @api.multi
+    def actualiser_affaire_sur_ligne_cde_action(self):
+        for obj in self:
+            if obj.is_affaire_id:
+                for line in obj.order_line:
+                    if not line.is_affaire_id:
+                        line.is_affaire_id = obj.is_affaire_id
+
+
+
 class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
+
+
+    is_affaire_id = fields.Many2one('is.affaire', u'Machine')
 
 
     @api.onchange('product_id')
@@ -68,6 +81,11 @@ class PurchaseOrderLine(models.Model):
         #    self.name += '\n' + product_lang.description_purchase
 
         self.name = product_lang.name
+
+
+        if self.order_id.is_affaire_id and not self.is_affaire_id:
+            self.is_affaire_id = self.order_id.is_affaire_id
+
 
         fpos = self.order_id.fiscal_position_id
         if self.env.uid == SUPERUSER_ID:

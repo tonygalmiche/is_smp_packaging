@@ -57,7 +57,7 @@ class is_purchase_order_line(models.Model):
                     po.partner_id,
                     po.state,
                     po.invoice_status,
-                    po.is_affaire_id,
+                    pol.is_affaire_id,
                     pol.sequence,
                     pt.id product_id,
                     pt.is_categorie_article_id,
