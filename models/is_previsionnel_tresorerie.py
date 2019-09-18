@@ -61,10 +61,8 @@ class is_previsionnel_tresorerie(models.Model):
             #*******************************************************************
 
 
-            #** Ajout des commandes des fournisseurs ***************************
+            #** Ajout des commandes des fournisseurs non réceptionées **********
             filtre=[
-                #('is_delai','<=',obj.date_fin),
-                #('is_delai','<=',obj.date_fin),
                 ('state','in',['purchase']),
             ]
             orders = self.env['purchase.order'].search(filtre,order="is_delai")
@@ -77,8 +75,8 @@ class is_previsionnel_tresorerie(models.Model):
                     date_echeance = date_echeance.strftime('%Y-%m-%d')
                     if date_echeance>=obj.date_debut and date_echeance<=obj.date_fin:
                         for line in order.order_line:
-                            if line.qty_invoiced<line.product_qty:
-                                montant = (line.product_qty-line.qty_invoiced)*line.price_unit
+                            if line.qty_received<line.product_qty:
+                                montant = (line.product_qty-line.qty_received)*line.price_unit
                                 vals={
                                     'previsionnel_id': obj.id,
                                     'type_od'        : 'Commande',
@@ -94,6 +92,49 @@ class is_previsionnel_tresorerie(models.Model):
                                 }
                                 res=self.env['is.previsionnel.tresorerie.line'].create(vals)
             #*******************************************************************
+
+
+            #** Ajout des réceptions des fournisseurs **************************
+            filtre=[
+                ('state','in',['purchase']),
+            ]
+            orders = self.env['purchase.order'].search(filtre,order="is_delai")
+            for order in orders:
+                if order.is_delai:
+                    for line in order.order_line:
+                        date_bl = False
+                        for move in line.move_ids:
+                            date_bl = move.picking_id.is_date_bl
+                            if not date_bl:
+                                date_bl = datetime.strptime(move.date, '%Y-%m-%d %H:%M:%S')
+                            else:
+                                date_bl = datetime.strptime(date_bl, '%Y-%m-%d')
+                        if date_bl:
+                            date_echeance = last_day_of_month(date_bl) + timedelta(days=1)
+                            date_echeance = last_day_of_month(date_echeance)
+                            date_echeance = date_echeance + timedelta(days=15)
+                            date_echeance = date_echeance.strftime('%Y-%m-%d')
+                            if date_echeance>=obj.date_debut and date_echeance<=obj.date_fin:
+                                if line.qty_invoiced<line.qty_received:
+                                    montant = (line.qty_received-line.qty_invoiced)*line.price_unit
+                                    vals={
+                                        'previsionnel_id': obj.id,
+                                        'type_od'        : u'Réception',
+                                        'order_id'       : order.id,
+                                        'date_prevue'    : date_bl,
+                                        'date_echeance'  : date_echeance,
+                                        'partner_id'     : order.partner_id.id,
+                                        'product_id'     : line.product_id.id,
+                                        'qt_cde'         : line.product_qty,
+                                        'qt_rcp'         : line.qty_received,
+                                        'qt_fac'         : line.qty_invoiced,
+                                        'montant'        : montant,
+                                    }
+                                    res=self.env['is.previsionnel.tresorerie.line'].create(vals)
+            #*******************************************************************
+
+
+
 
 
     @api.multi
@@ -115,7 +156,7 @@ class is_previsionnel_tresorerie_line(models.Model):
     _order='date_echeance,type_od,order_id,invoice_id'
 
     previsionnel_id = fields.Many2one('is.previsionnel.tresorerie',u'Prévionnel', required=True, ondelete='cascade')
-    type_od         = fields.Selection([('Commande', u'Commande'),('Facture', u'Facture')], u"Type")
+    type_od         = fields.Selection([('Commande', u'Commande'),(u'Réception', u'Réception'),('Facture', u'Facture')], u"Type")
     order_id        = fields.Many2one('purchase.order', u'Commande')
     invoice_id      = fields.Many2one('account.invoice', u'Facture')
     date_prevue     = fields.Date(u"Date prévue")
