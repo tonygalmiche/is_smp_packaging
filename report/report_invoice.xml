@@ -54,12 +54,52 @@
                     padding:1mm;
                 }
 
+                .description_pied{
+                    border:1px solid black;
+                    font-weight:bold;
+                    padding:1mm;
+                    margin-top:2mm;
+                }
 
 
             </style>
 
             <div class="row" style="margin-top:10mm;margin-bottom:10mm">
                 <div class="col-xs-6 client">
+                    <table style="border: 1px solid black;width:100%">
+                        <tr>
+                            <td style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
+                                <span t-if="o.partner_id.lang == 'fr_FR'">FACTURE N° : </span>
+                                <span t-if="o.partner_id.lang != 'fr_FR'">INVOICE : </span>
+                                <span t-field="o.is_annee"/> <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.number"/><br />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding:1mm">
+                                DATE : <span t-field="o.date_invoice"/><br />
+                            </td>
+                        </tr>
+                        <t t-if="o.is_notre_ref">
+                            <tr>
+                                <td style="padding:1mm">
+                                    <span t-if="o.partner_id.lang == 'fr_FR'">NOTRE RÉF N° : </span>
+                                    <span t-if="o.partner_id.lang != 'fr_FR'">OUR REF : </span>
+                                    <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_notre_ref"/><br />
+                                </td>
+                            </tr>
+                        </t>
+                        <tr t-if="o.is_num_bl">
+                            <td style="padding:1mm">
+                                <span t-if="o.partner_id.lang == 'fr_FR'">BL N° : </span>
+                                <span t-if="o.partner_id.lang != 'fr_FR'">PACKING SLIP : </span>
+                                <!--<span t-field="o.is_num_bl"/><br />-->
+                                <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_num_bl"/><br />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-xs-1"/>
+                <div class="col-xs-5 facture">
                     <table style="border: 1px solid black;width:100%">
                         <tr>
                             <td style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
@@ -88,49 +128,6 @@
                                 </t>
                             </td>
                         </tr>
-                    </table>
-                </div>
-                <div class="col-xs-1"/>
-                <div class="col-xs-5 facture">
-                    <table style="border: 1px solid black;width:100%">
-                        <tr>
-                            <td style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
-                                <span t-if="o.partner_id.lang == 'fr_FR'">FACTURE N° : </span>
-                                <span t-if="o.partner_id.lang != 'fr_FR'">INVOICE : </span>
-                                <span t-field="o.is_annee"/> <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.number"/><br />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding:1mm">
-                                DATE : <span t-field="o.date_invoice"/><br />
-                            </td>
-                        </tr>
-                        <tr t-if="o.is_num_bl">
-                            <td style="padding:1mm">
-                                <span t-if="o.partner_id.lang == 'fr_FR'">BL N° : </span>
-                                <span t-if="o.partner_id.lang != 'fr_FR'">PACKING SLIP : </span>
-                                <!--<span t-field="o.is_num_bl"/><br />-->
-                                <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_num_bl"/><br />
-                            </td>
-                        </tr>
-                        <t t-if="o.is_notre_ref">
-                            <tr>
-                                <td style="padding:1mm">
-                                    <span t-if="o.partner_id.lang == 'fr_FR'">NOTRE RÉF N° : </span>
-                                    <span t-if="o.partner_id.lang != 'fr_FR'">OUR REF : </span>
-                                    <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_notre_ref"/><br />
-                                </td>
-                            </tr>
-                        </t>
-                        <tr>
-                            <td style="padding:1mm">
-                                <t t-if="o.company_id.vat">
-                                    <span t-if="o.partner_id.lang == 'fr_FR'">NOTRE TVA : </span>
-                                    <span t-if="o.partner_id.lang != 'fr_FR'">OUR VAT : </span>
-                                    <span t-field="o.company_id.vat"/><br />
-                                </t>
-                            </td>
-                        </tr>
                         <tr t-if="o.partner_shipping_id != o.partner_id">
                             <td style="padding:1mm">
                                 <strong>
@@ -140,7 +137,6 @@
                                 <div t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
                             </td>
                         </tr>
-
                     </table>
                 </div>
 
@@ -249,22 +245,6 @@
                         </td>
                     </tr>
 
-                    <t t-if="o.is_description_pied1">
-                        <tr>
-                            <td class="text-left cell"></td>
-                            <td class="text-left cell" style="color:black"><b><span t-field="o.is_description_pied1"/></b></td>
-                            <td class="text-left cell"></td>
-                            <td class="text-left cell"></td>
-                        </tr>
-                    </t>
-                    <t t-if="o.is_description_pied2">
-                        <tr>
-                            <td class="text-left cell"></td>
-                            <td class="text-left cell" style="color:blue"><b><span t-field="o.is_description_pied2"/></b></td>
-                            <td class="text-left cell"></td>
-                            <td class="text-left cell"></td>
-                        </tr>
-                    </t>
 
                     <tr>
                         <td class="text-left cell"></td>
@@ -282,7 +262,7 @@
                 </tbody>
             </table>
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-xs-6">
                     <div>
                         <span t-if="o.partner_id.lang == 'fr_FR'">CONDITIONS DE PAIEMENT : </span>
                         <span t-if="o.partner_id.lang != 'fr_FR'">PAYMENT TERMS : </span>
@@ -292,37 +272,62 @@
                     <div>
                         <span t-if="o.partner_id.lang == 'fr_FR'">Date échéance : </span>
                         <span t-if="o.partner_id.lang != 'fr_FR'">Date either : </span>
-                        <span t-field="o.date_due"/>
+                        <span t-field="o.is_date_echeance"/>
                     </div>
                 </div>
-                <div class="col-xs-4">
+
+
+                <t t-set="tva" t-value="0"/>
+                <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
+                    <t t-set="tva" t-value="amount_by_group[1]"/>
+                </t>
+
+
+
+                <div class="col-xs-6">
                     <table class="table table-condensed" style="margin-bottom:0">
-                        <tr class="border-black">
-                            <td><strong>Total HT</strong></td>
-                            <td class="text-right">
-                                <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                            </td>
-                        </tr>
-                        <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
-                            <tr>
-                                <!--<td><span t-esc="amount_by_group[0] if len(o.tax_line_ids) > 1 else (o.tax_line_ids.tax_id.description or o.tax_line_ids.tax_id.name)"/></td>-->
-                                <td><strong>TVA 20%</strong></td>
+
+                        <t t-if="tva">
+
+
+                            <tr class="border-black">
+                                <td><strong>Total HT</strong></td>
                                 <td class="text-right">
-                                    <span t-esc="amount_by_group[1]" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </td>
+                            </tr>
+                            <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
+                                <tr>
+                                    <!--<td><span t-esc="amount_by_group[0] if len(o.tax_line_ids) > 1 else (o.tax_line_ids.tax_id.description or o.tax_line_ids.tax_id.name)"/></td>-->
+                                    <td><strong>TVA 20%</strong></td>
+                                    <td class="text-right">
+                                        <span t-esc="amount_by_group[1]" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr class="border-black">
+                                <td>
+                                    <strong>
+                                        <span t-if="o.partner_id.lang == 'fr_FR'">NET A PAYER TTC</span>
+                                        <span t-if="o.partner_id.lang != 'fr_FR'">TOTAL AMOUNT DUE</span>
+                                    </strong>
+                                </td>
+                                <td class="text-right">
+                                     <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                 </td>
                             </tr>
                         </t>
-                        <tr class="border-black">
-                            <td>
-                                <strong>
-                                    <span t-if="o.partner_id.lang == 'fr_FR'">NET A PAYER TTC</span>
-                                    <span t-if="o.partner_id.lang != 'fr_FR'">TOTAL AMOUNT DUE</span>
-                                </strong>
-                            </td>
-                            <td class="text-right">
-                                 <span t-field="o.amount_total" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
-                            </td>
-                        </tr>
+
+                        <t t-if="not tva">
+                            <tr class="border-black">
+                                <td><strong>TOTAL NET A PAYER</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </td>
+                            </tr>
+                        </t>
+
+
                         <t t-if="o.is_montant_en_lettres">
                             <tr class="border-black">
                                 <td colspan="2" class="text-right">
@@ -366,6 +371,16 @@
                 <br />
                 <b>Banque : <span t-field="o.is_journal_banque_id.bank_id.name"/> - <span t-field="o.is_journal_banque_id.bank_id.bic"/> - <span t-field="o.is_journal_banque_id.bank_acc_number"/></b>
             </div>
+
+
+            <t t-if="o.is_description_pied1">
+                <div class="description_pied" style="color:black" t-field="o.is_description_pied1"/>
+            </t>
+            <t t-if="o.is_description_pied2">
+                <div class="description_pied" style="color:blue"  t-field="o.is_description_pied2"/>
+            </t>
+
+
 
 
         </div>
