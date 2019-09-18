@@ -104,6 +104,7 @@
                     <field name="type_od"/>
                     <field name="order_id"/>
                     <field name="invoice_id"/>
+                    <field name="affaire_id"/>
                     <field name="date_prevue"/>
                     <field name="date_echeance"/>
                     <field name="partner_id"/>
@@ -128,6 +129,33 @@
                </search>
             </field>
         </record>
+
+
+        <record id="is_previsionnel_tresorerie_line_pivot" model="ir.ui.view">
+            <field name="name">is_previsionnel_tresorerie_line_pivot</field>
+            <field name="model">is.previsionnel.tresorerie.line</field>
+            <field name="arch" type="xml">
+                <pivot>
+                    <field name="affaire_id"    type="row"/>
+                    <field name="date_echeance" type="col" interval="month"/>
+                    <field name="montant"       type="measure"/>
+                </pivot>
+            </field>
+        </record>
+        <record id="is_previsionnel_tresorerie_line_graph" model="ir.ui.view">
+            <field name="name">is_previsionnel_tresorerie_line_graph</field>
+            <field name="model">is.previsionnel.tresorerie.line</field>
+            <field name="arch" type="xml">
+                <graph>
+                    <field name="affaire_id"     type="row"/>
+                    <field name="date_echeance"  type="col" interval="month"/>
+                    <field name="montant"        type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+
+
         <!--
         <record  id="is_previsionnel_tresorerie_line_action" model="ir.actions.act_window">
             <field name="name">Lignes de prévionnel de trésorerie</field>

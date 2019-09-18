@@ -51,6 +51,7 @@ class is_previsionnel_tresorerie(models.Model):
                         'previsionnel_id': obj.id,
                         'type_od'        : 'Facture',
                         'invoice_id'     : invoice.id,
+                        'affaire_id'     : line.is_affaire_id.id,
                         'date_echeance'  : invoice.is_date_echeance,
                         'partner_id'     : invoice.partner_id.id,
                         'product_id'     : line.product_id.id,
@@ -81,6 +82,7 @@ class is_previsionnel_tresorerie(models.Model):
                                     'previsionnel_id': obj.id,
                                     'type_od'        : 'Commande',
                                     'order_id'       : order.id,
+                                    'affaire_id'     : line.is_affaire_id.id,
                                     'date_prevue'    : order.is_delai,
                                     'date_echeance'  : date_echeance,
                                     'partner_id'     : order.partner_id.id,
@@ -121,6 +123,7 @@ class is_previsionnel_tresorerie(models.Model):
                                         'previsionnel_id': obj.id,
                                         'type_od'        : u'Réception',
                                         'order_id'       : order.id,
+                                        'affaire_id'     : line.is_affaire_id.id,
                                         'date_prevue'    : date_bl,
                                         'date_echeance'  : date_echeance,
                                         'partner_id'     : order.partner_id.id,
@@ -142,7 +145,7 @@ class is_previsionnel_tresorerie(models.Model):
         for obj in self:
             return {
                 'name': "Lignes",
-                'view_mode': 'tree,form',
+                'view_mode': 'tree,form,graph,pivot',
                 'view_type': 'form',
                 'res_model': 'is.previsionnel.tresorerie.line',
                 'type': 'ir.actions.act_window',
@@ -159,6 +162,7 @@ class is_previsionnel_tresorerie_line(models.Model):
     type_od         = fields.Selection([('Commande', u'Commande'),(u'Réception', u'Réception'),('Facture', u'Facture')], u"Type")
     order_id        = fields.Many2one('purchase.order', u'Commande')
     invoice_id      = fields.Many2one('account.invoice', u'Facture')
+    affaire_id      = fields.Many2one('is.affaire', u'Machine')
     date_prevue     = fields.Date(u"Date prévue")
     date_echeance   = fields.Date(u"Date d'échéance")
     partner_id      = fields.Many2one('res.partner', u'Partenaire')
