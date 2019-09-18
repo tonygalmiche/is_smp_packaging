@@ -121,6 +121,7 @@
             <field name="model">is.previsionnel.tresorerie.line</field>
             <field name="arch" type="xml">
                 <search>
+                    <field name="affaire_id"/>
                     <field name="type_od"/>
                     <field name="order_id"/>
                     <field name="invoice_id"/>
