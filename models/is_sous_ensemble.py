@@ -203,12 +203,6 @@ class is_sous_ensemble_line(models.Model):
                 }
                 line=order_line_obj.create(vals)
                 obj.actualiser()
-                #obj.order_ids=[(4, order.id)]
-
-
-
-
-    #def actualiser_ligne_scheduler_action(self, cr, uid, use_new_cursor=False, company_id = False, context=None):
 
 
     @api.multi
@@ -222,22 +216,19 @@ class is_sous_ensemble_line(models.Model):
         ct=0
         for obj in self:
             ct+=1
-            #print ct,'/',nb,obj
             obj.actualiser()
 
 
     @api.multi
     def actualiser(self):
         for obj in self:
-            #obj.order_ids.unlink()
-            #orders = self.env['purchase.order'].search([('is_affaire_id','=',obj.affaire_id.id)],order="id desc",limit=20)
-            #for order in orders:
-            #    obj.order_ids=[(4, order.id)]
-            #obj.order_nb = len(orders)
             obj.order_line_ids.unlink()
 
-            obj.reference       = obj.product_id.default_code
-            obj.designation     = obj.product_id.name
+            obj.reference            = obj.product_id.default_code
+            obj.designation          = obj.product_id.name
+            obj.matiere_id           = obj.product_id.is_matiere_id
+            obj.fabriquant           = obj.product_id.is_fabriquant
+            obj.categorie_article_id = obj.product_id.is_categorie_article_id
 
 
             lines = self.env['purchase.order.line'].search([('product_id','=',obj.product_id.id)],order="id desc",limit=20)
@@ -256,18 +247,6 @@ class is_sous_ensemble_line(models.Model):
                     'state'           : line.order_id.state,
                 }
                 if line.order_id.state=='purchase' and line.order_id.is_affaire_id==obj.affaire_id:
-
-                    #print obj.product_id, obj.product_id.seller_ids
-                    #for seller in obj.product_id.seller_ids:
-                    #    print seller,seller.name,seller.product_code
-                    #    if seller.name==line.order_id.partner_id:
-                    #        obj.order_id       = line.order_id.id
-
-#                                    'reference'           : product.default_code,
-#                                    'designation'         : product.name,
-
-
-
                     obj.order_id        = line.order_id.id
                     obj.date_cde        = line.order_id.date_order
                     obj.delai           = line.order_id.is_delai
