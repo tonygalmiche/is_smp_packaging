@@ -136,7 +136,7 @@
             <field name="name">is_previsionnel_tresorerie_line_pivot</field>
             <field name="model">is.previsionnel.tresorerie.line</field>
             <field name="arch" type="xml">
-                <pivot>
+                <pivot string="pivot">
                     <field name="affaire_id"    type="row"/>
                     <field name="date_echeance" type="col" interval="month"/>
                     <field name="montant"       type="measure"/>
@@ -147,7 +147,7 @@
             <field name="name">is_previsionnel_tresorerie_line_graph</field>
             <field name="model">is.previsionnel.tresorerie.line</field>
             <field name="arch" type="xml">
-                <graph>
+                <graph string="graph">
                     <field name="affaire_id"     type="row"/>
                     <field name="date_echeance"  type="col" interval="month"/>
                     <field name="montant"        type="measure"/>
