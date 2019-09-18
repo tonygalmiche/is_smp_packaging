@@ -12,6 +12,7 @@ InfoSaône - Module Odoo pour SMP Packaging
     'website'    : 'http://www.infosaone.com',
     'depends'    : [
         'base',
+        'sale',
         'purchase',
         'account',
         'account_accountant',

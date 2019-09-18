@@ -27,6 +27,15 @@
                 <field name="is_affaire_id"/>
                 <field name="is_devis_id" attrs="{'invisible':[('is_devis_id','=',False)]}" readonly="1"/>
             </field>
+
+
+
+
+            <field name="payment_term_id" position="after">
+                <field name="is_journal_banque_id"/>
+            </field>
+
+
         </field>
     </record>
 

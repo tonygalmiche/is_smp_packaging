@@ -179,6 +179,18 @@
                 <span t-field="doc.fiscal_position_id.note"/>
             </p>
             <div class="oe_structure"/>
+
+
+
+
+            <div style="text-align:center"  t-if="doc.is_journal_banque_id">
+                <br />
+                <b>Banque : <span t-field="doc.is_journal_banque_id.bank_id.name"/> - <span t-field="doc.is_journal_banque_id.bank_id.bic"/> - <span t-field="doc.is_journal_banque_id.bank_acc_number"/></b>
+            </div>
+
+
+
+
         </div>
     </xpath>
 </template>

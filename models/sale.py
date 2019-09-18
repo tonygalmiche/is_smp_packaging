@@ -5,9 +5,10 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    is_affaire_id      = fields.Many2one('is.affaire', u'Machine')
-    is_delai_livraison = fields.Char(u'Délai de livraison')
-    is_devis_id        = fields.Many2one('sale.order', u"Devis d'origine")
+    is_affaire_id        = fields.Many2one('is.affaire', u'Machine')
+    is_delai_livraison   = fields.Char(u'Délai de livraison')
+    is_devis_id          = fields.Many2one('sale.order', u"Devis d'origine")
+    is_journal_banque_id = fields.Many2one('account.journal', u'Journal de banque', domain=[('type','=','bank')])
 
 
     @api.multi

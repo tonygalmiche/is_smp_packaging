@@ -30,6 +30,7 @@ class AccountInvoice(models.Model):
     is_signature          = fields.Boolean(u'Signature direction', help=u"Ajouter la signature de la direction sur la facture")
     is_tampon             = fields.Boolean(u'Tampon direction'   , help=u"Ajouter le tampon avec la signature de la direction sur la facture")
     is_date_echeance      = fields.Date(u"Date d'échéance SMP")
+    is_montant_en_lettres = fields.Char(u'Montant total en toutes lettres')
 
 
     @api.multi

@@ -61,6 +61,7 @@
                         <field name="is_description_entete"/>
                         <field name="is_description_pied1"/>
                         <field name="is_description_pied2"/>
+                        <field name="is_montant_en_lettres"/>
                         <field name="is_signature"/>
                         <field name="is_tampon"/>
                     </group>
