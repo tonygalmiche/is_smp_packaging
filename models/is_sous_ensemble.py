@@ -235,6 +235,11 @@ class is_sous_ensemble_line(models.Model):
             #    obj.order_ids=[(4, order.id)]
             #obj.order_nb = len(orders)
             obj.order_line_ids.unlink()
+
+            obj.reference       = obj.product_id.default_code
+            obj.designation     = obj.product_id.name
+
+
             lines = self.env['purchase.order.line'].search([('product_id','=',obj.product_id.id)],order="id desc",limit=20)
             nb=0
             for line in lines:
@@ -257,6 +262,11 @@ class is_sous_ensemble_line(models.Model):
                     #    print seller,seller.name,seller.product_code
                     #    if seller.name==line.order_id.partner_id:
                     #        obj.order_id       = line.order_id.id
+
+#                                    'reference'           : product.default_code,
+#                                    'designation'         : product.name,
+
+
 
                     obj.order_id        = line.order_id.id
                     obj.date_cde        = line.order_id.date_order

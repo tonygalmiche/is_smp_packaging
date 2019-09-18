@@ -63,43 +63,36 @@ class is_previsionnel_tresorerie(models.Model):
 
             #** Ajout des commandes des fournisseurs ***************************
             filtre=[
-                ('is_delai','<=',obj.date_fin),
+                #('is_delai','<=',obj.date_fin),
                 #('is_delai','<=',obj.date_fin),
                 ('state','in',['purchase']),
             ]
             orders = self.env['purchase.order'].search(filtre,order="is_delai")
             for order in orders:
-                date_rcp      = datetime.strptime(order.is_delai, '%Y-%m-%d')
-
-                date_echeance = last_day_of_month(date_rcp) + timedelta(days=1)
-                date_echeance = last_day_of_month(date_echeance)
-                date_echeance = date_echeance + timedelta(days=15)
-
-
-                #date_echeance = date_rcp + timedelta(days=45)
-
-                #print date_rcp, date_echeance
-
-
-                date_echeance = date_echeance.strftime('%Y-%m-%d')
-                if date_echeance>=obj.date_debut and date_echeance<=obj.date_fin:
-                    for line in order.order_line:
-                        if line.qty_invoiced<line.product_qty:
-                            montant = (line.product_qty-line.qty_invoiced)*line.price_unit
-                            vals={
-                                'previsionnel_id': obj.id,
-                                'type_od'        : 'Commande',
-                                'order_id'       : order.id,
-                                'date_prevue'    : order.is_delai,
-                                'date_echeance'  : date_echeance,
-                                'partner_id'     : order.partner_id.id,
-                                'product_id'     : line.product_id.id,
-                                'qt_cde'         : line.product_qty,
-                                'qt_rcp'         : line.qty_received,
-                                'qt_fac'         : line.qty_invoiced,
-                                'montant'        : montant,
-                            }
-                            res=self.env['is.previsionnel.tresorerie.line'].create(vals)
+                if order.is_delai:
+                    date_rcp      = datetime.strptime(order.is_delai, '%Y-%m-%d')
+                    date_echeance = last_day_of_month(date_rcp) + timedelta(days=1)
+                    date_echeance = last_day_of_month(date_echeance)
+                    date_echeance = date_echeance + timedelta(days=15)
+                    date_echeance = date_echeance.strftime('%Y-%m-%d')
+                    if date_echeance>=obj.date_debut and date_echeance<=obj.date_fin:
+                        for line in order.order_line:
+                            if line.qty_invoiced<line.product_qty:
+                                montant = (line.product_qty-line.qty_invoiced)*line.price_unit
+                                vals={
+                                    'previsionnel_id': obj.id,
+                                    'type_od'        : 'Commande',
+                                    'order_id'       : order.id,
+                                    'date_prevue'    : order.is_delai,
+                                    'date_echeance'  : date_echeance,
+                                    'partner_id'     : order.partner_id.id,
+                                    'product_id'     : line.product_id.id,
+                                    'qt_cde'         : line.product_qty,
+                                    'qt_rcp'         : line.qty_received,
+                                    'qt_fac'         : line.qty_invoiced,
+                                    'montant'        : montant,
+                                }
+                                res=self.env['is.previsionnel.tresorerie.line'].create(vals)
             #*******************************************************************
 
 
