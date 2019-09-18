@@ -14,10 +14,11 @@ class is_previsionnel_tresorerie(models.Model):
     _name='is.previsionnel.tresorerie'
     _order='name'
 
-    name       = fields.Char(u"N°previsionnel", readonly=True)
-    date_debut = fields.Date(u"Date de début d'échéance", required=True)
-    date_fin   = fields.Date(u"Date de fin d'échéance", required=True)
-    line_ids   = fields.One2many('is.previsionnel.tresorerie.line', 'previsionnel_id', u'Lignes')
+    name         = fields.Char(u"N°previsionnel", readonly=True)
+    suivi_par_id = fields.Many2one('res.users', u'Suivi par', default=lambda self: self.env.uid)
+    date_debut   = fields.Date(u"Date de début d'échéance", required=True)
+    date_fin     = fields.Date(u"Date de fin d'échéance", required=True)
+    line_ids     = fields.One2many('is.previsionnel.tresorerie.line', 'previsionnel_id', u'Lignes')
 
 
 
