@@ -51,6 +51,9 @@
                 <field name="is_affaire_id"/>
             </field>
             <field name="amount_total" position="replace"/>
+            <field name="date_planned" position="replace">
+                <field name="is_delai"/>
+            </field>
         </field>
     </record>
 

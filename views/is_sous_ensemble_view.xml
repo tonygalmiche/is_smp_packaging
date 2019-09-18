@@ -94,7 +94,6 @@
                                 <field name="anomalie"/>
                             </group>
                             <group string="Achats">
-                                <field name="suivi_par_id" />
                                 <field name="order_id" />
                                 <field name="date_cde" />
                                 <field name="delai" />
@@ -134,11 +133,10 @@
                     <field name="creation_product" />
                     <field name="matiere_id" />
                     <field name="fabriquant" />
-                    <field name="quantite" />
+                    <field name="quantite"  sum="Total"/>
                     <field name="categorie_article_id" />
                     <field name="anomalie" />
-                    <field name="suivi_par_id" />
-                    <field name="order_nb"/>
+                    <field name="order_nb"  sum="Total"/>
                     <field name="order_id" />
                     <field name="date_cde" />
                     <field name="delai" />
@@ -147,7 +145,7 @@
                     <field name="fournisseur_id" />
                     <field name="ref_fournisseur" />
                     <field name="pu_ht" />
-                    <field name="total_ht" />
+                    <field name="total_ht" sum="Total"/>
 
                 </tree>
             </field>

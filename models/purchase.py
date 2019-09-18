@@ -8,7 +8,7 @@ class PurchaseOrder(models.Model):
     _inherit = "purchase.order"
 
     is_devis      = fields.Char(u'Devis n°')
-    is_delai      = fields.Date(u'Délai')
+    is_delai      = fields.Date(u'Date prévue de livraison')
     is_affaire_id = fields.Many2one('is.affaire', u'Machine')
     is_devis_id   = fields.Many2one('purchase.order', u"Devis d'origine",domain=[('state', '=', ['draft','sent','to_approve'])],)
 
