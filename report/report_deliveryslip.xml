@@ -137,8 +137,6 @@
                                 <b><span  t-field="o.is_description_haut"/></b>
                             </td>
                         </tr>
-
-
                         <tr t-foreach="o.move_lines" t-as="move">
                             <td class="td-border text-center">
                                 <t t-set="qt" t-value="str(move.product_uom_qty)"/>
@@ -149,10 +147,14 @@
                             </td>
                             <td>
                                 <t t-raw="move.name.replace('\n', '&lt;br&gt;')"/>
+                                <br />
+                                <t t-foreach="o.pack_operation_ids" t-as="op">
+                                    <t t-foreach="op.linked_move_operation_ids" t-as="link">
+                                        <div t-if="link.move_id.id==move.id" t-field="op.is_designation"/>
+                                    </t>
+                                </t>
                             </td>
                         </tr>
-
-
 
                         <!--
                         <tr t-foreach="o.pack_operation_ids" t-as="pack_operation">
