@@ -64,7 +64,7 @@
                             <table class="table table-condensed table-border">
                                 <tbody>
                                     <tr>
-                                        <td style="border-top: 1px solid black" class="thbleu text-center">LISTE DE COLISAGE - PACKING LIST</td>
+                                        <td style="border-top: 1px solid black" class="thbleu text-center">BON DE LIVRAISON - PACKING LIST</td>
                                     </tr>
                                     <tr>
                                         <td class="td-border text-center">BL n° <span t-field="o.name"/> du <span t-field="o.is_date_bl"/></td>
@@ -74,17 +74,18 @@
                         </td>
                     </tr>
                 </table>
-                <table class="table table-condensed table-border">
+
+                <table class="table table-condensed table-border" t-if="o.is_conditionnement" style="margin:0;padding:0">
                     <thead>
                         <tr>
                             <th colspan="3" class="thbleu">
-                                Description des marchandises - List of goods
+                                Liste de colisage - Shipping details
                             </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr t-if="o.is_conditionnement">
-                            <td style="width:50%" class="text-right"><b><span t-field="o.is_conditionnement"/> : </b></td>
+                            <td style="width:50%" class="text-right"><b><span t-field="o.is_conditionnement"/></b></td>
                             <td style="width:10%" ></td>
                             <td style="width:40%" ></td>
                         </tr>
@@ -92,7 +93,6 @@
                         <tr t-if="o.is_largeur"><td class="text-right">larg. - width :                          </td><td class="text-right"><span t-field="o.is_largeur"/></td><td>cm</td></tr>
                         <tr t-if="o.is_hauteur"><td class="text-right">haut. - height :                         </td><td class="text-right"><span t-field="o.is_hauteur"/></td><td>cm</td></tr>
                         <tr t-if="o.is_poids"><td class="text-right">poids. - weight :                        </td><td class="text-right"><span t-field="o.is_poids"/></td><td>kg</td></tr>
-                        <tr><td class="text-right"><b>comprenant - including : </b></td><td></td><td></td></tr>
                     </tbody>
                 </table>
                 <table class="table table-condensed table-border" style="display:none">
@@ -121,7 +121,7 @@
                     </tbody>
                 </table>
                 <t t-set="backorder" t-value="False"/>
-                <table class="table table-condensed mt48 table-border" t-if="o.pack_operation_ids">
+                <table class="table table-condensed table-border" t-if="o.pack_operation_ids" style="margin:0;padding:0;margin-top:5mm">
                     <t t-set="has_serial_number" t-value="o.pack_operation_ids.filtered('pack_lot_ids')" groups="stock.group_production_lot"/>
                     <thead>
                         <tr>
@@ -187,6 +187,18 @@
                         -->
 
 
+
+
+
+                        <tr t-if="o.sale_id.incoterm">
+                           <td>
+                            </td>
+                            <td>
+                                Incoterms : <span t-field="o.sale_id.incoterm"/>
+                            </td>
+                        </tr>
+
+
                         <tr t-if="o.is_description_bas">
                             <td>
                             </td>
@@ -204,6 +216,9 @@
                         </tr>
                     </tbody>
                 </table>
+
+
+
             </div>
         </xpath>
     </template>
