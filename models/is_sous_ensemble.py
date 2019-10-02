@@ -191,6 +191,9 @@ class is_sous_ensemble_line(models.Model):
                 now = datetime.date.today()
                 date_planned = now.strftime('%Y-%m-%d')
                 obj.suivi_par_id = self._uid
+                taxes_id=[]
+                for tax in obj.product_id.supplier_taxes_id:
+                    taxes_id.append(tax.id)
                 vals={
                     'order_id'      : order.id,
                     'product_id'    : obj.product_id.id,
@@ -200,6 +203,7 @@ class is_sous_ensemble_line(models.Model):
                     'price_unit'    : 0,
                     'product_qty'   : obj.quantite,
                     'date_planned'  : date_planned,
+                    'taxes_id'      : [(6,0,taxes_id)],
                 }
                 line=order_line_obj.create(vals)
                 obj.actualiser()
