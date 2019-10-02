@@ -49,7 +49,14 @@ class PurchaseOrder(models.Model):
                 for line in obj.order_line:
                     if not line.is_affaire_id:
                         line.is_affaire_id = obj.is_affaire_id
-
+                    if not line.taxes_id:
+                        taxes_id=[]
+                        for tax in line.product_id.supplier_taxes_id:
+                            taxes_id.append(tax.id)
+                        vals={
+                            'taxes_id': [(6,0,taxes_id)],
+                        }
+                        line.write(vals)
 
 
 class PurchaseOrderLine(models.Model):
