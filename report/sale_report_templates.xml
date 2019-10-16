@@ -22,7 +22,6 @@
                     <span t-if="doc.partner_id.lang != 'fr_FR'">Proforma Invoice </span>
                 </t>
                 <t t-if="not doc.is_facture_proforma">
-                    <span t-if="doc.partner_id.lang != 'fr_FR'">Purchase confirmation </span>
                     <span t-if="doc.state not in ['draft','sent']">
                         <span t-if="doc.partner_id.lang == 'fr_FR'">AR de Commande </span>
                         <span t-if="doc.partner_id.lang != 'fr_FR'">Purchase confirmation </span>
