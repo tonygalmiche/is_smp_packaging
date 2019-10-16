@@ -64,6 +64,21 @@
         />
 
 
+
+        <menuitem
+            name="Lignes de commandes"
+            id="is_sale_order_line_menu" 
+            action="is_sale_order_line_action"
+            parent="sales_team.menu_sales" 
+            sequence="12"
+        />
+
+
+
+
+
+
+
         <menuitem
             name="Modèles de mails"
             id="is_mail_template_menu" 

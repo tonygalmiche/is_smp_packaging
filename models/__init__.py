@@ -12,6 +12,7 @@ import stock_move
 import is_affaire
 import is_purchase_order_line
 import is_account_invoice_line
+import is_sale_order_line
 import is_sous_ensemble
 import mail_mail
 import mail_thread
