@@ -9,8 +9,6 @@
             <xpath expr="//sheet" position="attributes">
                 <attribute name="class">oe_form_sheet_width_wider</attribute>
             </xpath>
-
-
             <xpath expr="//header/button[@name='action_confirm']" position="before">
                 <button
                     name="convertir_en_commande"
@@ -19,22 +17,19 @@
                     attrs="{'invisible':[('state','in',['sale','done','cancel'])]}"
                 />
             </xpath>
-
-
-
             <field name="confirmation_date" position="after">
                 <field name="is_delai_livraison"/>
                 <field name="is_affaire_id"/>
                 <field name="is_devis_id" attrs="{'invisible':[('is_devis_id','=',False)]}" readonly="1"/>
             </field>
-
-
-
-
             <field name="payment_term_id" position="after">
                 <field name="is_journal_banque_id"/>
                 <field name="is_facture_proforma"/>
             </field>
+
+            <xpath expr="//notebook/page/field/tree/field[@name='product_uom_qty']" position="before">
+                <field name="is_affaire_id"/>
+            </xpath>
 
 
         </field>
@@ -68,6 +63,23 @@
             </field>
         </field>
     </record>
+
+
+
+    <!-- Actualiser les affaires sur les lignes -->
+    <record id="actualiser_affaire_sur_ligne_cde_vente_action_server" model="ir.actions.server">
+         <field name="name">Actualiser les affaires sur les lignes</field>
+        <field name="model_id" ref="model_sale_order"/>
+        <field name="code">records.actualiser_affaire_sur_ligne_cde_vente_action()</field>
+    </record>
+    <record id="actualiser_affaire_sur_ligne_cde_vente_action_ir_value" model="ir.values">
+        <field eval="'client_action_multi'" name="key2"/>
+        <field eval="'sale.order'" name="model"/>
+        <field name="name">Actualiser les lignes</field>
+        <field eval="'ir.actions.server,%d'%actualiser_affaire_sur_ligne_cde_vente_action_server" name="value"/>
+    </record>
+
+
 
 
 

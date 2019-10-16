@@ -46,7 +46,7 @@ class is_sale_order_line(models.Model):
                     to_date(to_char(so.date_order,'YYYY-MM-DD'),'YYYY-MM-DD') date_order,
                     so.partner_id,
                     so.state,
-                    so.is_affaire_id,
+                    sol.is_affaire_id,
                     sol.sequence,
                     pt.id product_id,
                     pt.is_categorie_article_id,
