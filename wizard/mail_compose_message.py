@@ -32,19 +32,16 @@ class Partner(models.Model):
         mail_values = super(Partner, self)._notify_prepare_email_values(message)
         cc_email_list = message.is_partner_copie_ids.mapped('email')
 
-        #** Mettre en copie l'emetteur du mail *********************************
-        user  = self.env['res.users'].browse(self._uid)
-        email = user.email
-        if email:
-            cc_email_list.append(email)
+#        #** Mettre en copie l'emetteur du mail *********************************
+#        user  = self.env['res.users'].browse(self._uid)
+#        email = user.email
+#        if email:
+#            cc_email_list.append(email)
+#        #***********************************************************************
+
         partner_copie = {
             'email_cc': ",".join(cc_email_list),
         }
-        #***********************************************************************
-
-        print 'cc_email_list,email=',cc_email_list,email
-
-
         mail_values.update(partner_copie)
         return mail_values
 
