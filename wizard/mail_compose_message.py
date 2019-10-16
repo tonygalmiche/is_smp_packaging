@@ -42,6 +42,9 @@ class Partner(models.Model):
         }
         #***********************************************************************
 
+        print 'cc_email_list,email=',cc_email_list,email
+
+
         mail_values.update(partner_copie)
         return mail_values
 
