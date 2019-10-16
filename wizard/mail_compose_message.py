@@ -3,10 +3,14 @@
 from odoo import _, api, fields, models, SUPERUSER_ID, tools
 
 
-class MailComposer(models.TransientModel):
-    _inherit = 'mail.compose.message'
 
-    is_partner_copie_ids = fields.Many2many('res.partner','mail_compose_message_partner_copie_rel', 'mail_compose_id', 'partner_id', string='en Copie')
+
+
+
+#class MailComposer(models.TransientModel):
+#    _inherit = 'mail.compose.message'
+
+#    is_partner_copie_ids = fields.Many2many('res.partner','mail_compose_message_partner_copie_rel', 'mail_compose_id', 'partner_id', string='en Copie')
 
 
 #    @api.multi

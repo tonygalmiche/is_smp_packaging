@@ -148,7 +148,7 @@ class is_sous_ensemble_line(models.Model):
     affaire_id           = fields.Many2one('is.affaire',u'Affaire', required=True)
     sous_ensemble_id     = fields.Many2one('is.sous.ensemble', u'Sous-ensemble', required=True)
     ordre                = fields.Integer(u"Ligne")
-    product_id           = fields.Many2one('product.product', u'Référence', domain=[('purchase_ok', '=', True)])
+    product_id           = fields.Many2one('product.product', u'[Référence] Désignation', domain=[('purchase_ok', '=', True)])
     reference            = fields.Char(u'Référence', readonly=True)
     designation          = fields.Char(u'Désignation', readonly=True)
     creation_product     = fields.Boolean(u"Création",help=u"Indique si l'article a été créé lors de l'importation",readonly=True)

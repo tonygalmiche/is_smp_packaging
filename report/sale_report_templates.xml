@@ -36,7 +36,10 @@
 
 
             <h2>
-                <span t-if="doc.state not in ['draft','sent']">Commande </span>
+                <span t-if="doc.state not in ['draft','sent']">
+                    <span t-if="doc.partner_id.lang == 'fr_FR'">AR de Commande </span>
+                    <span t-if="doc.partner_id.lang != 'fr_FR'">Purchase confirmation </span>
+                </span>
                 <span t-if="doc.state in ['draft','sent']">Devis </span>
                 <span t-field="doc.name"/>
             </h2>
