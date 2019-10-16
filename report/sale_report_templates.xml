@@ -6,26 +6,9 @@
 <template id="is_report_saleorder_document" name="is_report_saleorder_document" inherit_id="sale.report_saleorder_document">
     <xpath expr="//div[@class='page']" position="replace">
         <div class="page">
-
             <div class="oe_structure"/>
-
-
-
             <div class="row">
                 <div class="col-xs-6">
-                    <!--
-                    <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Adresse de livraison et de facturation :</strong>
-                    <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Adresse de facturation :</strong>
-                    <div t-field="doc.partner_invoice_id"
-                        t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True, "phone_icons": True}'/>
-                    <p t-if="doc.partner_invoice_id.vat">VAT: <span t-field="doc.partner_invoice_id.vat"/></p>
-                    <div t-if="doc.partner_shipping_id != doc.partner_invoice_id" class="mt8">
-                        <strong>Adresse de livraison :</strong>
-                        <div t-field="doc.partner_shipping_id"
-                            t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True, "phone_icons": True}'/>
-                        <p t-if="doc.partner_shipping_id.vat">VAT: <span t-field="doc.partner_shipping_id.vat"/></p>
-                    </div>
-                    -->
                 </div>
                 <div class="col-xs-5 col-xs-offset-1" t-if="doc.partner_shipping_id != doc.partner_invoice_id">
                     <strong>Adresse de livraison :</strong>
@@ -33,63 +16,79 @@
                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
                 </div>
             </div>
-
-
             <h2>
-                <span t-if="doc.state not in ['draft','sent']">
-                    <span t-if="doc.partner_id.lang == 'fr_FR'">AR de Commande </span>
+                <t t-if="doc.is_facture_proforma">
+                    <span t-if="doc.partner_id.lang == 'fr_FR'">Facture Proforma </span>
+                    <span t-if="doc.partner_id.lang != 'fr_FR'">Proforma Invoice </span>
+                </t>
+                <t t-if="not doc.is_facture_proforma">
                     <span t-if="doc.partner_id.lang != 'fr_FR'">Purchase confirmation </span>
-                </span>
-                <span t-if="doc.state in ['draft','sent']">Devis </span>
+                    <span t-if="doc.state not in ['draft','sent']">
+                        <span t-if="doc.partner_id.lang == 'fr_FR'">AR de Commande </span>
+                        <span t-if="doc.partner_id.lang != 'fr_FR'">Purchase confirmation </span>
+                    </span>
+                    <span t-if="doc.state in ['draft','sent']">
+                        <span t-if="doc.partner_id.lang == 'fr_FR'">Devis </span>
+                        <span t-if="doc.partner_id.lang != 'fr_FR'">Offer </span>
+                    </span>
+                </t>
                 <span t-field="doc.name"/>
+                <span t-if="doc.partner_id.lang == 'fr_FR'"> du  </span>
+                <span t-if="doc.partner_id.lang != 'fr_FR'"> of </span>
+                <span t-field="doc.date_order" t-field-options='{"format": "dd/MM/yyyy"}'/>
             </h2>
-
-
-
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th><strong>Votre référence</strong></th>
-                        <th><strong>Date commande</strong></th>
+                        <th>
+                            <strong t-if="doc.partner_id.lang == 'fr_FR'">Votre référence </strong>
+                            <strong t-if="doc.partner_id.lang != 'fr_FR'">Your ref </strong>
+                        </th>
                         <th><strong>Contact</strong></th>
-                        <th ><strong>Conditions de paiement</strong></th>
-                        <th><strong>Délai de livraison</strong></th>
+                        <th>
+                            <strong t-if="doc.partner_id.lang == 'fr_FR'">Délai de livraison </strong>
+                            <strong t-if="doc.partner_id.lang != 'fr_FR'">Delivery time </strong>
+                        </th>
                         <th t-if="doc.is_affaire_id"><strong>Machine</strong></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><span t-field="doc.client_order_ref"/></td>
-                        <td><span t-field="doc.date_order" t-field-options='{"format": "dd/MM/yyyy"}'/></td>
                         <td><span t-field="doc.user_id"/></td>
-                        <td><span t-field="doc.payment_term_id"/></td>
                         <td><span t-field="doc.is_delai_livraison"/></td>
                         <td t-if="doc.is_affaire_id"><span t-field="doc.is_affaire_id.name"/></td>
                     </tr>
                 </tbody>
             </table>
-
-
-
             <div>
                 <div name="payment_term"/>
             </div>
-
-
             <!-- Is there a discount on at least one line? -->
             <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>
+
+
+
+            <t t-set="tva" t-value="1"/>
+            <t t-if="doc.amount_untaxed == doc.amount_total">
+                <t t-set="tva" t-value="0"/>
+            </t>
+
 
             <t t-foreach="doc.order_lines_layouted()" t-as="page">
                 <table class="table table-condensed">
                     <thead>
                         <tr>
                             <th>Description</th>
-                            <th class="text-right">Quantité</th>
-                            <th class="text-right">P.U.HT</th>
+                            <th class="text-right">
+                                <t t-if="doc.partner_id.lang == 'fr_FR'">Quantité</t>
+                                <t t-if="doc.partner_id.lang != 'fr_FR'">Quantity</t>
+                            </th>
+                            <th class="text-right">P.U.<t t-if="tva">HT</t></th>
                             <th t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">Remise.(%)</th>
-                            <th class="text-right">TVA</th>
-                            <th class="text-right" groups="sale.group_show_price_subtotal">Total HT</th>
-                            <th class="text-right price_tax_included" groups="sale.group_show_price_total">Total TTC</th>
+                            <th t-if="tva" class="text-right">TVA</th>
+                            <th class="text-right" groups="sale.group_show_price_subtotal">Total <t t-if="tva">HT</t></th>
+                            <th class="text-right price_tax_included" groups="sale.group_show_price_total">Total <t t-if="tva">TTC</t></th>
                         </tr>
                    </thead>
                    <tbody class="sale_tbody">
@@ -117,7 +116,7 @@
                                     <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
                                         <span t-field="l.discount"/>
                                     </td>
-                                    <td class="text-right">
+                                    <td t-if="tva" class="text-right">
                                         <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.tax_id))"/>
                                     </td>
                                     <td class="text-right" groups="sale.group_show_price_subtotal">
@@ -154,28 +153,30 @@
                 <div class="col-xs-4 pull-right">
                     <table class="table table-condensed">
                         <tr class="border-black">
-                            <td><strong>Total HT</strong></td>
+                            <td><strong>Total <t t-if="tva">HT</t></strong></td>
                             <td class="text-right">
                                 <span t-field="doc.amount_untaxed"
                                     t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
                             </td>
                         </tr>
-                        <t t-foreach="doc._get_tax_amount_by_group()" t-as="amount_by_group">
-                            <tr>
-                                <td><span t-esc="amount_by_group[0] or 'TVA'"/></td>
+                        <t t-if="tva">
+                            <t t-foreach="doc._get_tax_amount_by_group()" t-as="amount_by_group">
+                                <tr>
+                                    <td><span t-esc="amount_by_group[0] or 'TVA'"/></td>
+                                    <td class="text-right">
+                                        <span t-esc="amount_by_group[1]"
+                                            t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                    </td>
+                                </tr>
+                            </t>
+                            <tr class="border-black">
+                                <td><strong>Total TTC</strong></td>
                                 <td class="text-right">
-                                    <span t-esc="amount_by_group[1]"
+                                    <span t-field="doc.amount_total"
                                         t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
                                 </td>
                             </tr>
                         </t>
-                        <tr class="border-black">
-                            <td><strong>Total TTC</strong></td>
-                            <td class="text-right">
-                                <span t-field="doc.amount_total"
-                                    t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
-                            </td>
-                        </tr>
                     </table>
                 </div>
             </div>

@@ -33,6 +33,7 @@
 
             <field name="payment_term_id" position="after">
                 <field name="is_journal_banque_id"/>
+                <field name="is_facture_proforma"/>
             </field>
 
 
