@@ -1,31 +1,31 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import base64
-import datetime
-import dateutil
-import email
-import hashlib
-import hmac
-import lxml
-import logging
-import pytz
-import re
-import socket
-import time
-import xmlrpclib
+#import base64
+#import datetime
+#import dateutil
+#import email
+#import hashlib
+#import hmac
+#import lxml
+#import logging
+#import pytz
+#import re
+#import socket
+#import time
+#import xmlrpclib
 
-from collections import namedtuple
-from email.message import Message
-from email.utils import formataddr
-from lxml import etree
-from werkzeug import url_encode
+#from collections import namedtuple
+#from email.message import Message
+#from email.utils import formataddr
+#from lxml import etree
+#from werkzeug import url_encode
 
-from odoo import _, api, exceptions, fields, models, tools
-from odoo.tools.safe_eval import safe_eval
+#from odoo import _, api, exceptions, fields, models, tools
+#from odoo.tools.safe_eval import safe_eval
 
 
-_logger = logging.getLogger(__name__)
+#_logger = logging.getLogger(__name__)
 
 
 #class MailThread(models.AbstractModel):

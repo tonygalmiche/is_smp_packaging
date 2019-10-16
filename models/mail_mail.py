@@ -1,26 +1,24 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import base64
-import datetime
-import logging
-import psycopg2
-import threading
+#import base64
+#import datetime
+#import logging
+#import psycopg2
+#import threading
 
-from email.utils import formataddr
+#from email.utils import formataddr
 
-from odoo import _, api, fields, models
-from odoo import tools
-from odoo.addons.base.ir.ir_mail_server import MailDeliveryException
-from odoo.tools.safe_eval import safe_eval
+#from odoo import _, api, fields, models
+#from odoo import tools
+#from odoo.addons.base.ir.ir_mail_server import MailDeliveryException
+#from odoo.tools.safe_eval import safe_eval
 
-_logger = logging.getLogger(__name__)
-
-
-class MailMail(models.Model):
-    _inherit = "mail.mail"
+#_logger = logging.getLogger(__name__)
 
 
+#class MailMail(models.Model):
+#    _inherit = "mail.mail"
 
 
 #    @api.model
