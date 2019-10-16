@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+
+
+        <!-- SMP -->
         <menuitem   
             name="SMP"  
             id="is_smp_main_menu" 
@@ -33,9 +36,6 @@
             parent="is_smp_menu" 
             sequence="30"
         />
-
-
-
         <menuitem   
             name="Trésorerie"  
             id="is_tresorerie_menu" 
@@ -51,10 +51,7 @@
         />
 
 
-
-
-
-
+        <!-- Achats -->
         <menuitem
             name="Lignes de commandes"
             id="is_purchase_order_line_menu" 
@@ -66,25 +63,19 @@
 
 
         <menuitem
-            name="Lignes de commandes"
-            id="is_sale_order_line_menu" 
-            action="is_sale_order_line_action"
-            parent="sales_team.menu_sales" 
-            sequence="12"
-        />
-
-
-
-
-
-
-
-        <menuitem
             name="Modèles de mails"
             id="is_mail_template_menu" 
             action="is_mail_template_action"
             parent="purchase.menu_procurement_management" 
             sequence="90"
+        />
+
+        <menuitem
+            name="Historique des mails"
+            id="is_mail_message_menu" 
+            action="is_mail_message_action"
+            parent="purchase.menu_procurement_management" 
+            sequence="91"
         />
 
 
@@ -105,6 +96,8 @@
             parent="account.menu_finance_payables" 
             sequence="11"
         />
+
+
 
 
 
@@ -138,6 +131,18 @@
             parent="is_purchase_table_menu" 
             sequence="30"
         />
+
+
+
+        <!-- Ventes -->
+        <menuitem
+            name="Lignes de commandes"
+            id="is_sale_order_line_menu" 
+            action="is_sale_order_line_action"
+            parent="sales_team.menu_sales" 
+            sequence="12"
+        />
+
 
 
     </data>

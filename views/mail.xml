@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+
+
+    <record id="is_mail_template_action" model="ir.actions.act_window">
+        <field name="name">Modèles de mails</field>
+        <field name="res_model">mail.template</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('model_id.model','=','purchase.order')]</field>
+    </record>
+
+
+
+    <record id="is_mail_message_action" model="ir.actions.act_window">
+        <field name="name">Historique des mails</field>
+        <field name="res_model">mail.message</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[
+            ('model','=','purchase.order'),
+            ('message_type','=','comment')
+        ]</field>
+    </record>
+
+
+
+
+
+</data>
+</openerp>
