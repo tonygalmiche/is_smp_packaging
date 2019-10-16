@@ -82,6 +82,21 @@
 
 
 
+    <record id="is_view_order_line_tree" model="ir.ui.view">
+        <field name="name">is_view_order_line_tree</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree" />
+        <field name="arch" type="xml">
+            <field name="price_subtotal" position="before">
+                <field name="price_unit"/>
+            </field>
+        </field>
+    </record>
+
+
+
+
+
 
 
 </odoo>
