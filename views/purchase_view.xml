@@ -84,4 +84,28 @@
     </record>
 
 
+
+
+
+
+    <!-- Forcer les commandes en non facturable -->
+    <record id="forcer_commande_achat_non_facturable_action_server" model="ir.actions.server">
+         <field name="name">Forcer les commandes en non facturable</field>
+        <field name="model_id" ref="model_purchase_order"/>
+        <field name="code">records.forcer_commande_achat_non_facturable_action()</field>
+    </record>
+    <record id="forcer_commande_achat_non_facturable_action_ir_value" model="ir.values">
+        <field eval="'client_action_multi'" name="key2"/>
+        <field eval="'purchase.order'" name="model"/>
+        <field name="name">Forcer les commandes en non facturable</field>
+        <field eval="'ir.actions.server,%d'%forcer_commande_achat_non_facturable_action_server" name="value"/>
+    </record>
+
+
+
+
+
+
+
+
 </odoo>

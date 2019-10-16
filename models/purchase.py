@@ -14,6 +14,14 @@ class PurchaseOrder(models.Model):
 
 
     @api.multi
+    def forcer_commande_achat_non_facturable_action(self):
+        cr=self._cr
+        for obj in self:
+            if obj.invoice_status=='to invoice':
+                obj.invoice_status='no'
+
+
+    @api.multi
     def convertir_en_commande(self):
         for obj in self:
             copy = obj.copy()
