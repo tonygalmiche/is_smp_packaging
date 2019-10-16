@@ -375,7 +375,7 @@
 
             <div style="text-align:center">
                 <br />
-                <b>Banque : <span t-field="o.is_journal_banque_id.bank_id.name"/> - <span t-field="o.is_journal_banque_id.bank_id.bic"/> - <span t-field="o.is_journal_banque_id.bank_acc_number"/></b>
+                <b>Banque : <span t-field="o.is_journal_banque_id.bank_id.name"/> - BIC : <span t-field="o.is_journal_banque_id.bank_id.bic"/> - <span t-field="o.is_journal_banque_id.bank_acc_number"/></b>
             </div>
 
 
