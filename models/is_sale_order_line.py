@@ -18,7 +18,7 @@ class is_sale_order_line(models.Model):
     partner_id              = fields.Many2one('res.partner', u'Client')
     state                   = fields.Selection([
             ('draft'     , u'Devis'),
-            ('sent'      , u'Devis envoyée'),
+            ('sent'      , u'Devis envoyé'),
             ('sale'      , u'Commande'),
             ('done'      , u'Bloqué'),
             ('cancel'    , u'Annulée'),
