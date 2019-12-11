@@ -38,6 +38,8 @@ class Picking(models.Model):
                         'origin'          : move.origin,
                         'location_id'     : move.location_dest_id.id,
                         'location_dest_id': move.purchase_line_id.is_affaire_id.location_id.id,
+                        'purchase_line_id': move.purchase_line_id.id,
+                        #'is_affaire_id'   : move.is_affaire_id.id,
                     }
                     new = self.env['stock.move'].create(vals)
                     new.action_confirm()
