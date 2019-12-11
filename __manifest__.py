@@ -14,6 +14,7 @@ InfoSaône - Module Odoo pour SMP Packaging
         'base',
         'sale',
         'purchase',
+        'stock',
         'account',
         'account_accountant',
         'document',

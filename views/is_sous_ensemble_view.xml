@@ -12,6 +12,7 @@
                         <button 
                             string='Importer la nomenclature' 
                             name="importer_nomenclature" type="object"
+                            groups="purchase.group_purchase_manager"
                         />
                         <!--    confirm="Voulez-vous vraiment importer la nomenclature ?" -->
                         <button 
