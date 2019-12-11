@@ -198,7 +198,7 @@ class is_sous_ensemble_line(models.Model):
                     'order_id'      : order.id,
                     'product_id'    : obj.product_id.id,
                     'name'          : obj.product_id.name,
-                    'is_affaire_id' : affaire_id,
+                    'is_affaire_id' : obj.affaire_id.id,
                     'product_uom'   : obj.product_id.uom_id.id ,
                     'price_unit'    : 0,
                     'product_qty'   : obj.quantite,
@@ -227,14 +227,11 @@ class is_sous_ensemble_line(models.Model):
     def actualiser(self):
         for obj in self:
             obj.order_line_ids.unlink()
-
             obj.reference            = obj.product_id.default_code
             obj.designation          = obj.product_id.name
             obj.matiere_id           = obj.product_id.is_matiere_id
             obj.fabriquant           = obj.product_id.is_fabriquant
             obj.categorie_article_id = obj.product_id.is_categorie_article_id
-
-
             lines = self.env['purchase.order.line'].search([('product_id','=',obj.product_id.id)],order="id desc",limit=20)
             nb=0
             for line in lines:
@@ -250,7 +247,7 @@ class is_sous_ensemble_line(models.Model):
                     'prix'            : line.price_unit,
                     'state'           : line.order_id.state,
                 }
-                if line.order_id.state=='purchase' and line.order_id.is_affaire_id==obj.affaire_id:
+                if line.order_id.state=='purchase' and line.is_affaire_id==obj.affaire_id:
                     obj.order_id        = line.order_id.id
                     obj.date_cde        = line.order_id.date_order
                     obj.delai           = line.order_id.is_delai
@@ -262,8 +259,6 @@ class is_sous_ensemble_line(models.Model):
                     for move in line.move_ids:
                         if move.state=='done':
                             obj.recu_le=move.date
-
-
                 line=self.env['is.sous.ensemble.line.order'].create(vals)
             obj.order_nb = nb
 
