@@ -5,7 +5,6 @@ from odoo import api, fields, models, _
 class Picking(models.Model):
     _inherit = "stock.picking"
 
-
     is_date_prevue      = fields.Date(u'Date prévue de livraison', compute='_compute', store=True, readonly=True)
     is_date_bl          = fields.Date(u'Date du BL')
     is_conditionnement  = fields.Char(u'Conditionnement')
@@ -19,9 +18,48 @@ class Picking(models.Model):
     is_tampon           = fields.Boolean(u'Tampon direction'   , help=u"Ajouter le tampon avec la signature de la direction sur le BL")
 
 
-
     @api.depends('purchase_id.is_delai')
     def _compute(self):
         for obj in self:
             obj.is_date_prevue = obj.purchase_id.is_delai
+
+
+    def move2affaire(self):
+        """Mettre les articles en réception dans l'emplacement de l'affaire"""
+        if self.picking_type_id.id==1:
+            for move in self.move_lines:
+                if move.purchase_line_id.is_affaire_id.location_id.id:
+                    vals={
+                        'product_id'      : move.product_id.id,
+                        'product_uom_qty' : move.product_uom_qty,
+                        'product_uom'     : move.product_uom.id,
+                        'name'            : move.name,
+                        'origin'          : move.origin,
+                        'location_id'     : move.location_dest_id.id,
+                        'location_dest_id': move.purchase_line_id.is_affaire_id.location_id.id,
+                    }
+                    new = self.env['stock.move'].create(vals)
+                    new.action_confirm()
+                    new.action_done()
+        # **********************************************************************
+
+
+class StockBackorderConfirmation(models.TransientModel):
+    _inherit = 'stock.backorder.confirmation'
+
+    @api.one
+    def _process(self, cancel_backorder=False):
+        res = super(StockBackorderConfirmation, self)._process()
+        self.pick_id.move2affaire()
+
+
+class StockImmediateTransfer(models.TransientModel):
+    _inherit = 'stock.immediate.transfer'
+
+    @api.multi
+    def process(self):
+        res = super(StockImmediateTransfer, self).process()
+        self.pick_id.move2affaire()
+        return res
+
 
