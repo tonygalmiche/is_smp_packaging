@@ -4,6 +4,7 @@ from odoo import api, fields, models, _
 
 class Picking(models.Model):
     _inherit = "stock.picking"
+    _order='id desc'
 
     is_date_prevue      = fields.Date(u'Date prévue de livraison', compute='_compute', store=True, readonly=True)
     is_date_bl          = fields.Date(u'Date du BL')
@@ -18,7 +19,7 @@ class Picking(models.Model):
     is_tampon           = fields.Boolean(u'Tampon direction'   , help=u"Ajouter le tampon avec la signature de la direction sur le BL")
 
 
-    @api.depends('purchase_id.is_delai')
+    @api.depends('purchase_id.is_delai','state')
     def _compute(self):
         for obj in self:
             obj.is_date_prevue = obj.purchase_id.is_delai
