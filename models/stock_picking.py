@@ -45,6 +45,14 @@ class Picking(models.Model):
         # **********************************************************************
 
 
+    @api.multi
+    def initialiser_date_prevue_action(self):
+        for obj in self:
+            if obj.picking_type_id.id==1:
+                if not obj.is_date_prevue:
+                    obj.is_date_prevue = obj.purchase_id.is_delai
+
+
 class StockBackorderConfirmation(models.TransientModel):
     _inherit = 'stock.backorder.confirmation'
 

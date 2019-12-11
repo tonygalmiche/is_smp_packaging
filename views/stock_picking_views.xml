@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <!-- Initialiser date prévue de livraison -->
+        <record id="initialiser_date_prevue_action_server" model="ir.actions.server">
+             <field name="name">Initialiser date prévue de livraison</field>
+            <field name="model_id" ref="model_stock_picking"/>
+            <field name="code">records.initialiser_date_prevue_action()</field>
+        </record>
+        <record id="initialiser_date_prevue_ir_value" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'stock.picking'" name="model"/>
+            <field name="name">Initialiser date prévue de livraison</field>
+            <field eval="'ir.actions.server,%d'%initialiser_date_prevue_action_server" name="value"/>
+        </record>
+
         <record id="is_view_picking_form" model="ir.ui.view">
             <field name="name">stock.picking.form</field>
             <field name="model">stock.picking</field>
