@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
         <!-- Initialiser date prévue de livraison -->
         <record id="initialiser_date_prevue_action_server" model="ir.actions.server">
              <field name="name">Initialiser date prévue de livraison</field>
@@ -14,7 +13,6 @@
             <field name="name">Initialiser date prévue de livraison</field>
             <field eval="'ir.actions.server,%d'%initialiser_date_prevue_action_server" name="value"/>
         </record>
-
         <record id="is_view_picking_form" model="ir.ui.view">
             <field name="name">stock.picking.form</field>
             <field name="model">stock.picking</field>
@@ -26,7 +24,6 @@
                     <field name="is_date_prevue"/>
                     <field name="is_date_bl"/>
                 </field>
-                <field name="origin" position="replace"/>
                 <field name="partner_id" position="after">
                     <field name="is_conditionnement"/>
                     <field name="is_longueur"/>
@@ -37,8 +34,6 @@
                 <xpath expr="//field[@name='pack_operation_product_ids']/tree/field[@name='product_id']" position="after" >
                     <field name="is_designation"/>
                 </xpath>
-
-
                 <xpath expr="//field[@name='move_lines']" position="inside" >
                     <tree>
                         <field name="product_id"/>
@@ -47,8 +42,6 @@
                         <field name="state"/>
                     </tree>
                 </xpath>
-
-
                 <xpath expr="//notebook" position="after" >
                     <group>
                         <field name="is_description_haut"/>
@@ -59,17 +52,6 @@
                 </xpath>
             </field>
         </record>
-
-<!--
-                        <page string="Initial Demand">
-                            <field name="move_lines" attrs="{'readonly': [('state', 'in', ('cancel', 'partially_available', 'assigned', 'done'))]}" options="{'reload_on_button': True}" mode="tree,kanban" context="{'address_in_id': partner_id, 'form_view_ref':'stock.view_move_picking_form', 'tree_view_ref':'stock.view_move_picking_tree', 'default_picking_type_id': picking_type_id, 'default_location_id': location_id, 'default_location_dest_id': location_dest_id}">
-                                    <kanban class="o_kanban_mobile">
-                                    <field name="product_id"/>
--->
-
-
-
-
         <record id="is_vpicktree" model="ir.ui.view">
             <field name="name">is_vpicktree</field>
             <field name="model">stock.picking</field>
@@ -79,15 +61,11 @@
                     <field name="is_date_prevue"/>
                     <field name="is_date_bl"/>
                     <field name="min_date" invisible="1"/>
-                </field>
-                <field name="origin" position="replace">
                     <field name="purchase_id"/>
                     <field name="sale_id"/>
                 </field>
             </field>
         </record>
-
-
     </data>
 </odoo>
 
