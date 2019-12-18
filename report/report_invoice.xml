@@ -269,19 +269,20 @@
             </table>
             <div class="row">
                 <div class="col-xs-6">
-                    <div>
-                        <span t-if="o.partner_id.lang == 'fr_FR'">CONDITIONS DE PAIEMENT : </span>
-                        <span t-if="o.partner_id.lang != 'fr_FR'">PAYMENT TERMS : </span>
-                        <br />
-                        <span t-field="o.payment_term_id.name"/>
-                    </div>
-                    <div>
-                        <span t-if="o.partner_id.lang == 'fr_FR'">Date échéance : </span>
-                        <span t-if="o.partner_id.lang != 'fr_FR'">Date either : </span>
-                        <span t-field="o.is_date_echeance"/>
-                    </div>
+                    <t t-if="o.type == 'out_invoice'">
+                        <div>
+                            <span t-if="o.partner_id.lang == 'fr_FR'">CONDITIONS DE PAIEMENT : </span>
+                            <span t-if="o.partner_id.lang != 'fr_FR'">PAYMENT TERMS : </span>
+                            <br />
+                            <span t-field="o.payment_term_id.name"/>
+                        </div>
+                        <div>
+                            <span t-if="o.partner_id.lang == 'fr_FR'">Date échéance : </span>
+                            <span t-if="o.partner_id.lang != 'fr_FR'">Date either : </span>
+                            <span t-field="o.is_date_echeance"/>
+                        </div>
+                    </t>
                 </div>
-
 
                 <t t-set="tva" t-value="0"/>
                 <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
@@ -353,8 +354,14 @@
                             <tr class="border-black">
                                 <td>
                                     <strong>
-                                        <span t-if="o.partner_id.lang == 'fr_FR'">NET A PAYER TTC</span>
-                                        <span t-if="o.partner_id.lang != 'fr_FR'">TOTAL AMOUNT DUE</span>
+                                        <t t-if="o.type == 'out_invoice'">
+                                            <span t-if="o.partner_id.lang == 'fr_FR'">NET A PAYER TTC</span>
+                                            <span t-if="o.partner_id.lang != 'fr_FR'">TOTAL AMOUNT DUE</span>
+                                        </t>
+                                        <t t-if="o.type == 'out_refund'">
+                                            <span t-if="o.partner_id.lang == 'fr_FR'">TOTAL AVOIR</span>
+                                            <span t-if="o.partner_id.lang != 'fr_FR'">TOTAL</span>
+                                        </t>
                                     </strong>
                                 </td>
                                 <td class="text-right">
@@ -365,7 +372,10 @@
 
                         <t t-if="not tva">
                             <tr class="border-black">
-                                <td><strong>TOTAL NET A PAYER</strong></td>
+                                <td>
+                                    <strong t-if="o.partner_id.lang == 'fr_FR'">TOTAL NET A PAYER</strong>
+                                    <strong t-if="o.partner_id.lang != 'fr_FR'">TOTAL AMOUNT DUE</strong>
+                                </td>
                                 <td class="text-right">
                                     <span t-field="o.amount_untaxed" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                                 </td>
