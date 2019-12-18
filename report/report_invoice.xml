@@ -267,6 +267,15 @@
                     </tr>
                 </tbody>
             </table>
+
+            <!-- Recherche incoterm commande client -->
+            <t t-set="incoterms" t-value="0"/>
+            <t t-foreach="o.invoice_line_ids" t-as="line">
+                <t t-foreach="line.sale_line_ids" t-as="l">
+                    <t t-set="incoterms" t-value="l.order_id.incoterm.name"/>
+                </t>
+            </t>
+
             <div class="row">
                 <div class="col-xs-6">
                     <t t-if="o.type == 'out_invoice'">
@@ -280,6 +289,12 @@
                             <span t-if="o.partner_id.lang == 'fr_FR'">Date échéance : </span>
                             <span t-if="o.partner_id.lang != 'fr_FR'">Date either : </span>
                             <span t-field="o.is_date_echeance"/>
+                        </div>
+
+                        <div t-if="incoterms">
+                            <span t-if="o.partner_id.lang == 'fr_FR'">Incoterms : </span>
+                            <span t-if="o.partner_id.lang != 'fr_FR'">Incoterms : </span>
+                            <span t-esc="incoterms"/>
                         </div>
                     </t>
                 </div>
