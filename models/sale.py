@@ -7,6 +7,7 @@ class SaleOrder(models.Model):
 
     is_affaire_id        = fields.Many2one('is.affaire', u'Machine')
     is_delai_livraison   = fields.Char(u'Délai de livraison')
+    is_delai             = fields.Date(u'Date prévue de livraison')
     is_devis_id          = fields.Many2one('sale.order', u"Devis d'origine")
     is_journal_banque_id = fields.Many2one('account.journal', u'Journal de banque', domain=[('type','=','bank')])
     is_facture_proforma  = fields.Boolean(u'Facture proforma', default=False, help="Il faut cocher cette case pour imprimer la facture proforma")

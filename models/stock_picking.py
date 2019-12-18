@@ -19,10 +19,13 @@ class Picking(models.Model):
     is_tampon           = fields.Boolean(u'Tampon direction'   , help=u"Ajouter le tampon avec la signature de la direction sur le BL")
 
 
-    @api.depends('purchase_id.is_delai','state')
+    @api.depends('purchase_id.is_delai','sale_id.is_delai','state')
     def _compute(self):
         for obj in self:
-            obj.is_date_prevue = obj.purchase_id.is_delai
+            if obj.picking_type_id.id==1:
+                obj.is_date_prevue = obj.purchase_id.is_delai
+            else:
+                obj.is_date_prevue = obj.sale_id.is_delai
 
 
     def move2affaire(self):
@@ -50,9 +53,17 @@ class Picking(models.Model):
     @api.multi
     def initialiser_date_prevue_action(self):
         for obj in self:
-            if obj.picking_type_id.id==1:
-                if not obj.is_date_prevue:
+            if not obj.is_date_prevue:
+                if obj.picking_type_id.id==1:
                     obj.is_date_prevue = obj.purchase_id.is_delai
+                else:
+                    print obj,obj.sale_id,obj.sale_id.is_delai
+                    obj.is_date_prevue = obj.sale_id.is_delai
+
+
+
+
+
 
 
 class StockBackorderConfirmation(models.TransientModel):

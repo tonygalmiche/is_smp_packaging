@@ -36,6 +36,17 @@
             parent="is_smp_menu" 
             sequence="30"
         />
+
+
+        <menuitem
+            name="Articles"
+            id="is_product_template_menu" 
+            action="is_product_template_action"  
+            parent="is_smp_menu" 
+            sequence="40"
+        />
+
+
         <menuitem   
             name="Trésorerie"  
             id="is_tresorerie_menu" 
