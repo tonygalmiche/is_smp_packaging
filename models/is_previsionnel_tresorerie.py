@@ -3,23 +3,20 @@ from openerp import models,fields,api
 from datetime import datetime, timedelta
 
 
-
 def last_day_of_month(any_day):
     next_month = any_day.replace(day=28) + timedelta(days=4)  # this will never fail
     return next_month - timedelta(days=next_month.day)
 
 
-
 class is_previsionnel_tresorerie(models.Model):
     _name='is.previsionnel.tresorerie'
-    _order='name'
+    _order='name desc'
 
     name         = fields.Char(u"N°previsionnel", readonly=True)
     suivi_par_id = fields.Many2one('res.users', u'Suivi par', default=lambda self: self.env.uid)
     date_debut   = fields.Date(u"Date de début d'échéance", required=True)
     date_fin     = fields.Date(u"Date de fin d'échéance", required=True)
     line_ids     = fields.One2many('is.previsionnel.tresorerie.line', 'previsionnel_id', u'Lignes')
-
 
 
     @api.model
@@ -48,6 +45,9 @@ class is_previsionnel_tresorerie(models.Model):
             invoices = self.env['account.invoice'].search(filtre,order="is_date_echeance")
             for invoice in invoices:
                 for line in invoice.invoice_line_ids:
+                    tva = 0.0
+                    for tax in line.invoice_line_tax_ids:
+                        tva = tva + line.price_subtotal*abs(tax.amount)/100.0
                     vals={
                         'previsionnel_id': obj.id,
                         'type_od'        : 'Facture',
@@ -58,6 +58,7 @@ class is_previsionnel_tresorerie(models.Model):
                         'product_id'     : line.product_id.id,
                         'qt_fac'         : line.quantity,
                         'montant'        : line.price_subtotal,
+                        'montant_ttc'    : line.price_subtotal + tva,
                     }
                     res=self.env['is.previsionnel.tresorerie.line'].create(vals)
             #*******************************************************************
@@ -79,6 +80,9 @@ class is_previsionnel_tresorerie(models.Model):
                         for line in order.order_line:
                             if line.qty_received<line.product_qty:
                                 montant = (line.product_qty-line.qty_received)*line.price_unit
+                                tva = 0.0
+                                for tax in line.taxes_id:
+                                    tva = tva + (line.product_qty-line.qty_received)*line.price_unit*abs(tax.amount)/100.0
                                 vals={
                                     'previsionnel_id': obj.id,
                                     'type_od'        : 'Commande',
@@ -92,6 +96,7 @@ class is_previsionnel_tresorerie(models.Model):
                                     'qt_rcp'         : line.qty_received,
                                     'qt_fac'         : line.qty_invoiced,
                                     'montant'        : montant,
+                                    'montant_ttc'    : montant + tva,
                                 }
                                 res=self.env['is.previsionnel.tresorerie.line'].create(vals)
             #*******************************************************************
@@ -120,6 +125,9 @@ class is_previsionnel_tresorerie(models.Model):
                             if date_echeance>=obj.date_debut and date_echeance<=obj.date_fin:
                                 if line.qty_invoiced<line.qty_received:
                                     montant = (line.qty_received-line.qty_invoiced)*line.price_unit
+                                    tva = 0.0
+                                    for tax in line.taxes_id:
+                                        tva = tva + (line.qty_received-line.qty_invoiced)*line.price_unit*abs(tax.amount)/100.0
                                     vals={
                                         'previsionnel_id': obj.id,
                                         'type_od'        : u'Réception',
@@ -133,12 +141,10 @@ class is_previsionnel_tresorerie(models.Model):
                                         'qt_rcp'         : line.qty_received,
                                         'qt_fac'         : line.qty_invoiced,
                                         'montant'        : montant,
+                                        'montant_ttc'    : montant + tva,
                                     }
                                     res=self.env['is.previsionnel.tresorerie.line'].create(vals)
             #*******************************************************************
-
-
-
 
 
     @api.multi
@@ -172,6 +178,6 @@ class is_previsionnel_tresorerie_line(models.Model):
     qt_rcp          = fields.Float(u"Qt Rcp")
     qt_fac          = fields.Float(u"Qt Fac")
     montant         = fields.Float(u"Montant HT")
-
+    montant_ttc     = fields.Float(u"Montant TTC")
 
 
