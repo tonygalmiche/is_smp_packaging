@@ -507,7 +507,7 @@
     <xpath expr="//div[@class='footer']" position="replace">
     <div class="footer">
         <div class="text-center">
-            <p>(CEE) Opération exonérée (Article 262 Ter du CGI) - (hors CEE) Opération exonérée (Article 262 1 du CGI)</p>
+            <p>(CEE) Opération exonérée (Article 262 Ter du CGI) - (hors CEE) Opération exonérée (Article 262 1 du CGI) - Page <span class="page" style="font-size:10pt;"/> / <span class="topage"/></p>
         </div>
         <div class="text-center" style="border-top: 1px solid black;">
             <!--<t>Page : <span class="page"/>/<span class="topage"/></t>-->
