@@ -49,7 +49,7 @@
 
                 <field name="partner_id" position="after">
                     <field name="is_journal_banque_id"/>
-                    <field name="is_num_machine"/>
+                    <!--<field name="is_num_machine"/>-->
                     <field name="is_affaire_id"/>
                     <field name="is_num_bl"/>
                     <field name="is_notre_ref"/>
@@ -88,7 +88,7 @@
                     <field name="move_name" string="Numéro"/> 
                 </xpath>
                 <xpath expr="//field[@name='user_id']" position="replace" >
-                    <field name="is_num_machine"/>
+                    <!--<field name="is_num_machine"/>-->
                     <field name="is_affaire_id"/>
                     <field name="is_num_bl"/>
                     <field name="is_notre_ref"/>
@@ -111,7 +111,7 @@
                     <field name="move_name" string="Numéro"/> 
                 </xpath>
                 <field name="date_due" position="replace">
-                    <field name="is_num_machine"/>
+                    <!--<field name="is_num_machine"/>-->
                     <field name="is_affaire_id"/>
                     <field name="is_date_echeance"/>
                     <field name="is_date_paiement"/>
@@ -130,7 +130,7 @@
             <field name="inherit_id" ref="account.view_account_invoice_filter" />
             <field name="arch" type="xml">
                 <field name="journal_id" position="after">
-                    <field name="is_num_machine"/>
+                    <!--<field name="is_num_machine"/>-->
                     <field name="is_affaire_id"/>
                     <field name="is_num_bl"/>
                     <field name="is_notre_ref"/>

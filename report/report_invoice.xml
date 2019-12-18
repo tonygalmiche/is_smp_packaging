@@ -77,7 +77,8 @@
                                     <span t-if="o.partner_id.lang == 'fr_FR'">AVOIR N° : </span>
                                     <span t-if="o.partner_id.lang != 'fr_FR'">REFUND : </span>
                                 </t>
-                                <span t-field="o.is_annee"/> <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.number"/><br />
+                                <!--<span t-field="o.is_annee"/> <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.number"/><br />-->
+                                <span t-field="o.is_annee"/> <span t-field="o.is_affaire_id.name"/> <span t-field="o.number"/><br />
                             </td>
                         </tr>
                         <tr>
