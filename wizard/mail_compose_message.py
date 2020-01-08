@@ -10,9 +10,13 @@ class MailComposer(models.TransientModel):
     def get_mail_values(self, res_ids):
         self.ensure_one()
         res = super(MailComposer, self).get_mail_values(res_ids)
+        copie_ids=[]
         for key, value in res.iteritems():
-            if self.is_partner_copie_ids:
-                value['is_partner_copie_ids'] = [(4, partner_copie.id) for partner_copie in self.is_partner_copie_ids]
+            for partner in self.is_partner_copie_ids:
+                copie_ids.append((4,partner.id))
+            if 'author_id' in  value:
+                copie_ids.append((4,value['author_id']))
+            value['is_partner_copie_ids'] = copie_ids
         return res
 
     is_partner_copie_ids = fields.Many2many('res.partner','mail_compose_message_partner_copie_rel', 'mail_compose_id', 'partner_id', string='en Copie')
@@ -33,10 +37,11 @@ class Partner(models.Model):
         cc_email_list = message.is_partner_copie_ids.mapped('email')
 
         #** Mettre en copie l'emetteur du mail *********************************
-        user  = self.env['res.users'].browse(self._uid)
-        email = user.email
-        if email:
-            cc_email_list.append(email)
+        #TODO : Ne fonctionne pas, car c'est l'admin par défaut
+        #user  = self.env['res.users'].browse(self._uid)
+        #email = user.email
+        #if email:
+        #    cc_email_list.append(email)
         #***********************************************************************
 
         partner_copie = {
