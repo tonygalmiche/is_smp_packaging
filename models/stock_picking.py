@@ -41,7 +41,7 @@ class Picking(models.Model):
                         'origin'          : move.origin,
                         'location_id'     : move.location_dest_id.id,
                         'location_dest_id': move.purchase_line_id.is_affaire_id.location_id.id,
-                        'purchase_line_id': move.purchase_line_id.id,
+                        #'purchase_line_id': move.purchase_line_id.id, # TODO Ne pas mettre cette ligne, car cela duplique les quantités réceptionnées dans la commande
                         #'is_affaire_id'   : move.is_affaire_id.id,
                     }
                     new = self.env['stock.move'].create(vals)
