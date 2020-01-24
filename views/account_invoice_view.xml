@@ -98,6 +98,12 @@
                     <field name="is_date_echeance"/>
                     <field name="is_date_paiement"/>
                 </field>
+
+                <field name="amount_total_signed" position="replace">
+                    <field name="amount_untaxed"      string="Total HT"  sum="Total"/>
+                    <field name="amount_total_signed" string="Total TTC" sum="Total"/>
+                </field>
+
             </field>
         </record>
 
@@ -116,6 +122,14 @@
                     <field name="is_date_echeance"/>
                     <field name="is_date_paiement"/>
                 </field>
+
+                <field name="amount_total_signed" position="replace">
+                    <field name="amount_untaxed"      string="Total HT"  sum="Total"/>
+                    <field name="amount_total_signed" string="Total TTC" sum="Total"/>
+                </field>
+
+
+
             </field>
         </record>
 
