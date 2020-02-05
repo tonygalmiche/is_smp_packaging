@@ -114,6 +114,19 @@
     </record>
 
 
+    <!-- Recalculer 'Qt recue'-->
+    <record id="recalculer_qte_recue_purchase_order_action_server" model="ir.actions.server">
+         <field name="name">Recalculer Qté reçue</field>
+        <field name="model_id" ref="model_purchase_order"/>
+        <field name="code">records.recalculer_qte_recue_action()</field>
+    </record>
+    <record id="recalculer_qte_recue_purchase_order_action_ir_value" model="ir.values">
+        <field eval="'client_action_multi'" name="key2"/>
+        <field eval="'purchase.order'" name="model"/>
+        <field name="name">Recalculer Qté reçue</field>
+        <field eval="'ir.actions.server,%d'%recalculer_qte_recue_purchase_order_action_server" name="value"/>
+    </record>
+
 
 
 

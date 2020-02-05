@@ -27,6 +27,13 @@ class PurchaseOrder(models.Model):
                 obj.invoice_status='to invoice'
 
 
+    @api.multi
+    def recalculer_qte_recue_action(self):
+        for obj in self:
+            for line in obj.order_line:
+                if line.qty_received>line.product_qty:
+                    line._compute_qty_received()
+
 
     @api.multi
     def convertir_en_commande(self):
