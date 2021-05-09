@@ -147,12 +147,18 @@
                             </td>
                             <td>
                                 <t t-raw="move.name.replace('\n', '&lt;br&gt;')"/>
-                                <br />
+                                <t t-if="move.product_id.is_ref_client">
+                                    <div t-field="move.product_id.is_ref_client"/>
+                                </t>
                                 <t t-foreach="o.pack_operation_ids" t-as="op">
                                     <t t-foreach="op.linked_move_operation_ids" t-as="link">
                                         <div t-if="link.move_id.id==move.id" t-field="op.is_designation"/>
                                     </t>
                                 </t>
+
+
+
+
                             </td>
                         </tr>
 

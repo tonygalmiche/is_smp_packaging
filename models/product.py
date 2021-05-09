@@ -39,6 +39,7 @@ class ProductTemplate(models.Model):
     is_commentaire          = fields.Text(u"Commentaire")
     is_certificat_matiere   = fields.Selection([('oui', 'Oui'),('non', 'Non')],u'Certificat matière')
     is_categorie_article_id = fields.Many2one('is.categorie.article', u'Catégorie')
+    is_sh_code              = fields.Char(u"SH code")
 
 
     @api.onchange('is_categorie_article_id')

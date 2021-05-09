@@ -104,7 +104,15 @@
                             <!-- Lines associated -->
                             <t t-foreach="layout_category['lines']" t-as="l">
                                 <tr>
-                                    <td><span t-field="l.name"/></td>
+                                    <td>
+                                        <span t-field="l.name"/>
+
+                                        <t t-if="l.product_id.is_ref_client">
+                                            <div t-field="l.product_id.is_ref_client"/>
+                                        </t>
+
+
+                                    </td>
                                     <td class="text-right">
                                         <span t-field="l.product_uom_qty"/>
                                         <span t-field="l.product_uom" groups="product.group_uom"/>

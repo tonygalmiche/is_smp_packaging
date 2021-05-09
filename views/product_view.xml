@@ -167,6 +167,7 @@
             <field name="categ_id" position="after">
                 <field name="is_fabriquant"/>
                 <field name="is_ref_client"/>
+                <field name="is_sh_code"/>
                 <field name="is_categorie_article_id"/>
                 <field name="is_matiere_id"/>
                 <field name="is_certificat_matiere"/>

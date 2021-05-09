@@ -253,6 +253,14 @@
                         </td>
                         <td class="text-left cell">
                             <div t-field="l.name"/>
+                            <t t-if="l.product_id.is_ref_client">
+                                <div>
+                                    <span t-field="l.product_id.is_ref_client"/>
+                                    <t t-if="l.product_id.is_sh_code">
+                                     / SH code : <span t-field="l.product_id.is_sh_code"/>
+                                    </t>
+                                </div>
+                            </t>
                         </td>
                         <td class="text-right cell">
                             <span t-field="l.price_unit"     t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
