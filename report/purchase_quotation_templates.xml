@@ -76,7 +76,7 @@
                         <td>
                             <span t-field="order_line.name"/>
                         </td>
-                        <td class="text-right">
+                        <td class="text-right text-nowrap">
                             <span t-field="order_line.product_qty"/>
                             <span t-field="order_line.product_uom" groups="product.group_uom"/>
                         </td>

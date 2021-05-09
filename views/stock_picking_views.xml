@@ -21,6 +21,7 @@
                 <field name="min_date" position="replace">
                     <field name="purchase_id" attrs="{'invisible': [('picking_type_id','!=', 1)]}"/>
                     <field name="sale_id"     attrs="{'invisible': [('picking_type_id','=', 1)]}"/>
+                    <field name="is_affaire_id"/>
                     <field name="is_date_prevue"/>
                     <field name="is_date_bl"/>
                 </field>
@@ -61,8 +62,23 @@
                     <field name="is_date_prevue"/>
                     <field name="is_date_bl"/>
                     <field name="min_date" invisible="1"/>
+                    <field name="purchase_id" string="Commande fournisseur"/>
+                    <field name="sale_id"     string="Commande client"/>
+                    <field name="is_affaire_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="is_view_picking_internal_search" model="ir.ui.view">
+            <field name="name">is_view_picking_internal_search</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="is_date_bl"/>
                     <field name="purchase_id"/>
                     <field name="sale_id"/>
+                    <field name="is_affaire_id"/>
                 </field>
             </field>
         </record>

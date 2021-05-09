@@ -109,20 +109,20 @@
                                         <span t-field="l.product_uom_qty"/>
                                         <span t-field="l.product_uom" groups="product.group_uom"/>
                                     </td>
-                                    <td class="text-right">
+                                    <td class="text-right text-nowrap">
                                         <span t-field="l.price_unit"/>
                                     </td>
-                                    <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
+                                    <td t-if="display_discount" class="text-right text-nowrap" groups="sale.group_discount_per_so_line">
                                         <span t-field="l.discount"/>
                                     </td>
                                     <td t-if="tva" class="text-right">
                                         <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.tax_id))"/>
                                     </td>
-                                    <td class="text-right" groups="sale.group_show_price_subtotal">
+                                    <td class="text-right text-nowrap" groups="sale.group_show_price_subtotal">
                                         <span t-field="l.price_subtotal"
                                             t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
                                     </td>
-                                    <td class="text-right" groups="sale.group_show_price_total">
+                                    <td class="text-right text-nowrap" groups="sale.group_show_price_total">
                                         <span t-field="l.price_total"
                                             t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
                                     </td>

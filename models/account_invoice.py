@@ -79,3 +79,10 @@ class AccountInvoiceLine(models.Model):
         return res
 
 
+    # @api.onchange('sale_line_ids')
+    # def _onchange_sale_line_ids(self):
+    #     print self,self.sale_line_ids
+    #     return True
+
+
+

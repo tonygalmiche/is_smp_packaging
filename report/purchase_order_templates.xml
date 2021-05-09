@@ -81,14 +81,14 @@
                         <td>
                             <span t-field="line.name"/>
                         </td>
-                        <td class="text-right">
+                        <td class="text-right text-nowrap">
                             <span t-field="line.product_qty"/>
                             <span t-field="line.product_uom.name" groups="product.group_uom"/>
                         </td>
-                        <td class="text-right">
+                        <td class="text-right text-nowrap">
                             <span t-field="line.price_unit"/>
                         </td>
-                        <td class="text-right">
+                        <td class="text-right text-nowrap">
                             <span t-field="line.price_subtotal"
                                 t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                         </td>

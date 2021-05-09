@@ -17,6 +17,19 @@ class Picking(models.Model):
     is_description_bas  = fields.Text(u'Description bas')
     is_signature        = fields.Boolean(u'Signature direction', help=u"Ajouter la signature de la direction sur le BL")
     is_tampon           = fields.Boolean(u'Tampon direction'   , help=u"Ajouter le tampon avec la signature de la direction sur le BL")
+    is_affaire_id       = fields.Many2one('is.affaire', u'Machine', compute='_compute_is_affaire_id', store=True, readonly=True)
+
+
+    @api.depends('purchase_id','sale_id')
+    def _compute_is_affaire_id(self):
+        for obj in self:
+            affaire_id=False
+            if obj.sale_id:
+                affaire_id = obj.sale_id.is_affaire_id
+            if obj.purchase_id:
+                affaire_id = obj.purchase_id.is_affaire_id
+
+            obj.is_affaire_id = affaire_id
 
 
     @api.depends('purchase_id.is_delai','sale_id.is_delai','state')
