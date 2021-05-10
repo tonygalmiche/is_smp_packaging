@@ -70,15 +70,19 @@
                         <tr>
                             <td style="background-color:#EFF0F0;font-weight:bold;padding:2mm">
                                 <t t-if="o.type == 'out_invoice'">
-                                    <span t-if="o.partner_id.lang == 'fr_FR'">FACTURE N° : </span>
+                                    <span t-if="o.partner_id.lang == 'fr_FR'">FACTURE N° </span>
                                     <span t-if="o.partner_id.lang != 'fr_FR'">INVOICE : </span>
                                 </t>
                                 <t t-if="o.type == 'out_refund'">
-                                    <span t-if="o.partner_id.lang == 'fr_FR'">AVOIR N° : </span>
+                                    <span t-if="o.partner_id.lang == 'fr_FR'">AVOIR N° </span>
                                     <span t-if="o.partner_id.lang != 'fr_FR'">REFUND : </span>
                                 </t>
                                 <!--<span t-field="o.is_annee"/> <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.number"/><br />-->
-                                <span t-field="o.is_annee"/> <span t-field="o.is_affaire_id.name"/> <span t-field="o.number"/><br />
+                                <!-- <span t-field="o.is_annee"/> <span t-field="o.is_affaire_id.name"/> <span t-field="o.number"/><br /> -->
+                                <span t-field="o.is_annee"/> <span t-field="o.number"/><br />
+
+
+
                             </td>
                         </tr>
                         <tr>
@@ -89,16 +93,16 @@
                         <t t-if="o.is_notre_ref">
                             <tr>
                                 <td style="padding:1mm">
-                                    <span t-if="o.partner_id.lang == 'fr_FR'">NOTRE RÉF N° : </span>
+                                    <span t-if="o.partner_id.lang == 'fr_FR'">NOTRE RÉF N° </span>
                                     <span t-if="o.partner_id.lang != 'fr_FR'">OUR REF : </span>
-                                    <span t-field="o.is_notre_ref"/><br />
+                                    <span t-field="o.is_notre_ref"/><t t-if="o.is_affaire_id"> / Aff <span t-field="o.is_affaire_id.name"/></t><br />
                                     <!--<span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_notre_ref"/><br />-->
                                 </td>
                             </tr>
                         </t>
                         <tr t-if="o.is_num_bl">
                             <td style="padding:1mm">
-                                <span t-if="o.partner_id.lang == 'fr_FR'">BL N° : </span>
+                                <span t-if="o.partner_id.lang == 'fr_FR'">BL N° </span>
                                 <span t-if="o.partner_id.lang != 'fr_FR'">PACKING SLIP : </span>
                                 <!--<span t-field="o.is_num_bl"/><br />-->
                                 <span t-field="o.partner_id.is_code_client"/> <span t-field="o.is_num_machine"/> <span t-field="o.is_num_bl"/><br />
@@ -211,6 +215,12 @@
             </div>
 
 
+            <t t-set="tva" t-value="0"/>
+            <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
+                <t t-set="tva" t-value="amount_by_group[1]"/>
+            </t>
+
+
             <!-- Is there a discount on at least one line? -->
             <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>
 
@@ -233,8 +243,13 @@
                         <th class="text-right cell">
                             <span t-if="o.partner_id.lang == 'fr_FR'">TOTAL H.T.</span>
                             <span t-if="o.partner_id.lang != 'fr_FR'">TOTAL PRICE</span>
-
                         </th>
+                        <t t-if="tva">
+                            <th class="text-right cell">
+                                <span t-if="o.partner_id.lang == 'fr_FR'">TVA</span>
+                                <span t-if="o.partner_id.lang != 'fr_FR'">VAT</span>
+                            </th>
+                        </t>
                     </tr>
                 </thead>
 
@@ -268,6 +283,14 @@
                         <td class="text-right cell">
                             <span t-field="l.price_subtotal" t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
                         </td>
+
+                        <t t-if="tva">
+                            <td class="text-right cell">
+                                <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.invoice_line_tax_ids))"/>%
+                            </td>
+                        </t>
+
+
                     </tr>
 
 
@@ -283,6 +306,9 @@
                         </td>
                         <td class="text-left cell"></td>
                         <td class="text-left cell"></td>
+                        <t t-if="tva">
+                            <td class="text-left cell"></td>
+                        </t>
                     </tr>
                 </tbody>
             </table>
@@ -318,10 +344,6 @@
                     </t>
                 </div>
 
-                <t t-set="tva" t-value="0"/>
-                <t t-foreach="o._get_tax_amount_by_group()" t-as="amount_by_group">
-                    <t t-set="tva" t-value="amount_by_group[1]"/>
-                </t>
                 <t t-set="regle" t-value="0"/>
                 <t t-foreach="o.payment_ids" t-as="l">
                     <t t-set="regle" t-value="regle+l.amount"/>

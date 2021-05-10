@@ -188,14 +188,22 @@
                 </div>
             </div>
 
-            <p t-field="doc.note" />
             <p t-if="doc.payment_term_id.note">
+                <t t-if="doc.partner_id.lang == 'fr_FR'"><b>Conditions de règlement : </b></t>
+                <t t-if="doc.partner_id.lang != 'fr_FR'"><b>Terms of payment : </b></t>
                 <span t-field="doc.payment_term_id.note"/>
             </p>
             <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.note">
                 <strong>Conditions :</strong>
                 <span t-field="doc.fiscal_position_id.note"/>
             </p>
+
+
+            <p t-field="doc.note" />
+
+
+
+
             <div class="oe_structure"/>
 
 
