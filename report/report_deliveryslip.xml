@@ -64,7 +64,7 @@
                             <table class="table table-condensed table-border">
                                 <tbody>
                                     <tr>
-                                        <td style="border-top: 1px solid black" class="thbleu text-center">BON DE LIVRAISON - PACKING LIST</td>
+                                        <td style="border-top: 1px solid black" class="thbleu text-center">BON DE LIVRAISON - DELIVERY ORDER</td>
                                     </tr>
                                     <tr>
                                         <td class="td-border text-center">BL n° <span t-field="o.name"/> du <span t-field="o.is_date_bl"/></td>
@@ -83,16 +83,25 @@
                             </th>
                         </tr>
                     </thead>
+                </table>
+                <table class="table table-condensed table-border" t-if="o.is_conditionnement" style="margin:0;padding:0">
                     <tbody>
-                        <tr t-if="o.is_conditionnement">
-                            <td style="width:50%" class="text-right"><b><span t-field="o.is_conditionnement"/></b></td>
-                            <td style="width:10%" ></td>
-                            <td style="width:40%" ></td>
+                        <tr>
+                            <t t-if="o.is_conditionnement"><th class="text-center">colisage / shipping</th></t>
+                            <t t-if="o.is_longueur">       <th class="text-center">long. / length</th></t>
+                            <t t-if="o.is_largeur">        <th class="text-center">larg. / width</th></t>
+                            <t t-if="o.is_hauteur">        <th class="text-center">haut. / height</th></t>
+                            <t t-if="o.is_poids">          <th class="text-center">poids / weight</th></t>
+                            <t t-if="o.is_affaire_id">     <th class="text-center">Affaire</th></t>
                         </tr>
-                        <tr t-if="o.is_longueur"><td class="text-right">dimensions :       long. - length :      </td><td class="text-right"><span t-field="o.is_longueur"/></td><td>cm</td></tr>
-                        <tr t-if="o.is_largeur"><td class="text-right">larg. - width :                          </td><td class="text-right"><span t-field="o.is_largeur"/></td><td>cm</td></tr>
-                        <tr t-if="o.is_hauteur"><td class="text-right">haut. - height :                         </td><td class="text-right"><span t-field="o.is_hauteur"/></td><td>cm</td></tr>
-                        <tr t-if="o.is_poids"><td class="text-right">poids. - weight :                        </td><td class="text-right"><span t-field="o.is_poids"/></td><td>kg</td></tr>
+                        <tr>
+                            <t t-if="o.is_conditionnement"> <td class="text-center"><span t-field="o.is_conditionnement"/></td></t>
+                            <t t-if="o.is_longueur">        <td class="text-center"><span t-field="o.is_longueur"/> cm</td></t>
+                            <t t-if="o.is_largeur">         <td class="text-center"><span t-field="o.is_largeur"/> cm</td></t>
+                            <t t-if="o.is_hauteur">         <td class="text-center"><span t-field="o.is_hauteur"/> cm</td></t>
+                            <t t-if="o.is_poids">           <td class="text-center"><span t-field="o.is_poids"/> kg</td></t>
+                            <t t-if="o.is_affaire_id">      <td class="text-center"><span t-field="o.is_affaire_id.name"/></td></t>
+                        </tr>
                     </tbody>
                 </table>
                 <table class="table table-condensed table-border" style="display:none">

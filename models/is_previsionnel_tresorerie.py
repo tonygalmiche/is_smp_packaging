@@ -54,6 +54,7 @@ class is_previsionnel_tresorerie(models.Model):
                         'invoice_id'     : invoice.id,
                         'affaire_id'     : line.is_affaire_id.id,
                         'date_echeance'  : invoice.is_date_echeance,
+                        'date_paiement'  : invoice.is_date_paiement,
                         'partner_id'     : invoice.partner_id.id,
                         'product_id'     : line.product_id.id,
                         'qt_fac'         : line.quantity,
@@ -171,7 +172,8 @@ class is_previsionnel_tresorerie_line(models.Model):
     invoice_id      = fields.Many2one('account.invoice', u'Facture')
     affaire_id      = fields.Many2one('is.affaire', u'Machine')
     date_prevue     = fields.Date(u"Date prévue")
-    date_echeance   = fields.Date(u"Date d'échéance")
+    date_echeance   = fields.Date(u"Date échéance SMP")
+    date_paiement   = fields.Date(u"Date paiement SMP")
     partner_id      = fields.Many2one('res.partner', u'Partenaire')
     product_id      = fields.Many2one('product.product', u'Article')
     qt_cde          = fields.Float(u"Qt Cde")
@@ -179,5 +181,3 @@ class is_previsionnel_tresorerie_line(models.Model):
     qt_fac          = fields.Float(u"Qt Fac")
     montant         = fields.Float(u"Montant HT")
     montant_ttc     = fields.Float(u"Montant TTC")
-
-

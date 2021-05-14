@@ -91,6 +91,7 @@
                             <field name="order_id"/>
                             <field name="invoice_id"/>
                             <field name="date_echeance"/>
+                            <field name="date_paiement"/>
                             <field name="partner_id"/>
                             <field name="product_id"/>
                             <field name="montant"/>
@@ -111,6 +112,7 @@
                     <field name="affaire_id"/>
                     <field name="date_prevue"/>
                     <field name="date_echeance"/>
+                    <field name="date_paiement"/>
                     <field name="partner_id"/>
                     <field name="product_id"/>
                     <field name="qt_cde"/>
