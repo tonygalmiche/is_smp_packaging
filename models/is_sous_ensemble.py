@@ -225,7 +225,7 @@ class is_sous_ensemble_line(models.Model):
             #print ct,obj,obj.ordre
 
 
-            _logger.info(str(ct)+u" : "+obj.sous_ensemble_id.name+u" : "+obj.ordre)
+            _logger.info(str(ct)+u" : "+obj.sous_ensemble_id.name+u" : "+str(obj.ordre))
 
 
 
