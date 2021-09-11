@@ -265,9 +265,9 @@ class is_sous_ensemble_line(models.Model):
                         obj.code            = obj.order_id.partner_id.is_code_fournisseur
                         obj.fournisseur_id  = obj.order_id.partner_id.id
                         obj.ref_fournisseur = obj.order_id.is_devis
-                        obj.pu_ht           = obj.price_unit
-                        obj.total_ht        = obj.price_subtotal
                         if obj.order_id==line.order_id:
+                            obj.pu_ht    = line.price_unit
+                            obj.total_ht = line.price_subtotal
                             for move in line.move_ids:
                                 if move.state=='done':
                                     obj.recu_le=move.date
