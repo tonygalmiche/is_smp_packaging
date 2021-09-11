@@ -225,7 +225,7 @@ class is_sous_ensemble_line(models.Model):
             #print ct,obj,obj.ordre
 
 
-            _logger.info(str(ct)+u" : "+obj.sous_ensemble_id.name+u" : "+str(obj.ordre))
+            _logger.info(str(ct)+u" : "+obj.sous_ensemble_id.name+u" : "+str(obj.ordre)+u" : "+obj.product_id.name)
 
 
 
@@ -257,17 +257,20 @@ class is_sous_ensemble_line(models.Model):
                     'state'           : line.order_id.state,
                 }
                 if line.order_id.state=='purchase' and line.is_affaire_id==obj.affaire_id:
-                    obj.order_id        = line.order_id.id
-                    obj.date_cde        = line.order_id.date_order
-                    obj.delai           = line.order_id.is_delai
-                    obj.code            = line.order_id.partner_id.is_code_fournisseur
-                    obj.fournisseur_id  = line.order_id.partner_id.id
-                    obj.ref_fournisseur = line.order_id.is_devis
-                    obj.pu_ht           = line.price_unit
-                    obj.total_ht        = line.price_subtotal
-                    for move in line.move_ids:
-                        if move.state=='done':
-                            obj.recu_le=move.date
+                    if not obj.order_id:
+                        obj.order_id        = line.order_id.id
+                    if  obj.order_id:
+                        obj.date_cde        = obj.order_id.date_order
+                        obj.delai           = obj.order_id.is_delai
+                        obj.code            = obj.order_id.partner_id.is_code_fournisseur
+                        obj.fournisseur_id  = obj.order_id.partner_id.id
+                        obj.ref_fournisseur = obj.order_id.is_devis
+                        obj.pu_ht           = obj.price_unit
+                        obj.total_ht        = obj.price_subtotal
+                        if obj.order_id==line.order_id:
+                            for move in line.move_ids:
+                                if move.state=='done':
+                                    obj.recu_le=move.date
                 line=self.env['is.sous.ensemble.line.order'].create(vals)
             obj.order_nb = nb
 
