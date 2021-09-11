@@ -6,6 +6,8 @@ import os
 import csv
 import codecs
 import datetime
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class is_sous_ensemble(models.Model):
@@ -220,7 +222,13 @@ class is_sous_ensemble_line(models.Model):
         ct=0
         for obj in self:
             ct+=1
-            print ct,obj,obj.ordre
+            #print ct,obj,obj.ordre
+
+
+            _logger.info(str(ct)+u" : "+obj.sous_ensemble_id.name+u" : "+obj.ordre)
+
+
+
             obj.actualiser()
 
 
