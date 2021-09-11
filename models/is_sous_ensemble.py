@@ -211,7 +211,7 @@ class is_sous_ensemble_line(models.Model):
 
     @api.multi
     def actualiser_ligne_scheduler_action(self):
-        self.env['is.sous.ensemble.line'].search([]).actualiser_ligne_action()
+        self.env['is.sous.ensemble.line'].search([('sous_ensemble_id','=',138)]).actualiser_ligne_action()
 
 
     @api.multi
@@ -220,6 +220,7 @@ class is_sous_ensemble_line(models.Model):
         ct=0
         for obj in self:
             ct+=1
+            print ct,obj,obj.ordre
             obj.actualiser()
 
 
