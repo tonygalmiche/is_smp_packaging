@@ -48,6 +48,10 @@
                             <strong t-if="doc.partner_id.lang == 'fr_FR'">Délai de livraison </strong>
                             <strong t-if="doc.partner_id.lang != 'fr_FR'">Delivery time </strong>
                         </th>
+                        <th>
+                            <strong t-if="doc.partner_id.lang == 'fr_FR'">Date de fin de validité </strong>
+                            <strong t-if="doc.partner_id.lang != 'fr_FR'">End validity date</strong>
+                        </th>
                         <th t-if="doc.is_affaire_id"><strong>Machine</strong></th>
                     </tr>
                 </thead>
@@ -56,6 +60,7 @@
                         <td><span t-field="doc.client_order_ref"/></td>
                         <td><span t-field="doc.user_id"/></td>
                         <td><span t-field="doc.is_delai_livraison"/></td>
+                        <td><span t-field="doc.validity_date"/></td>
                         <td t-if="doc.is_affaire_id"><span t-field="doc.is_affaire_id.name"/></td>
                     </tr>
                 </tbody>
