@@ -49,6 +49,15 @@ class ProductTemplate(models.Model):
             self.property_account_expense_id = self.is_categorie_article_id.account_expense_id
 
 
+    @api.multi
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        default['property_account_income_id']  = self.property_account_income_id
+        default['property_account_expense_id'] = self.property_account_expense_id
+        return super(ProductTemplate, self).copy(default=default)
+
+
 class ProductSupplierinfo(models.Model):
     _inherit = "product.supplierinfo"
 
