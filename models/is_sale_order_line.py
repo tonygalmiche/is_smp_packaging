@@ -26,6 +26,7 @@ class is_sale_order_line(models.Model):
     is_affaire_id           = fields.Many2one('is.affaire', u'Machine')
     sequence                = fields.Integer('Ordre')
     product_id              = fields.Many2one('product.template', 'Article')
+    is_ref_client           = fields.Char(u"Référence client")
     is_categorie_article_id = fields.Many2one('is.categorie.article', string=u'Catégorie article')
     product_uom_qty         = fields.Float(u'Qt cde'     , digits=(14,2))
     qty_delivered           = fields.Float(u'Qt livrée'  , digits=(14,2))
@@ -50,6 +51,7 @@ class is_sale_order_line(models.Model):
                     sol.sequence,
                     pt.id product_id,
                     pt.is_categorie_article_id,
+                    pt.is_ref_client,
                     sol.product_uom_qty,
                     sol.qty_delivered,
                     sol.qty_invoiced,
