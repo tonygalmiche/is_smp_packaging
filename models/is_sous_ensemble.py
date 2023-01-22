@@ -223,7 +223,9 @@ class is_sous_ensemble_line(models.Model):
         ct=0
         for obj in self:
             ct+=1
-            _logger.info(str(ct)+u" : "+obj.sous_ensemble_id.name+u" : "+str(obj.ordre)+u" : "+obj.product_id.name)
+            msg = "%s/%s : %s \t %s \t %s"%(ct,nb,obj.sous_ensemble_id.name,obj.ordre,obj.product_id.name)
+            _logger.info(msg)
+            #_logger.info(str(ct)+u" : "+obj.sous_ensemble_id.name+u" : "+str(obj.ordre)+u" : "+obj.product_id.name)
             obj.actualiser()
 
 
